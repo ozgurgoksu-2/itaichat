@@ -46,8 +46,6 @@ CONVERSATION PHASES (collect in this order):
 
 9. KEYWORDS - Ask "Ürününüzü şu kelimeler tanımlar mı?" (Do these keywords describe your product?)
    → Generate exactly 3 concise and realistic search phrases for B2B or sourcing purposes
-   → Include clear business intent: supplier/manufacturer/exporter roles, certifications, or product categories
-   → Examples: "organik çilek ihracatçısı", "el yapımı kokulu mum tedarikçisi", "G.A.P belgeli patates üreticisi"
    → Ask "Bu anahtar kelimeleri onaylıyor musunuz?" (Do you approve these keywords?)
    → If yes, save keywords and move to next question
 

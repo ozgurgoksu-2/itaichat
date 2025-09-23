@@ -1,23 +1,15 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/contexts/language-context";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Responses starter app",
-  description: "Starter app for the OpenAI Responses API",
+  title: "International Trade AI - ITAI",
+  description: "AI-powered export solutions for global business development",
   icons: {
-    icon: "/openai_logo.svg",
+    icon: "/logo.png",
   },
 };
 
@@ -28,12 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="flex h-screen bg-gray-200 w-full flex-col  text-stone-900">
-          <main>{children}</main>
-        </div>
+      <body className={inter.className}>
+        <LanguageProvider>
+          <div className="min-h-screen bg-white">
+            <main>{children}</main>
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
