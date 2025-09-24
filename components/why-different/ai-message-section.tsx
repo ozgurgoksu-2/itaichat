@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle } from "lucide-react"
+import Image from "next/image"
 
 export function AIMessageSection() {
   const capabilities = [

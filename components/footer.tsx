@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Sparkles, ArrowRight, Globe, Instagram, Linkedin, Youtube } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 export function Footer() {
   return (
@@ -78,6 +79,28 @@ export function Footer() {
               </div>
             </div>
 
+            {/* Company */}
+            <div>
+              <h3 className="font-semibold mb-4 text-white">Company</h3>
+              <ul className="space-y-3 text-gray-400">
+                <li>
+                  <a href="/about" className="hover:text-white transition-colors">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="#careers" className="hover:text-white transition-colors">
+                    Careers
+                  </a>
+                </li>
+                <li>
+                  <a href="#contact" className="hover:text-white transition-colors">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+
             {/* Product */}
             <div>
               <h3 className="font-semibold mb-4 text-white">Product</h3>
@@ -88,35 +111,13 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="#tools" className="hover:text-white transition-colors">
-                    Tools
+                  <a href="/pricing" className="hover:text-white transition-colors">
+                    Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="#api" className="hover:text-white transition-colors">
-                    API
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h3 className="font-semibold mb-4 text-white">Company</h3>
-              <ul className="space-y-3 text-gray-400">
-                <li>
-                  <a href="#about" className="hover:text-white transition-colors">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#contact" className="hover:text-white transition-colors">
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a href="#careers" className="hover:text-white transition-colors">
-                    Careers
+                  <a href="/faq" className="hover:text-white transition-colors">
+                    FAQ
                   </a>
                 </li>
               </ul>

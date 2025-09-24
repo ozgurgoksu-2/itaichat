@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Send, Bot, Circle } from "lucide-react"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { useLanguage } from "@/contexts/language-context"
 
 interface AIChatInterfaceProps {
@@ -14,6 +15,7 @@ interface AIChatInterfaceProps {
 
 export function AIChatInterface({ onMessageSent }: AIChatInterfaceProps) {
   const [input, setInput] = useState("")
+  const router = useRouter()
   const { language } = useLanguage()
 
   const handleStartChat = () => {
