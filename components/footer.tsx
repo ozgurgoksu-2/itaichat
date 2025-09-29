@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Sparkles, ArrowRight, Globe, Instagram, Linkedin, Youtube } from "lucide-react"
 import Image from "next/image"
+import { trackCTAClick, trackExternalLink } from "@/lib/analytics"
 
 export function Footer() {
   return (
@@ -34,6 +35,12 @@ export function Footer() {
                 size="lg"
                 className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
                 onClick={() => {
+                  trackCTAClick({
+                    page: 'home',
+                    placement: 'footer_cta',
+                    button_text: 'Book a Demo',
+                    destination: '#hero'
+                  });
                   document.querySelector('#hero')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
@@ -66,13 +73,31 @@ export function Footer() {
 
               {/* Social Media Icons */}
               <div className="flex items-center space-x-4">
-                <a href="https://www.instagram.com/internationaltradeai" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <a 
+                  href="https://www.instagram.com/internationaltradeai" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                  onClick={() => trackExternalLink('https://www.instagram.com/internationaltradeai', 'Instagram', 'footer_social')}
+                >
                   <Instagram className="w-5 h-5" />
                 </a>
-                <a href="https://www.linkedin.com/company/ınternationaltradeai" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <a 
+                  href="https://www.linkedin.com/company/ınternationaltradeai" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                  onClick={() => trackExternalLink('https://www.linkedin.com/company/ınternationaltradeai', 'LinkedIn', 'footer_social')}
+                >
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="https://www.youtube.com/shorts/g6MUnSki9I0" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <a 
+                  href="https://www.youtube.com/shorts/g6MUnSki9I0" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                  onClick={() => trackExternalLink('https://www.youtube.com/shorts/g6MUnSki9I0', 'YouTube', 'footer_social')}
+                >
                   <Youtube className="w-5 h-5" />
                 </a>
               </div>
@@ -93,7 +118,7 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="#contact" className="hover:text-white transition-colors">
+                  <a href="/contact" className="hover:text-white transition-colors">
                     Contact
                   </a>
                 </li>
@@ -105,8 +130,18 @@ export function Footer() {
               <h3 className="font-semibold mb-4 text-white">Product</h3>
               <ul className="space-y-3 text-gray-400">
                 <li>
-                  <a href="#features" className="hover:text-white transition-colors">
-                    Features
+                  <a href="/how-it-works" className="hover:text-white transition-colors">
+                    How It Works
+                  </a>
+                </li>
+                <li>
+                  <a href="/verified-leads" className="hover:text-white transition-colors">
+                    Verified Leads
+                  </a>
+                </li>
+                <li>
+                  <a href="/advantages" className="hover:text-white transition-colors">
+                    Advantages
                   </a>
                 </li>
                 <li>

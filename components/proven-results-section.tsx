@@ -1,4 +1,9 @@
+"use client"
+
 import { Globe, Users, TrendingUp, DollarSign } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { trackCTAClick } from "@/lib/analytics"
 
 export function ProvenResultsSection() {
   const stats = [
@@ -44,7 +49,7 @@ export function ProvenResultsSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {stats.map((stat, index) => (
             <div
               key={index}
@@ -61,6 +66,26 @@ export function ProvenResultsSection() {
               <p className="text-white/80 text-sm">{stat.description}</p>
             </div>
           ))}
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center">
+          <Link 
+            href="/demo"
+            onClick={() => trackCTAClick({
+              page: 'home',
+              placement: 'results',
+              button_text: 'Book a live demo',
+              destination: '/demo'
+            })}
+          >
+            <Button
+              size="lg"
+              className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+            >
+              Book a live demo
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

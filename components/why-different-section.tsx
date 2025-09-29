@@ -1,30 +1,12 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
-import { Brain, Clock, Target, Filter } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { CheckCircle, TrendingUp } from "lucide-react"
+import Link from "next/link"
+import { trackCTAClick } from "@/lib/analytics"
 
 export function WhyDifferentSection() {
-  const features = [
-    {
-      icon: Brain,
-      title: "Export-Focused AI",
-      description: "A system trained specifically for export intelligence — not generic CRM.",
-    },
-    {
-      icon: Clock,
-      title: "Always On",
-      description: "24/7 lead generation and buyer tracking so you never miss an opportunity.",
-    },
-    {
-      icon: Target,
-      title: "Tailored to You",
-      description: "Every result matches your industry, capacity, and product goals.",
-    },
-    {
-      icon: Filter,
-      title: "No Clutter, Just Matches",
-      description: "We don't show lists. We show your best-fit buyers.",
-    },
-  ]
-
   return (
     <section id="why-different" className="py-20 lg:py-32 bg-gradient-to-br from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,26 +14,121 @@ export function WhyDifferentSection() {
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
             Why We&apos;re Different
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            A clearer, faster way to scale global sales — powered by AI, not guesswork.
-          </p>
+          <h3 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-8">
+            B2B prospecting for manufacturers, simplified
+          </h3>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <Card
-              key={index}
-              className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white"
-            >
-              <CardContent className="p-8 text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="w-10 h-10 text-white" />
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left Column - Main Content */}
+          <div className="space-y-8">
+            <div>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                B2B prospecting starts with a clear ideal buyer profile and ends with booked meetings.
+              </p>
+              
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                We combine company fit scores, role‑based contact verification, and short talking points 
+                so your first email sounds like you already understand the buyer.
+              </p>
+              
+              <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                You get b2b business leads you can trust because every record carries reachability 
+                checks and purchase context.
+              </p>
+            </div>
+
+            {/* Features List */}
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                <p className="text-gray-700">Company fit scores for precise targeting</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                <p className="text-gray-700">Role‑based contact verification</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                <p className="text-gray-700">Reachability checks and purchase context</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                <p className="text-gray-700">Pre-written talking points for personalized outreach</p>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="pt-6">
+              <Link 
+                href="/demo"
+                onClick={() => trackCTAClick({
+                  page: 'home',
+                  placement: 'different_section',
+                  button_text: 'Book a live demo',
+                  destination: '/demo'
+                })}
+              >
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+                >
+                  Book a live demo
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Column - Highlight Card */}
+          <div className="lg:pl-8">
+            <Card className="border-0 shadow-2xl bg-gradient-to-br from-blue-50 to-orange-50 overflow-hidden">
+              <CardContent className="p-8 lg:p-10">
+                <div className="text-center mb-8">
+                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <TrendingUp className="w-8 h-8 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-gray-900 mb-4">
+                    Why quality beats volume
+                  </h4>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-4 leading-tight">{feature.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+
+                <div className="space-y-6">
+                  <div className="bg-white rounded-lg p-6 shadow-md">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-gray-600">Prospecting Platform</span>
+                      <span className="text-sm text-gray-500">Volume Focus</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-2 bg-gray-300 rounded"></div>
+                      <span className="text-xs text-gray-500">Generic lists</span>
+                    </div>
+                  </div>
+
+                  <div className="text-center">
+                    <span className="text-lg font-semibold text-gray-600">VS</span>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-orange-100 to-purple-100 rounded-lg p-6 shadow-md border-2 border-orange-200">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-gray-800">B2B Prospecting Tool</span>
+                      <span className="text-sm font-semibold text-orange-600">Quality Focus</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-12 h-2 bg-gradient-to-r from-orange-500 to-purple-600 rounded"></div>
+                      <span className="text-xs font-medium text-gray-700">Verified buyers</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 text-center">
+                  <p className="text-sm text-gray-600 italic">
+                    If you compare a prospecting platform to a B2B prospecting tool, 
+                    the difference here is quality over volume.
+                  </p>
+                </div>
               </CardContent>
             </Card>
-          ))}
+          </div>
         </div>
       </div>
     </section>

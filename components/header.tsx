@@ -4,8 +4,19 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Instagram, Linkedin, Youtube } from "lucide-react"
+import { trackCTAClick, trackExternalLink } from "@/lib/analytics"
+import { usePathname } from "next/navigation"
 
 export function Header() {
+  const pathname = usePathname()
+  
+  // Get page name from pathname
+  const getPageName = (path: string) => {
+    if (path === '/') return 'home'
+    return path.slice(1).split('/')[0] || 'home'
+  }
+  
+  const currentPage = getPageName(pathname)
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,13 +29,31 @@ export function Header() {
 
             {/* Social Icons - Left aligned */}
             <div className="hidden lg:flex items-center space-x-3">
-              <a href="https://www.instagram.com/internationaltradeai" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <a 
+                href="https://www.instagram.com/internationaltradeai" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-orange-500 transition-colors"
+                onClick={() => trackExternalLink('https://www.instagram.com/internationaltradeai', 'Instagram', 'header_social')}
+              >
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="https://www.linkedin.com/company/ınternationaltradeai" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <a 
+                href="https://www.linkedin.com/company/ınternationaltradeai" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-orange-500 transition-colors"
+                onClick={() => trackExternalLink('https://www.linkedin.com/company/ınternationaltradeai', 'LinkedIn', 'header_social')}
+              >
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a href="https://www.youtube.com/shorts/g6MUnSki9I0" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <a 
+                href="https://www.youtube.com/shorts/g6MUnSki9I0" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-orange-500 transition-colors"
+                onClick={() => trackExternalLink('https://www.youtube.com/shorts/g6MUnSki9I0', 'YouTube', 'header_social')}
+              >
                 <Youtube className="w-4 h-4" />
               </a>
             </div>
@@ -51,12 +80,25 @@ export function Header() {
 
           {/* Right side - Sign In, Book a Demo */}
           <div className="flex items-center space-x-4">
-            <a href="https://main.d1sdaz41inqvnc.amplifyapp.com/companies/1/" target="_blank" rel="noopener noreferrer">
+            <a 
+              href="https://main.d1sdaz41inqvnc.amplifyapp.com/companies/1/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={() => trackExternalLink('https://main.d1sdaz41inqvnc.amplifyapp.com/companies/1/', 'Sign In', 'header_auth')}
+            >
               <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
                 Sign In
               </Button>
             </a>
-            <Link href="/">
+            <Link 
+              href="/demo"
+              onClick={() => trackCTAClick({
+                page: currentPage,
+                placement: 'header',
+                button_text: 'Book a Demo',
+                destination: '/demo'
+              })}
+            >
               <Button className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white shadow-lg">
                 Book a Demo
               </Button>

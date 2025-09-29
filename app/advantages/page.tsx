@@ -1,19 +1,19 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { AdvantagesHero } from "@/components/advantages/hero-section"
-import { MarketExpansionSection } from "@/components/advantages/market-expansion-section"
-import { CRMIntegrationSection } from "@/components/advantages/crm-integration-section"
-import { TransformSection } from "@/components/advantages/transform-section"
+import { ManufacturingAdvantagesSection } from "@/components/manufacturing-advantages-section"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Use Cases | Manufacturing, Electronics, Pharma, Medical Devices",
+  description: "See how manufacturers use ITAI to find and verify international buyers and book qualified meetings.",
+}
 
 export default function AdvantagesPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
       <main>
-        <AdvantagesHero />
-        <MarketExpansionSection />
-        <CRMIntegrationSection />
-        <TransformSection />
+        <ManufacturingAdvantagesSection />
       </main>
       <Footer />
     </div>
