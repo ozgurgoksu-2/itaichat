@@ -22,8 +22,8 @@ export default function HomePage() {
         </div>
         <HowITAIWorksSection />
         <ProvenResultsSection />
-        <HomeFAQSection />
         <FinalCTASection />
+        <HomeFAQSection />
       </main>
       <Footer />
     </div>

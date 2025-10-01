@@ -3,7 +3,6 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { CheckCircle, TrendingUp, Clock, Target } from "lucide-react"
-import Link from "next/link"
 import { trackCTAClick } from "@/lib/analytics"
 
 export function WhyChooseITAISection() {
@@ -64,19 +63,19 @@ export function WhyChooseITAISection() {
               What you get in every delivery
             </h3>
             
-            <div className="space-y-6">
+            <div className="space-y-4">
               {deliveryFeatures.map((feature, index) => (
-                <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <feature.icon className="w-6 h-6 text-white" />
+                <Card key={index} className="border-0 shadow-sm hover:shadow-md transition-all duration-300">
+                  <CardContent className="p-4">
+                    <div className="flex items-start space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <feature.icon className="w-4 h-4 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                        <h4 className="text-sm font-semibold text-gray-900 mb-1">
                           {feature.title}
                         </h4>
-                        <p className="text-gray-600 leading-relaxed">
+                        <p className="text-xs text-gray-600 leading-relaxed">
                           {feature.description}
                         </p>
                       </div>
@@ -88,26 +87,65 @@ export function WhyChooseITAISection() {
           </div>
 
           {/* Right Column - Product Screenshot */}
-          <div className="lg:pl-8">
-            <Card className="border-0 shadow-2xl overflow-hidden">
+          <div className="flex justify-center items-center">
+            <Card className="border-0 shadow-2xl overflow-hidden max-w-md w-full">
               <CardContent className="p-0">
-                <div className="bg-gradient-to-br from-gray-100 to-gray-200 aspect-[4/3] flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Target className="w-10 h-10 text-white" />
+                <div className="bg-gradient-to-br from-blue-50 to-orange-50 aspect-[4/3] flex items-center justify-center relative">
+                  {/* Large Product Screenshot Placeholder */}
+                  <div className="absolute inset-4 bg-white rounded-lg shadow-lg border-2 border-gray-200 flex flex-col">
+                    {/* Mock Browser Header */}
+                    <div className="bg-gray-100 px-4 py-2 border-b border-gray-200 flex items-center space-x-2">
+                      <div className="flex space-x-1">
+                        <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                        <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                        <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                      </div>
+                      <div className="flex-1 bg-white rounded px-2 py-1 text-xs text-gray-500">
+                        itai.export-assistant.com
+                      </div>
                     </div>
-                    <h4 className="text-xl font-bold text-gray-900 mb-4">
-                      Verified international buyers and decision‑maker contacts
-                    </h4>
-                    <p className="text-gray-600">
-                      See real-time buyer data with verified contact information and market intelligence
-                    </p>
+                    
+                    {/* Mock Dashboard Content */}
+                    <div className="flex-1 p-4 space-y-3">
+                      <div className="flex items-center space-x-2 mb-3">
+                        <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-purple-600 rounded-lg flex items-center justify-center">
+                          <Target className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="text-sm font-semibold text-gray-900">Verified Buyers Dashboard</div>
+                      </div>
+                      
+                      {/* Mock Data Rows */}
+                      <div className="space-y-2">
+                        <div className="bg-gray-50 rounded p-2">
+                          <div className="flex justify-between items-center">
+                            <div className="text-xs font-medium text-gray-700">ABC Trading GmbH</div>
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                          </div>
+                          <div className="text-xs text-gray-500">Germany • Verified Contact</div>
+                        </div>
+                        <div className="bg-gray-50 rounded p-2">
+                          <div className="flex justify-between items-center">
+                            <div className="text-xs font-medium text-gray-700">Import Solutions Ltd</div>
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                          </div>
+                          <div className="text-xs text-gray-500">UK • Decision Maker</div>
+                        </div>
+                        <div className="bg-gray-50 rounded p-2">
+                          <div className="flex justify-between items-center">
+                            <div className="text-xs font-medium text-gray-700">Euro Distributors SA</div>
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                          </div>
+                          <div className="text-xs text-gray-500">France • High Potential</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                {/* Placeholder for actual screenshot */}
-                <div className="bg-white p-4 border-t">
-                  <p className="text-xs text-gray-500 text-center">
-                    Product screenshot placeholder - showing verified buyer dashboard
+                
+                {/* Enhanced Placeholder Label */}
+                <div className="bg-white p-3 border-t">
+                  <p className="text-xs text-gray-500 text-center font-medium">
+                    🎯 Live Product Screenshot - Verified International Buyer Database
                   </p>
                 </div>
               </CardContent>
@@ -142,13 +180,15 @@ export function WhyChooseITAISection() {
 
         {/* CTA Section */}
         <div className="text-center">
-          <Link 
-            href="/demo"
+          <a 
+            href="https://calendly.com/mehmet-odsdanismanlik/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => trackCTAClick({
               page: 'home',
               placement: 'why_choose',
               button_text: 'Book a live demo',
-              destination: '/demo'
+              destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
             })}
           >
             <Button
@@ -157,7 +197,7 @@ export function WhyChooseITAISection() {
             >
               Book a live demo
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

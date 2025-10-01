@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import { trackCTAClick } from "@/lib/analytics"
 
 export function FinalCTASection() {
@@ -18,13 +17,15 @@ export function FinalCTASection() {
           </p>
           
           <div className="pt-6">
-            <Link 
-              href="/demo"
+            <a 
+              href="https://calendly.com/mehmet-odsdanismanlik/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => trackCTAClick({
                 page: 'home',
                 placement: 'final_cta',
                 button_text: 'Book a live demo',
-                destination: '/demo'
+                destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
               })}
             >
               <Button
@@ -33,12 +34,9 @@ export function FinalCTASection() {
               >
                 Book a live demo
               </Button>
-            </Link>
+            </a>
           </div>
           
-          <p className="text-sm text-gray-500 mt-6">
-            Start your export journey today
-          </p>
         </div>
       </div>
     </section>

@@ -3,7 +3,6 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Search, Zap, Filter } from "lucide-react"
-import Link from "next/link"
 import { trackCTAClick } from "@/lib/analytics"
 
 export function HowITAIWorksSection() {
@@ -35,9 +34,6 @@ export function HowITAIWorksSection() {
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
             How ITAI Works
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-2">
-            3 steps
-          </p>
         </div>
 
         <div className="relative mb-16">
@@ -74,13 +70,15 @@ export function HowITAIWorksSection() {
 
         {/* CTA Section */}
         <div className="text-center">
-          <Link 
-            href="/demo"
+          <a 
+            href="https://calendly.com/mehmet-odsdanismanlik/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => trackCTAClick({
               page: 'home',
               placement: 'how_it_works',
               button_text: 'Book a live demo',
-              destination: '/demo'
+              destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
             })}
           >
             <Button
@@ -89,7 +87,7 @@ export function HowITAIWorksSection() {
             >
               Book a live demo
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

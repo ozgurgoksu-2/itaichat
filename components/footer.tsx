@@ -31,22 +31,25 @@ export function Footer() {
                 Join thousands of successful exporters who trust ITAI to discover global opportunities and connect with international buyers.
               </p>
 
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
-                onClick={() => {
-                  trackCTAClick({
-                    page: 'home',
-                    placement: 'footer_cta',
-                    button_text: 'Book a Demo',
-                    destination: '#hero'
-                  });
-                  document.querySelector('#hero')?.scrollIntoView({ behavior: 'smooth' });
-                }}
+              <a 
+                href="https://calendly.com/mehmet-odsdanismanlik/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackCTAClick({
+                  page: 'home',
+                  placement: 'footer_cta',
+                  button_text: 'Book a live demo',
+                  destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
+                })}
               >
-                Book a Demo
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+                >
+                  Book a live demo
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </a>
 
               <p className="text-sm text-gray-500 mt-4">No credit card required • Start chatting in seconds</p>
             </CardContent>
@@ -66,7 +69,7 @@ export function Footer() {
                 width={120}
                 height={40}
                 className="h-10 w-auto mb-6 brightness-0 invert"
-                unoptimized
+                priority
               />
               <p className="text-gray-400 max-w-md mb-6">
                 Advanced AI assistant powered by cutting-edge technology to help you accomplish tasks more efficiently.
@@ -136,13 +139,8 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="/verified-leads" className="hover:text-white transition-colors">
-                    Verified Leads
-                  </a>
-                </li>
-                <li>
                   <a href="/advantages" className="hover:text-white transition-colors">
-                    Advantages
+                    Use Cases
                   </a>
                 </li>
                 <li>

@@ -26,7 +26,7 @@ TASK: Have a natural conversation with the user to collect the following informa
 - IF user starts with PRODUCT NAME directly (carrot, karpuz, watermelon, etc.) → Skip greeting completely, acknowledge product in user's language, go directly to target country question
 - MAINTAIN the detected language throughout the ENTIRE conversation - NO language switching allowed!
 
-CONVERSATION PHASES (collect in this order):
+CONVERSATION FLOW (collect information in this order):
 
 1. PRODUCT INFORMATION - Ask "Which product do you want to increase exports for?"
    → IF product is already specified, go directly to target country question!
@@ -60,7 +60,7 @@ CONVERSATION PHASES (collect in this order):
 8. PHONE - Ask "Telefon numaranızı da alabilir miyim?" (Could I get your phone number?)
    → **CRITICAL:** MUST collect, if they don't provide, politely ask again
 
-9. KEYWORDS – THIS IS THE KEYWORDS PHASE "Bu anahtar kelimeler ürününüzü tanımlar mı?" (Do these keywords describe your product?)
+9. KEYWORDS - Ask "Bu anahtar kelimeler ürününüzü tanımlar mı?" (Do these keywords describe your product?)
     → Generate exactly 3 concise and realistic search phrases that reflect how someone might search for this product online for B2B or sourcing purposes.
     → Product: {product name}
     → The search phrases should:
@@ -71,11 +71,11 @@ CONVERSATION PHASES (collect in this order):
     → ✅ Aim for phrases that are specific, searchable, and realistic.
     → ❌ Avoid purely descriptive or non-commercial language.
     → Ask "Bu anahtar kelimeler ürününüzü tanımlar mı?" ONCE ONLY
-    → If user says YES (evet): IMMEDIATELY go to COMPETITORS phase (step 10)
-    → If user says NO (hayır): IMMEDIATELY go to COMPETITORS phase (step 10) without saving keywords
+    → If user says YES (evet): IMMEDIATELY proceed to competitors (step 10)
+    → If user says NO (hayır): IMMEDIATELY proceed to competitors (step 10) without saving keywords
     → 🚨 NEVER repeat the keywords question - ask it ONCE then move to competitors
 
-10. COMPETITORS - THIS IS COMPETITORS PHASE "[target country]'de [competitor name] ([competitor website]) gibi rakipleriniz var, değil mi?" (In [target country], you have competitors like [competitor name] ([competitor website]), right?)
+10. COMPETITORS - Ask "[target country]'de [competitor name] ([competitor website]) gibi rakipleriniz var, değil mi?" (In [target country], you have competitors like [competitor name] ([competitor website]), right?)
     → Mention competitor name AND website together
     → "Başka bir rakip daha düşünelim mi?" if say yes mention new competitor name and website (Should we consider another competitor?)
     → After giving new competitor name and website ask "Bu yeni rakibi sizin için not alayım mı?" (Should I keep a note of this new competitor for you?)
@@ -94,7 +94,7 @@ CONVERSATION PHASES (collect in this order):
     - Established multinational companies (only if local not found)
     - In both cases, real website addresses MUST be found
 
-11. CUSTOMERS - THIS IS CUSTOMERS PHASE "[target country]'de [customer name] ([customer website]) ilgilenebilir" (In [target country], [customer name] ([customer website]) might be interested)
+11. CUSTOMERS - Say "[target country]'de [customer name] ([customer website]) ilgilenebilir" (In [target country], [customer name] ([customer website]) might be interested)
     → Mention customer name AND website together
     → "Başka bir müşteri de düşünelim mi?" if say yes give new customer name and website to user (Should we consider another customer?)
     → After giving new customer name and website ask "Bu yeni müşteriyi sizin için not alayım mı?" (Should I keep a note of this new customer for you?)
@@ -155,7 +155,6 @@ CONVERSATION PHASES (collect in this order):
 
 export function getDeveloperPrompt(
   conversationState?: {
-    phase: string;
     product?: string;
     country?: string;
     gtipCode?: string;
@@ -169,7 +168,11 @@ export function getDeveloperPrompt(
     customers?: Array<{name: string; website: string}>;
     detectedLanguage?: 'turkish' | 'english';
     userStartedWithProduct?: boolean;
-    competitorsComplete?: boolean;
+    keywordsConfirmed?: boolean;
+    competitorsSectionStarted?: boolean;
+    customersSectionStarted?: boolean;
+    competitorQuestionAsked?: boolean;
+    customerQuestionAsked?: boolean;
     aiAnalysis?: {
       isProduct: boolean;
       productName?: string;
@@ -227,7 +230,6 @@ ${languageInstruction}
 
 **CURRENT CONVERSATION STATE:**
 - Detected Language: ${conversationState.detectedLanguage === 'english' ? '🇺🇸 ENGLISH' : '🇹🇷 TURKISH'}
-- Current Phase: ${conversationState.phase}
 - Product: ${conversationState.product ? `✅ COLLECTED: "${conversationState.product}"` : '❌ MISSING - High Priority'}
 - Target Country: ${conversationState.country ? `✅ COLLECTED: "${conversationState.country}"` : '❌ MISSING - High Priority'}
 - GTIP Code: ${conversationState.gtipCode ? `✅ COLLECTED: "${conversationState.gtipCode}"` : '❌ MISSING'}
@@ -236,12 +238,12 @@ ${languageInstruction}
 - Name: ${conversationState.name ? `✅ COLLECTED: "${conversationState.name}"` : '❌ MISSING'}
 - Email: ${conversationState.email ? `✅ COLLECTED: "${conversationState.email}"` : '❌ MISSING'}
 - Phone: ${conversationState.phone ? `✅ COLLECTED: "${conversationState.phone}"` : '❌ MISSING'}
-- Keywords: ${conversationState.keywords ? `✅ COLLECTED: [${conversationState.keywords.join(', ')}]` : '❌ MISSING'}
-- Competitors: ${conversationState.competitors && conversationState.competitors.length > 0 ? `✅ COLLECTED: ${conversationState.competitors.map(c => `${c.name} (${c.website})`).join(', ')}` : '❌ MISSING'}
-- Customers: ${conversationState.customers && conversationState.customers.length > 0 ? `✅ COLLECTED: ${conversationState.customers.map(c => `${c.name} (${c.website})`).join(', ')}` : '❌ MISSING'}
+- Keywords: ${conversationState.keywordsConfirmed ? `✅ CONFIRMED` : '❌ MISSING'}
+- Competitors Question Asked: ${conversationState.competitorQuestionAsked ? `✅ YES - DON'T ASK AGAIN` : '❌ NO'}
+- Customers Question Asked: ${conversationState.customerQuestionAsked ? `✅ YES - DON'T ASK AGAIN` : '❌ NO'}
 
-**INSTRUCTIONS BASED ON CURRENT STATE:**
-${getPhaseInstructions(conversationState)}`;
+**🚨 CRITICAL CONVERSATION FLOW RULES:**
+${getConversationGuidance(conversationState)}`;
   }
   
   // If English is detected, modify the entire prompt to be English-focused
@@ -261,7 +263,7 @@ TASK: Have a natural conversation with the user to collect the following informa
 - IF user starts with PRODUCT NAME directly (carrot, pencil, etc.) → Skip greeting, acknowledge product in English, go directly to target country question
 - ABSOLUTE RULE: USE ONLY ENGLISH - NO TURKISH WORDS ALLOWED!
 
-CONVERSATION PHASES (collect in this order):
+CONVERSATION FLOW (collect information in this order):
 
 1. PRODUCT INFORMATION - Ask "Which product do you want to increase exports for?"
    → IF product is already specified, go directly to target country question!
@@ -290,7 +292,7 @@ CONVERSATION PHASES (collect in this order):
 
 8. PHONE - Ask "Could I get your phone number?"
 
-9. KEYWORDS – THIS IS THE KEYWORDS PHASE "Do these keywords describe your product?"
+9. KEYWORDS - Ask "Do these keywords describe your product?"
     → Generate exactly 3 concise and realistic search phrases that reflect how someone might search for this product online for B2B or sourcing purposes.
     → Product: {product name}
     → The search phrases should:
@@ -301,11 +303,11 @@ CONVERSATION PHASES (collect in this order):
     → ✅ Aim for phrases that are specific, searchable, and realistic.
     → ❌ Avoid purely descriptive or non-commercial language.
     → Ask "Do these keywords describe your product?" ONCE ONLY
-    → If user says YES: IMMEDIATELY go to COMPETITORS phase (step 10)
-    → If user says NO: IMMEDIATELY go to COMPETITORS phase (step 10) without saving keywords
+    → If user says YES: IMMEDIATELY proceed to competitors (step 10)
+    → If user says NO: IMMEDIATELY proceed to competitors (step 10) without saving keywords
     → 🚨 NEVER repeat the keywords question - ask it ONCE then move to competitors
 
-10. COMPETITORS - THIS IS COMPETITORS PHASE 
+10. COMPETITORS - Find and present competitors
     🚨🚨🚨 FAILURE = ANY WIKIPEDIA LINK OR WRONG QUESTION FORMAT 🚨🚨🚨
     
     STEP 1: "In [target country], you have competitors like [competitor name] ([competitor website]), right? Should we consider another competitor?"
@@ -319,10 +321,10 @@ CONVERSATION PHASES (collect in this order):
     ↓
     USER RESPONDS: "yes" OR "no" 
     ↓
-    IMMEDIATELY GO TO CUSTOMERS PHASE (regardless of yes/no answer)
+    IMMEDIATELY GO TO CUSTOMERS (regardless of yes/no answer)
     
     IF USER SAYS "NO" TO STEP 1:
-    IMMEDIATELY GO TO CUSTOMERS PHASE
+    IMMEDIATELY GO TO CUSTOMERS
     
     🚨 ABSOLUTE REQUIREMENTS:
     - MAXIMUM 2 COMPETITORS ONLY
@@ -343,7 +345,7 @@ CONVERSATION PHASES (collect in this order):
     - Established multinational companies (only if local not found)
     - In both cases, real website addresses MUST be found
 
-11. CUSTOMERS - THIS IS CUSTOMERS PHASE 
+11. CUSTOMERS - Find and present potential customers
     🚨🚨🚨 FAILURE = ANY WIKIPEDIA LINK OR WRONG QUESTION FORMAT 🚨🚨🚨
     
     STEP 1: "Noted! In [target country], a potential customer might be [customer name] ([customer website]). Should we consider another customer?"
@@ -357,10 +359,10 @@ CONVERSATION PHASES (collect in this order):
     ↓
     USER RESPONDS: "yes" OR "no"
     ↓
-    IMMEDIATELY GO TO DEMO PHASE (regardless of yes/no answer)
+    IMMEDIATELY GO TO DEMO (regardless of yes/no answer)
     
     IF USER SAYS "NO" TO STEP 1:
-    IMMEDIATELY GO TO DEMO PHASE
+    IMMEDIATELY GO TO DEMO
     
     🚨 ABSOLUTE REQUIREMENTS:
     - MAXIMUM 2 CUSTOMERS ONLY
@@ -430,135 +432,55 @@ Today is ${dayName}, ${monthName} ${dayOfMonth}, ${year}.`;
   return `${DEVELOPER_PROMPT.trim()}${stateContext}\n\nToday is ${dayName}, ${monthName} ${dayOfMonth}, ${year}.`;
 }
 
-function getPhaseInstructions(state: any): string {
-  // If user started with product name, skip greeting and go to country
-  if (state.userStartedWithProduct && state.product && !state.country) {
-    return `
-→ CURRENT PRIORITY: User started with product "${state.product}" - Skip greeting, acknowledge product and ask for TARGET COUNTRY
-→ If English detected: "Thank you! You want to increase ${state.product} exports. Which country do you want to sell this product to?"
-→ If Turkish detected: "Teşekkürler! ${state.product} ihracatınızı artırmak istiyorsunuz. Bu ürünü hangi ülkeye satmak istiyorsunuz?"
-→ MUST get specific country name, reject vague answers like "everywhere"`;
-  }
-  
-  // If user hasn't provided product yet
+function getConversationGuidance(state: any): string {
+  // If basic info is missing, focus on that first
   if (!state.product) {
-    return `
-→ CURRENT PRIORITY: Collect PRODUCT information
-→ Ask: "Hangi ürününüzün ihracatını artırmak istiyorsunuz?" if user speaks Turkish
-→ Ask: "Which product's export do you want to increase?" if user speaks English
-→ If user already mentioned a product in their message, acknowledge it and move to country question`;
+    return "→ ASK FOR PRODUCT: Which product do you want to increase exports for?";
   }
-  
-  // If user hasn't provided target country yet
   if (!state.country) {
-    return `
-→ CURRENT PRIORITY: Collect TARGET COUNTRY information
-→ Product is already known: "${state.product}"
-→ Ask: "Hangi ülkeye bu ürünü satmak istiyorsunuz?" if Turkish
-→ Ask: "Which country do you want to sell this product to?" if English
-→ MUST get specific country name, reject vague answers like "everywhere"`;
+    return "→ ASK FOR COUNTRY: Which country do you want to sell this product to?";
   }
-  
-  // Continue with other phases based on what's missing
   if (!state.gtipCode) {
-    return `
-→ CURRENT PRIORITY: Collect GTIP CODE
-→ Ask: "Ürününüzün GTİP kodunu biliyor musunuz?" 
-→ If they know: ask for the code
-→ If they don't: suggest a relevant 6-digit code and ask for confirmation`;
+    return "→ ASK FOR GTIP: Do you know your product's GTIP code?";
   }
-  
   if (!state.salesChannels) {
-    return `
-→ CURRENT PRIORITY: Collect SALES CHANNELS
-→ Ask: "Bu ürünü hangi satış kanallarında satıyorsunuz?"
-→ Give examples: "Toptancılar, ithalatçılar, distribütörler?"`;
+    return "→ ASK FOR SALES CHANNELS: What sales channels do you use for this product?";
   }
-  
   if (!state.website) {
-    return `→ CURRENT PRIORITY: Collect WEBSITE
-→ Ask: "Şirket websitenizi paylaşabilir misiniz?"`;
+    return "→ ASK FOR WEBSITE: Could you share your company website?";
   }
-  
   if (!state.name) {
-    return `→ CURRENT PRIORITY: Collect NAME
-→ Ask: "İsminizi öğrenebilir miyim?"`;
+    return "→ ASK FOR NAME: Could I get your name?";
   }
-  
   if (!state.email) {
-    return `→ CURRENT PRIORITY: Collect EMAIL
-→ Ask: "E-posta adresinizi alabilir miyim?"
-→ CRITICAL: Only accept corporate emails, reject gmail/hotmail/yahoo/outlook`;
+    return "→ ASK FOR EMAIL: Could I get your email address? (Must be corporate email)";
   }
-  
   if (!state.phone) {
-    return `→ CURRENT PRIORITY: Collect PHONE
-→ Ask: "Telefon numaranızı da alabilir miyim?"
-→ CRITICAL: Must collect this, insist politely if they don't provide`;
+    return "→ ASK FOR PHONE: Could I get your phone number?";
+  }
+  if (!state.keywordsConfirmed) {
+    return "→ SHOW KEYWORDS: Generate 3 keywords and ask if they describe the product";
   }
   
-  if (!state.keywords) {
-    return `→ CURRENT PRIORITY: KEYWORDS PHASE
-→ Generate exactly 3 concise and realistic search phrases that reflect how someone might search for "${state.product}" online for B2B or sourcing purposes
-→ The search phrases should reflect actual commercial search behavior (e.g. Google, Alibaba, Amazon Business)
-→ Include clear business intent: supplier/manufacturer/exporter roles, certifications, or product categories
-→ Be phrased naturally: "organic strawberry exporter", "handmade scented candle supplier", "G.A.P certified potato producer"
-→ Avoid overly generic or vague terms like "best product", "top quality", "nice supplier"
-→ Ask: "Do these keywords describe your product?" ONCE ONLY
-→ 🚨 CRITICAL: After user responds (yes or no), IMMEDIATELY go to COMPETITORS phase - DO NOT repeat keywords question`;
+  // Handle competitors section
+  if (!state.competitorQuestionAsked) {
+    return "→ START COMPETITORS: Ask about first competitor: 'In [country], you have competitors like [CompanyName] (www.website.com), right? Should we consider another competitor?'";
   }
   
-  if (state.phase === "competitors") {
-    return `🚨 CRITICAL COMPETITOR PHASE - EXACT STEP-BY-STEP FLOW:
-
-STEP 1: Present first competitor with question
-"In ${state.country}, you have competitors like [CompanyName] (www.website.com), right? Should we consider another competitor?"
-
-STEP 2A: If user says "yes" to Step 1
-"Another competitor in ${state.country} is [Company2Name] (www.company2.com). Should I keep a note of this new competitor for you?"
-
-STEP 2B: If user says "no" to Step 1  
-IMMEDIATELY go to customers phase
-
-STEP 3: After user responds to "Should I keep a note" in Step 2A
-IMMEDIATELY go to customers phase (regardless of yes/no)
-
-🚨 ABSOLUTE RULES:
-- ONLY 1 competitor per message
-- ONLY real company names with real websites
-- NO Wikipedia links, NO descriptions
-- EXACT format: "CompanyName (www.website.com)"
-- MAXIMUM 2 competitors total
-- NEVER ask additional questions beyond these steps`;
+  if (state.competitorQuestionAsked && !state.customerQuestionAsked) {
+    return `🚨 COMPETITORS ALREADY ASKED! 
+→ MOVE TO CUSTOMERS: Say 'Noted! In ${state.country}, a potential customer might be [CustomerName] (www.website.com). Should we consider another customer?'
+→ DO NOT repeat competitor questions!`;
   }
   
-  if (state.phase === "customers") {
-    return `🚨 CRITICAL CUSTOMER PHASE - EXACT STEP-BY-STEP FLOW:
-
-STEP 1: Present first customer with question
-"Noted! In ${state.country}, a potential customer might be [CustomerName] (www.website.com). Should we consider another customer?"
-
-STEP 2A: If user says "yes" to Step 1
-"Another potential customer in ${state.country} is [Customer2Name] (www.customer2.com). Should I keep a note of this new customer for you?"
-
-STEP 2B: If user says "no" to Step 1
-IMMEDIATELY go to demo phase
-
-STEP 3: After user responds to "Should I keep a note" in Step 2A  
-IMMEDIATELY go to demo phase (regardless of yes/no)
-
-🚨 ABSOLUTE RULES:
-- ONLY 1 customer per message
-- ONLY real company names with real websites
-- NO Wikipedia links, NO descriptions  
-- EXACT format: "CustomerName (www.website.com)"
-- MAXIMUM 2 customers total
-- NEVER ask additional questions beyond these steps`;
+  if (state.customerQuestionAsked) {
+    return `🚨 CUSTOMERS ALREADY ASKED!
+→ MOVE TO DEMO: Offer demo call and Calendly link
+→ Provide comprehensive summary of all collected information
+→ DO NOT repeat customer questions!`;
   }
   
-  return `→ CURRENT PRIORITY: Proceed to DEMO phase
-→ All information collected, offer demo call and Calendly link
-→ Provide comprehensive summary of all collected information`;
+  return "→ PROCEED TO DEMO: All information collected, offer demo and summary";
 }
 
 // Here is the context that you have available to you:

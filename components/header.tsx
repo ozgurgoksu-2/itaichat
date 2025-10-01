@@ -32,15 +32,6 @@ export function Header() {
                   height={40} 
                   className="h-10 w-auto" 
                   priority
-                  unoptimized
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    const fallback = target.nextElementSibling as HTMLElement;
-                    if (fallback) {
-                      target.style.display = 'none';
-                      fallback.style.display = 'block';
-                    }
-                  }}
                 />
                 <div 
                   className="hidden text-2xl font-bold bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent"
@@ -95,7 +86,7 @@ export function Header() {
               PRICING
             </a>
             <a href="/advantages" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">
-              ADVANTAGES
+              USE CASES
             </a>
             <a href="/faq" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">
               FAQ
@@ -105,26 +96,26 @@ export function Header() {
           {/* Right side - Sign In, Book a Demo */}
           <div className="flex items-center space-x-4">
             <a 
-              href="https://main.d1sdaz41inqvnc.amplifyapp.com/companies/1/" 
+              href="https://calendly.com/mehmet-odsdanismanlik/30min" 
               target="_blank" 
               rel="noopener noreferrer"
-              onClick={() => trackExternalLink('https://main.d1sdaz41inqvnc.amplifyapp.com/companies/1/', 'Sign In', 'header_auth')}
+              onClick={() => trackExternalLink('https://calendly.com/mehmet-odsdanismanlik/30min', 'Book a live demo', 'header_primary')}
             >
-              <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
-                Sign In
+              <Button className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white shadow-lg">
+                Book a live demo
               </Button>
             </a>
             <Link 
-              href="/demo"
+              href="/chat"
               onClick={() => trackCTAClick({
                 page: currentPage,
                 placement: 'header',
-                button_text: 'Book a Demo',
-                destination: '/demo'
+                button_text: 'Get export insights with the ITAI chatbot',
+                destination: '/chat'
               })}
             >
               <Button className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white shadow-lg">
-                Book a Demo
+                Get export insights with the ITAI chatbot
               </Button>
             </Link>
           </div>

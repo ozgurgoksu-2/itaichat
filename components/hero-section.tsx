@@ -104,13 +104,15 @@ export function HeroSection() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link 
-                  href="/demo"
+                <a 
+                  href="https://calendly.com/mehmet-odsdanismanlik/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => trackCTAClick({
                     page: 'home',
                     placement: 'hero_primary',
                     button_text: 'Book a live demo',
-                    destination: '/demo'
+                    destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
                   })}
                 >
                   <Button
@@ -119,25 +121,25 @@ export function HeroSection() {
                   >
                     Book a live demo
                   </Button>
-                </Link>
+                </a>
                 
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 text-lg font-semibold w-full sm:w-auto"
-                  onClick={() => {
-                    trackCTAClick({
-                      page: 'home',
-                      placement: 'hero_secondary',
-                      button_text: 'Request pricing in a live demo',
-                      destination: 'video_modal'
-                    })
-                    handleVideoPlay()
-                  }}
+                <Link 
+                  href="/chat"
+                  onClick={() => trackCTAClick({
+                    page: 'home',
+                    placement: 'hero_secondary',
+                    button_text: 'Get export insights with the ITAI chatbot',
+                    destination: '/chat'
+                  })}
                 >
-                  <Play className="w-5 h-5 mr-2" />
-                  Request pricing in a live demo
-                </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 text-lg font-semibold w-full sm:w-auto"
+                  >
+                    Get export insights with the ITAI chatbot
+                  </Button>
+                </Link>
               </div>
             </div>
 

@@ -88,13 +88,15 @@ export function ManufacturingAdvantagesSection() {
 
           {/* Top CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link 
-              href="/demo"
+            <a 
+              href="https://calendly.com/mehmet-odsdanismanlik/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => trackCTAClick({
                 page: 'advantages',
                 placement: 'hero_primary',
                 button_text: 'Book a live demo',
-                destination: '/demo'
+                destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
               })}
             >
               <Button
@@ -103,15 +105,17 @@ export function ManufacturingAdvantagesSection() {
               >
                 Book a live demo
               </Button>
-            </Link>
+            </a>
             
-            <Link 
-              href="/demo"
+            <a 
+              href="https://calendly.com/mehmet-odsdanismanlik/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => trackCTAClick({
                 page: 'advantages',
                 placement: 'hero_secondary',
                 button_text: 'Request pricing in a live demo',
-                destination: '/demo'
+                destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
               })}
             >
               <Button
@@ -121,12 +125,12 @@ export function ManufacturingAdvantagesSection() {
               >
                 Request pricing in a live demo
               </Button>
-            </Link>
+            </a>
           </div>
         </div>
 
         {/* Manufacturing Types Grid */}
-        <div className="space-y-16">
+        <div className="space-y-6">
           {manufacturingTypes.map((type, index) => (
             <div key={index} className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
               {/* Content */}
@@ -142,13 +146,15 @@ export function ManufacturingAdvantagesSection() {
                     Focus: {type.keywords}
                   </span>
                 </div>
-                <Link 
-                  href="/demo"
+                <a 
+                  href="https://calendly.com/mehmet-odsdanismanlik/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => trackCTAClick({
                     page: 'advantages',
                     placement: `section_${index + 1}`,
                     button_text: 'Book a live demo',
-                    destination: '/demo'
+                    destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
                   })}
                 >
                   <Button
@@ -157,7 +163,7 @@ export function ManufacturingAdvantagesSection() {
                   >
                     Book a live demo
                   </Button>
-                </Link>
+                </a>
               </div>
 
               {/* Visual Card */}
@@ -167,9 +173,6 @@ export function ManufacturingAdvantagesSection() {
                     <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                       <type.icon className="w-10 h-10 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                      Verified International Buyers
-                    </h3>
                     <p className="text-gray-600">
                       For {type.title.toLowerCase()} looking to expand globally
                     </p>
@@ -192,13 +195,15 @@ export function ManufacturingAdvantagesSection() {
                 can help prospecting companies like yours book more qualified meetings.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/demo"
+                <a 
+                  href="https://calendly.com/mehmet-odsdanismanlik/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => trackCTAClick({
                     page: 'advantages',
                     placement: 'bottom_primary',
                     button_text: 'Book a live demo',
-                    destination: '/demo'
+                    destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
                   })}
                 >
                   <Button
@@ -207,15 +212,17 @@ export function ManufacturingAdvantagesSection() {
                   >
                     Book a live demo
                   </Button>
-                </Link>
+                </a>
                 
-                <Link 
-                  href="/demo"
+                <a 
+                  href="https://calendly.com/mehmet-odsdanismanlik/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => trackCTAClick({
                     page: 'advantages',
                     placement: 'bottom_secondary',
                     button_text: 'Request pricing in a live demo',
-                    destination: '/demo'
+                    destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
                   })}
                 >
                   <Button
@@ -225,7 +232,7 @@ export function ManufacturingAdvantagesSection() {
                   >
                     Request pricing in a live demo
                   </Button>
-                </Link>
+                </a>
               </div>
             </CardContent>
           </Card>

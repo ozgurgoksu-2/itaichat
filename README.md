@@ -196,7 +196,6 @@ NODE_ENV=development
 ├── lib/                    # Utility libraries
 ├── stores/                 # State management
 │   ├── useConversationStore.ts     # Chat state
-│   ├── useExportAssistantStore.ts  # Export flow state
 │   └── useToolsStore.ts            # Tools configuration
 ├── .env.example           # Environment variables template
 ├── .gitignore            # Git ignore rules

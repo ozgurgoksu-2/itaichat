@@ -2,7 +2,6 @@
 
 import { Globe, Users, TrendingUp, DollarSign } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import { trackCTAClick } from "@/lib/analytics"
 
 export function ProvenResultsSection() {
@@ -70,13 +69,15 @@ export function ProvenResultsSection() {
 
         {/* CTA Section */}
         <div className="text-center">
-          <Link 
-            href="/demo"
+          <a 
+            href="https://calendly.com/mehmet-odsdanismanlik/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => trackCTAClick({
               page: 'home',
               placement: 'results',
               button_text: 'Book a live demo',
-              destination: '/demo'
+              destination: 'https://calendly.com/mehmet-odsdanismanlik/30min'
             })}
           >
             <Button
@@ -85,7 +86,7 @@ export function ProvenResultsSection() {
             >
               Book a live demo
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

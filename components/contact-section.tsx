@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Calendar, CheckCircle } from "lucide-react"
+import { Calendar, CheckCircle, X } from "lucide-react"
 import { trackCTAClick, trackFormSubmission } from "@/lib/analytics"
 
 export function ContactSection() {
@@ -45,18 +45,7 @@ export function ContactSection() {
     // Show success state (in real app, this would send data to backend)
     setIsSubmitted(true)
     
-    // Reset form after 3 seconds (optional)
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        productCategory: '',
-        targetCountries: '',
-        notes: ''
-      })
-    }, 3000)
+    // Don't auto-reset the form - let user manually close
   }
 
   const inlineFaq = [
@@ -70,34 +59,6 @@ export function ContactSection() {
     }
   ]
 
-  if (isSubmitted) {
-    return (
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-orange-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Card className="border-0 shadow-xl bg-white">
-            <CardContent className="p-12">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-10 h-10 text-green-600" />
-              </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Thank you! We&apos;ll be in touch soon.
-              </h2>
-              <p className="text-lg text-gray-600 mb-6">
-                We&apos;ll send you a calendar link within 2 hours to schedule your personalized demo 
-                where we&apos;ll show verified b2b contact data for your target markets.
-              </p>
-              <Button
-                onClick={() => window.location.href = '/'}
-                className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold"
-              >
-                Return to Home
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-    )
-  }
 
   return (
     <section className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-orange-50">
@@ -280,39 +241,64 @@ export function ContactSection() {
               </CardContent>
             </Card>
 
-            {/* Timeline */}
-            <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-50 to-white">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                  Demo Timeline
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
-                    <div>
-                      <p className="font-medium text-gray-900">Submit this form</p>
-                      <p className="text-sm text-gray-600">Takes 2 minutes</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
-                    <div>
-                      <p className="font-medium text-gray-900">Receive calendar link</p>
-                      <p className="text-sm text-gray-600">Within 2 hours</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
-                    <div>
-                      <p className="font-medium text-gray-900">Live demo session</p>
-                      <p className="text-sm text-gray-600">30 minutes with sample b2b contact data</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
+
+        {/* Thank You Popup */}
+        {isSubmitted && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="relative w-full max-w-md">
+              <Card className="border-0 shadow-2xl bg-white">
+                <CardContent className="p-8 text-center">
+                  <button
+                    onClick={() => window.location.href = '/'}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                  
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle className="w-8 h-8 text-green-600" />
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    Thank you!
+                  </h3>
+                  
+                  <p className="text-gray-600 mb-6">
+                    We&apos;ll send you a calendar link within 2 hours to schedule your personalized demo.
+                  </p>
+                  
+                  <div className="space-y-3">
+                    <a 
+                      href="https://calendly.com/mehmet-odsdanismanlik/30min"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      <Button
+                        size="lg"
+                        className="w-full bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-6 py-3 text-base font-semibold"
+                      >
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Book Now on Calendly
+                      </Button>
+                    </a>
+                    
+                    <Button
+                      onClick={() => window.location.href = '/'}
+                      variant="outline"
+                      size="lg"
+                      className="w-full border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 text-base font-semibold"
+                    >
+                      Close & Return to Home
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )
