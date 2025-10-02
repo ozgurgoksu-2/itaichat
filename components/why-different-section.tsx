@@ -71,7 +71,7 @@ export function WhyDifferentSection() {
               >
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+                  className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
                   Book a live demo
                 </Button>
@@ -84,7 +84,7 @@ export function WhyDifferentSection() {
             <Card className="border-0 shadow-2xl bg-gradient-to-br from-blue-50 to-orange-50 overflow-hidden">
               <CardContent className="p-8 lg:p-10">
                 <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
                     <TrendingUp className="w-8 h-8 text-white" />
                   </div>
                   <h4 className="text-2xl font-bold text-gray-900 mb-4">
@@ -108,13 +108,13 @@ export function WhyDifferentSection() {
                     <span className="text-lg font-semibold text-gray-600">VS</span>
                   </div>
 
-                  <div className="bg-gradient-to-r from-orange-100 to-purple-100 rounded-lg p-6 shadow-md border-2 border-orange-200">
+                  <div className="bg-gradient-to-r from-orange-100 to-blue-100 rounded-lg p-6 shadow-md border-2 border-orange-200">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-medium text-gray-800">B2B Prospecting Tool</span>
                       <span className="text-sm font-semibold text-orange-600">Quality Focus</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <div className="w-12 h-2 bg-gradient-to-r from-orange-500 to-purple-600 rounded"></div>
+                      <div className="w-12 h-2 bg-gradient-to-r from-orange-500 to-blue-900 rounded"></div>
                       <span className="text-xs font-medium text-gray-700">Verified buyers</span>
                     </div>
                   </div>

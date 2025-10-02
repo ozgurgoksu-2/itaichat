@@ -10,7 +10,7 @@ export function CRMIntegrationSection() {
       scenario: "Manual lead imports slow down a sales team.",
       solution: "ITAI auto-syncs leads with ODOO CRM.",
       outcome: "Lead processing time reduced by 70%.",
-      color: "from-blue-500 to-purple-600"
+      color: "from-blue-500 to-blue-900"
     },
     {
       icon: Database,
@@ -19,7 +19,7 @@ export function CRMIntegrationSection() {
       scenario: "Outdated CRM data harms follow-up efficiency.",
       solution: "ITAI cleans and enriches legacy CRM data automatically.",
       outcome: "Lead processing time reduced by 80% with accurate records.",
-      color: "from-blue-500 to-purple-600"
+      color: "from-blue-500 to-blue-900"
     }
   ]
 
@@ -30,7 +30,7 @@ export function CRMIntegrationSection() {
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
             CRM Integration &
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
               {" "}
               Automation
             </span>
@@ -69,9 +69,9 @@ export function CRMIntegrationSection() {
                   </div>
 
                   {/* Solution */}
-                  <div className="bg-purple-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-purple-900 mb-2 text-sm uppercase tracking-wide">SOLUTION</h4>
-                    <p className="text-purple-800">{advantage.solution}</p>
+                  <div className="bg-blue-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-blue-900 mb-2 text-sm uppercase tracking-wide">SOLUTION</h4>
+                    <p className="text-blue-800">{advantage.solution}</p>
                   </div>
 
                   {/* Outcome */}

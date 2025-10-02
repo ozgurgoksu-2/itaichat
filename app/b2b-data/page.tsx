@@ -38,7 +38,7 @@ export default function B2BDataPage() {
             <div className="text-center mb-16">
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
                 Premium
-                <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
                   {" "}B2B Data
                 </span>
               </h1>
@@ -52,7 +52,7 @@ export default function B2BDataPage() {
               {features.map((feature, index) => (
                 <Card key={index} className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardContent className="p-8">
-                    <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-900 rounded-2xl flex items-center justify-center mb-6">
                       <feature.icon className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
@@ -89,7 +89,7 @@ export default function B2BDataPage() {
                   <Link href="/demo">
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl"
+                      className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl"
                     >
                       See Sample B2B Data
                     </Button>

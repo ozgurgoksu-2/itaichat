@@ -55,16 +55,16 @@ export function PricingTable() {
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* ITAI PLUS Card */}
           <Card className="border-2 border-orange-200 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-gradient-to-r from-orange-500 to-purple-600 text-white px-4 py-2 text-sm font-bold rounded-bl-lg">
+            <div className="absolute top-0 right-0 bg-gradient-to-r from-orange-500 to-blue-900 text-white px-4 py-2 text-sm font-bold rounded-bl-lg">
               POPULAR
             </div>
-            <CardHeader className="text-center bg-gradient-to-r from-orange-50 to-purple-50 pb-8">
+            <CardHeader className="text-center bg-gradient-to-r from-orange-50 to-blue-50 pb-8">
               <h3 className="text-3xl font-bold text-gray-900 mb-2">ITAI PLUS</h3>
-              <div className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent mb-4">
+              <div className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent mb-4">
                 $9,900
                 <span className="text-xl text-gray-600">/Year</span>
               </div>
-              <Button className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold">
+              <Button className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-3 text-lg font-semibold">
                 Get Started
               </Button>
             </CardHeader>
@@ -95,7 +95,7 @@ export function PricingTable() {
               <thead>
                 <tr className="bg-gradient-to-r from-gray-50 to-blue-50">
                   <th className="text-left p-6 font-bold text-gray-900 text-lg">Feature</th>
-                  <th className="text-center p-6 font-bold text-gray-900 text-lg bg-gradient-to-r from-orange-50 to-purple-50">
+                  <th className="text-center p-6 font-bold text-gray-900 text-lg bg-gradient-to-r from-orange-50 to-blue-50">
                     ITAI PLUS
                   </th>
                   <th className="text-center p-6 font-bold text-gray-900 text-lg">Demo Account</th>

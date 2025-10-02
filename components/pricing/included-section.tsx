@@ -26,7 +26,7 @@ export function IncludedSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             What&apos;s Included with
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
               {" "}
               Every Plan
             </span>
@@ -37,7 +37,7 @@ export function IncludedSection() {
           {benefits.map((benefit, index) => (
             <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
               <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <benefit.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{benefit.title}</h3>

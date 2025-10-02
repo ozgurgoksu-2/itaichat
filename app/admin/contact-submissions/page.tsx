@@ -6,8 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import Image from 'next/image';
-import Link from 'next/link';
 import {
   SearchIcon,
   ChevronDownIcon,
@@ -23,7 +21,8 @@ import {
   XIcon,
   FilterIcon,
   UsersIcon,
-  ClockIcon
+  ClockIcon,
+  RefreshCwIcon
 } from 'lucide-react';
 import type { ContactSubmission } from '@/lib/supabase';
 
@@ -232,6 +231,7 @@ export default function ContactSubmissionsPage() {
     });
   };
 
+
   const getStatusBadge = (status: string) => {
     const statusConfig = statusOptions.find(s => s.value === status) || statusOptions[1];
     return (
@@ -254,63 +254,43 @@ export default function ContactSubmissionsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50">
-        <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center space-x-4">
-                <Image src="/logo.png" alt="ITAI Logo" width={120} height={40} className="h-10 w-auto" unoptimized />
-                <div className="h-8 w-px bg-gray-300" />
-                <h1 className="text-xl font-semibold text-gray-900">Admin Panel</h1>
-              </div>
-            </div>
-          </div>
-        </header>
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="flex flex-col items-center space-y-4">
-            <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-gray-600 font-medium">Loading contact submissions...</p>
-          </div>
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-gray-600 font-medium">Loading contact submissions...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <Image src="/logo.png" alt="ITAI Logo" width={120} height={40} className="h-10 w-auto" unoptimized />
-              <div className="h-8 w-px bg-gray-300" />
-              <h1 className="text-xl font-semibold text-gray-900">Admin Panel</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="text-sm text-gray-600">
-                <span className="font-medium">{filteredSubmissions.length}</span> Contact Submissions
-              </div>
-              <Button 
-                onClick={handleRefresh}
-                variant="outline"
-                size="sm"
-                className="border-orange-200 text-orange-600 hover:bg-orange-50"
-                disabled={isRefreshing}
-              >
-                Refresh
-              </Button>
-              <Link href="/admin" className="text-sm text-gray-500 hover:text-gray-700 font-medium transition-colors">
-                ← Back to Admin
-              </Link>
-            </div>
+    <div>
+      {/* Page Header */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Contact Submissions</h1>
+            <p className="text-gray-600 mt-1">
+              <span className="font-medium">{filteredSubmissions.length}</span> submissions found
+            </p>
           </div>
+          <Button 
+            onClick={handleRefresh}
+            variant="outline"
+            size="sm"
+            className="border-orange-200 text-orange-600 hover:bg-orange-50"
+            disabled={isRefreshing}
+          >
+            <RefreshCwIcon className={`size-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+            Refresh
+          </Button>
         </div>
-      </header>
+      </div>
+
 
       {/* Filters */}
-      <div className="bg-white/60 backdrop-blur-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="bg-white/60 backdrop-blur-sm border-b border-gray-100 mb-6">
+        <div className="py-4">
           <div className="space-y-4">
             {/* Search */}
             <div className="relative max-w-md">
@@ -352,7 +332,7 @@ export default function ContactSubmissionsPage() {
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main>
         {submissions.length === 0 ? (
           <Card className="text-center py-12">
             <CardContent>
@@ -680,6 +660,7 @@ export default function ContactSubmissionsPage() {
           </div>
         )}
       </main>
+
     </div>
   );
 }

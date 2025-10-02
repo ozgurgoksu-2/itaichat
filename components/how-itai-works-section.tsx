@@ -38,7 +38,7 @@ export function HowITAIWorksSection() {
 
         <div className="relative mb-16">
           {/* Flow line connecting the steps */}
-          <div className="hidden lg:block absolute top-8 left-1/2 transform -translate-x-1/2 w-2/3 h-0.5 bg-gradient-to-r from-orange-400 to-purple-500 opacity-30"></div>
+          <div className="hidden lg:block absolute top-8 left-1/2 transform -translate-x-1/2 w-2/3 h-0.5 bg-gradient-to-r from-orange-400 to-blue-500 opacity-30"></div>
           
           <div className="grid md:grid-cols-3 gap-8">
             {steps.map((step, index) => (
@@ -53,7 +53,7 @@ export function HowITAIWorksSection() {
                 <Card className="border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white">
                   <CardContent className="p-8 text-center">
                     {/* Icon container */}
-                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                       <step.icon className="w-10 h-10 text-white" />
                     </div>
                     
@@ -83,7 +83,7 @@ export function HowITAIWorksSection() {
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               Book a live demo
             </Button>

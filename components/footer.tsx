@@ -21,7 +21,7 @@ export function Footer() {
 
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 Start your export journey today with our
-                <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
                   {" "}
                   AI assistant
                 </span>
@@ -44,7 +44,7 @@ export function Footer() {
               >
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+                  className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
                   Book a live demo
                   <ArrowRight className="w-5 h-5 ml-2" />

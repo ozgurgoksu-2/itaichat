@@ -241,7 +241,7 @@ export function ChatInterface() {
     <div className="w-full max-w-4xl mx-auto">
       <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm overflow-hidden">
         {/* Header */}
-        <CardHeader className="bg-gradient-to-r from-blue-600 via-purple-600 to-orange-500 text-white p-6 relative">
+        <CardHeader className="bg-gradient-to-r from-blue-600 via-blue-900 to-orange-500 text-white p-6 relative">
           <div className="absolute inset-0 bg-black/10" />
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-4">
@@ -308,7 +308,7 @@ export function ChatInterface() {
                 onClick={handleSend}
                 disabled={isAssistantLoading || !input.trim()}
                 size="lg"
-                className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 px-6 shadow-lg"
+                className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 px-6 shadow-lg"
               >
                 <Send className="w-4 h-4" />
               </Button>
@@ -343,7 +343,7 @@ export function ChatInterface() {
                         resetConversation();
                         setIsConversationSaved(false);
                       }}
-                      className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700"
+                      className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800"
                     >
                       Start New Conversation
                     </Button>

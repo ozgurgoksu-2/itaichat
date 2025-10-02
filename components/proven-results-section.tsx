@@ -33,9 +33,9 @@ export function ProvenResultsSection() {
   ]
 
   return (
-    <section className="py-20 lg:py-32 bg-gradient-to-br from-blue-600 via-purple-600 to-purple-800 relative overflow-hidden">
+    <section className="py-20 lg:py-32 bg-gradient-to-br from-orange-600 via-blue-800 to-blue-900 relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-blue-500/10"></div>
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent_50%)]"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -82,7 +82,7 @@ export function ProvenResultsSection() {
           >
             <Button
               size="lg"
-              className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
             >
               Book a live demo
             </Button>

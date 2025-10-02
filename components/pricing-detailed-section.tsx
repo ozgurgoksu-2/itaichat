@@ -67,7 +67,7 @@ export function PricingDetailedSection() {
           <div className="text-center mb-16">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
               See plans and request pricing
-              <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
                 {" "}in a live demo
               </span>
             </h1>
@@ -92,14 +92,14 @@ export function PricingDetailedSection() {
                 >
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-gradient-to-r from-orange-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center">
+                      <div className="bg-gradient-to-r from-orange-500 to-blue-900 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center">
                         <Star className="w-4 h-4 mr-1" />
                         Most Popular
                       </div>
                     </div>
                   )}
                   <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                       <plan.icon className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">{plan.name}</h3>
@@ -163,7 +163,7 @@ export function PricingDetailedSection() {
                   >
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
+                      className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
                     >
                       Request pricing in a live demo
                     </Button>

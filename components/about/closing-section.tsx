@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react"
 
 export function ClosingSection() {
   return (
-    <section className="py-20 lg:py-32 bg-gradient-to-br from-orange-500 via-purple-600 to-orange-500 relative overflow-hidden">
+    <section className="py-20 lg:py-32 bg-gradient-to-br from-orange-500 via-blue-900 to-orange-500 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-black/10" />
       <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,transparent,rgba(255,255,255,0.1))]" />

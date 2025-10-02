@@ -18,7 +18,7 @@ export function AIMessageSection() {
               <div className="w-full h-96 bg-gradient-to-br from-blue-100 to-orange-100 rounded-2xl shadow-2xl flex items-center justify-center">
                 <p className="text-gray-600 text-lg">AI assistant helping factory team</p>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/20 to-purple-600/20 rounded-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/20 to-blue-900/20 rounded-2xl"></div>
             </div>
           </div>
 
@@ -27,7 +27,7 @@ export function AIMessageSection() {
             <div className="space-y-6">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
                 Now We&apos;re Sharing Our Expertise
-                <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
                   {" "}
                   Through AI
                 </span>

@@ -85,7 +85,7 @@ export function HeroSection() {
             <div className="text-center lg:text-left">
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
                 Find verified international buyers
-                <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
                   {" "}in minutes
                 </span>
               </h1>
@@ -117,7 +117,7 @@ export function HeroSection() {
                 >
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 w-full sm:w-auto"
+                    className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 w-full sm:w-auto"
                   >
                     Book a live demo
                   </Button>
@@ -170,7 +170,7 @@ export function HeroSection() {
         {/* Chat Widget Button */}
         <button
           onClick={handleChatToggle}
-          className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
         >
           <MessageCircle className="w-6 h-6" />
         </button>

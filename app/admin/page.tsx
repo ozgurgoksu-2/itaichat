@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -16,7 +15,6 @@ import {
   SettingsIcon,
   TrendingUpIcon,
   CalendarIcon,
-  Globe,
   MailIcon
 } from 'lucide-react';
 
@@ -83,57 +81,28 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
-      <nav className="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex h-16 sm:h-16 items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Image
-                src="/logo.png"
-                alt="ITAI Logo"
-                width={32}
-                height={32}
-                className="rounded-lg sm:size-10"
-                unoptimized
-              />
-              <div>
-                <span className="text-lg sm:text-xl font-bold text-gray-900">ITAI Admin</span>
-                <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">Management Dashboard</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-4">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                className="hidden sm:flex border-orange-200 text-orange-600 hover:bg-orange-50"
-              >
-                <RefreshCwIcon className={`size-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-                Refresh
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                className="sm:hidden p-2 border-orange-200 text-orange-600 hover:bg-orange-50"
-              >
-                <RefreshCwIcon className={`size-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-              </Button>
-              <Link href="/">
-                <Button variant="outline" size="sm" className="border-gray-300 text-gray-600 hover:bg-gray-50">
-                  <Globe className="size-4 mr-0 sm:mr-2" />
-                  <span className="hidden sm:inline">Visit Site</span>
-                </Button>
-              </Link>
-            </div>
+    <div>
+      {/* Page Header */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+            <p className="text-gray-600 mt-1">Welcome to the admin management panel</p>
           </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className="border-orange-200 text-orange-600 hover:bg-orange-50"
+          >
+            <RefreshCwIcon className={`size-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+            Refresh
+          </Button>
         </div>
-      </nav>
+      </div>
 
-      <div className="container mx-auto py-6 sm:py-8 px-4 sm:px-6 max-w-6xl">
+      <div className="max-w-6xl">
         {/* Welcome Section */}
         <motion.div 
           className="text-center mb-8"

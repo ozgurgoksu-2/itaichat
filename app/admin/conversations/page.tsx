@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ConversationFormDialog from '@/components/admin/conversation-form-dialog';
 import DeleteConfirmationDialog from '@/components/admin/delete-confirmation-dialog';
+import { KeywordsModal } from '@/components/admin/keywords-modal';
 import {
   UserIcon,
   SearchIcon,
@@ -24,7 +25,8 @@ import {
   BuildingIcon,
   PlusIcon,
   PencilIcon,
-  TrashIcon
+  TrashIcon,
+  SparklesIcon
 } from 'lucide-react';
 
 
@@ -78,6 +80,10 @@ export default function ConversationsPage() {
   const [editingConversation, setEditingConversation] = useState<ConversationData | null>(null);
   const [deletingConversation, setDeletingConversation] = useState<ConversationData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Keywords modal states
+  const [keywordsModalOpen, setKeywordsModalOpen] = useState(false);
+  const [selectedConversation, setSelectedConversation] = useState<ConversationData | null>(null);
 
   const loadConversations = useCallback(async () => {
     try {
@@ -170,6 +176,11 @@ export default function ConversationsPage() {
   const handleDeleteConversation = (conversation: ConversationData) => {
     setDeletingConversation(conversation);
     setShowDeleteDialog(true);
+  };
+
+  const handleGenerateKeywords = (conversation: ConversationData) => {
+    setSelectedConversation(conversation);
+    setKeywordsModalOpen(true);
   };
 
   const handleSaveConversation = async (conversationData: any) => {
@@ -541,6 +552,18 @@ export default function ConversationsPage() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            className="h-8 w-8 p-0 hover:bg-orange-50"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleGenerateKeywords(conversation);
+                            }}
+                            title="Generate Keywords"
+                          >
+                            <SparklesIcon className="w-4 h-4 text-orange-500" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
                             className="h-8 w-8 p-0 hover:bg-blue-50"
                             onClick={(e) => {
                               e.stopPropagation();
@@ -777,6 +800,27 @@ export default function ConversationsPage() {
         description={`&quot;${deletingConversation?.contact_name}&quot; adlı kişinin görüşmesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.`}
         isLoading={isSubmitting}
       />
+
+      {/* Keywords Modal */}
+      {selectedConversation && (
+        <KeywordsModal
+          isOpen={keywordsModalOpen}
+          onClose={() => {
+            setKeywordsModalOpen(false);
+            setSelectedConversation(null);
+          }}
+          submissionData={{
+            contact_name: selectedConversation.contact_name,
+            product: selectedConversation.product,
+            target_country: selectedConversation.target_country,
+            gtip_code: selectedConversation.gtip_code,
+            keywords: selectedConversation.keywords,
+            competitors: selectedConversation.competitors,
+            customers: selectedConversation.customers,
+            sales_channels: selectedConversation.sales_channels,
+          }}
+        />
+      )}
     </div>
   );
 }

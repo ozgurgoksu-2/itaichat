@@ -3,7 +3,7 @@ import { Bot } from "lucide-react";
 export function TypingIndicator() {
   return (
     <div className="flex items-start gap-3">
-      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-blue-900 flex items-center justify-center">
         <Bot className="w-4 h-4 text-white" />
       </div>
       <div className="bg-white border rounded-2xl p-4 shadow-sm">

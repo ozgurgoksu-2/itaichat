@@ -213,7 +213,7 @@ export function ContactSection() {
                     type="submit"
                     size="lg"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Calendar className="w-5 h-5 mr-2" />
                     {isSubmitting ? 'Submitting...' : 'Book a live demo'}
@@ -226,7 +226,7 @@ export function ContactSection() {
           {/* Info & FAQ */}
           <div className="space-y-8">
             {/* What to Expect */}
-            <Card className="border-0 shadow-xl bg-gradient-to-br from-orange-50 to-purple-50">
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-orange-50 to-blue-50">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
                   What You&apos;ll See in Your Demo
@@ -310,7 +310,7 @@ export function ContactSection() {
                     >
                       <Button
                         size="lg"
-                        className="w-full bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-6 py-3 text-base font-semibold"
+                        className="w-full bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-6 py-3 text-base font-semibold"
                       >
                         <Calendar className="w-4 h-4 mr-2" />
                         Book Now on Calendly

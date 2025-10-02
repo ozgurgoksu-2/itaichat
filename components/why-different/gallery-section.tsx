@@ -22,7 +22,7 @@ export function GallerySection() {
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
             Inside ITAI: Our People, Our Work,
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
               {" "}
               Our Impact
             </span>

@@ -67,7 +67,7 @@ export function ManufacturingAdvantagesSection() {
         <div className="text-center mb-20">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
             Built for manufacturers
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
               {" "}who sell globally
             </span>
           </h1>
@@ -91,7 +91,7 @@ export function ManufacturingAdvantagesSection() {
             >
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
+                className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
               >
                 Book a live demo
               </Button>
@@ -144,7 +144,7 @@ export function ManufacturingAdvantagesSection() {
                 >
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-lg"
+                    className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-lg"
                   >
                     Book a live demo
                   </Button>
@@ -155,7 +155,7 @@ export function ManufacturingAdvantagesSection() {
               <div className={index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}>
                 <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-gray-50 hover:shadow-2xl transition-all duration-300">
                   <CardContent className="p-12 text-center">
-                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                       <type.icon className="w-10 h-10 text-white" />
                     </div>
                     <p className="text-gray-600">
@@ -193,7 +193,7 @@ export function ManufacturingAdvantagesSection() {
                 >
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
+                    className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
                   >
                     Book a live demo
                   </Button>

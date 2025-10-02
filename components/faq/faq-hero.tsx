@@ -5,7 +5,7 @@ export function FAQHero() {
         <div className="space-y-8">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
             Frequently Asked
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
               {" "}
               Questions
             </span>

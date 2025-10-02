@@ -50,7 +50,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
   return (
     <div className={`flex items-start gap-3 ${isUser ? 'justify-end' : ''}`}>
       {!isUser && (
-        <Avatar className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600">
+        <Avatar className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-900">
           <AvatarFallback className="text-white text-xs font-bold">
             <Bot className="w-4 h-4" />
           </AvatarFallback>
@@ -59,7 +59,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
       
       <div className={`max-w-xs rounded-2xl p-4 shadow-sm ${
         isUser
-          ? "bg-gradient-to-r from-orange-500 to-purple-600 text-white rounded-tr-md"
+          ? "bg-gradient-to-r from-orange-500 to-blue-900 text-white rounded-tr-md"
           : "bg-white border rounded-tl-md"
       }`}>
         <div className={`text-sm whitespace-pre-wrap ${

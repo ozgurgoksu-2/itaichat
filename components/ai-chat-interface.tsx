@@ -68,7 +68,7 @@ export function AIChatInterface({ onMessageSent }: AIChatInterfaceProps) {
     <div className="w-full max-w-2xl mx-auto">
       <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm overflow-hidden transform hover:scale-105 transition-transform duration-300">
         {/* Header with gradient */}
-        <CardHeader className="bg-gradient-to-r from-blue-600 via-purple-600 to-orange-500 text-white p-6 relative">
+        <CardHeader className="bg-gradient-to-r from-blue-600 via-blue-900 to-orange-500 text-white p-6 relative">
           <div className="absolute inset-0 bg-black/10" />
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-4">
@@ -94,7 +94,7 @@ export function AIChatInterface({ onMessageSent }: AIChatInterfaceProps) {
           <div className="space-y-4 min-h-[300px]">
             {/* Bot welcome message */}
             <div className="flex items-start space-x-3">
-              <Avatar className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600">
+              <Avatar className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-900">
                 <AvatarFallback className="text-white text-xs font-bold">AI</AvatarFallback>
               </Avatar>
               <div className="bg-white rounded-2xl rounded-tl-md p-4 shadow-sm border max-w-xs">
@@ -116,7 +116,7 @@ export function AIChatInterface({ onMessageSent }: AIChatInterfaceProps) {
             />
             <Button
               size="lg"
-              className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 px-6 shadow-lg"
+              className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 px-6 shadow-lg"
               onClick={handleStartChat}
               disabled={!input.trim()}
             >

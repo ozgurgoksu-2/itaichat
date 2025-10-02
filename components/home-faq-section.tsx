@@ -35,7 +35,7 @@ export function HomeFAQSection() {
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Frequently Asked
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
               {" "}Questions
             </span>
           </h2>
@@ -49,7 +49,7 @@ export function HomeFAQSection() {
             <div key={item.id} className="space-y-4">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
-                  <span className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-r from-orange-500 to-purple-600 text-white text-sm font-bold rounded-full">
+                  <span className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-r from-orange-500 to-blue-900 text-white text-sm font-bold rounded-full">
                     Q{index + 1}
                   </span>
                 </div>
@@ -86,7 +86,7 @@ export function HomeFAQSection() {
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-lg"
+              className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-lg"
             >
               Book a live demo
             </Button>

@@ -38,7 +38,7 @@ export function ImpactSection() {
           {metrics.map((metric, index) => (
             <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
               <CardContent className="p-8 text-center">
-                <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent mb-2">
+                <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent mb-2">
                   {metric.number}
                 </div>
                 <div className="text-lg font-semibold text-gray-900 mb-2">{metric.label}</div>

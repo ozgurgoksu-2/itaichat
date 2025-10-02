@@ -42,7 +42,7 @@ export function Header() {
                   }}
                 />
                 <div 
-                  className="hidden text-xl font-bold bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent"
+                  className="hidden text-xl font-bold bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent"
                   style={{ display: 'none' }}
                 >
                   ITAI
@@ -109,7 +109,7 @@ export function Header() {
               rel="noopener noreferrer"
               onClick={() => trackExternalLink('https://calendly.com/mehmet-odsdanismanlik/30min', 'Book a live demo', 'header_primary')}
             >
-              <Button size="sm" className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white shadow-lg text-xs lg:text-sm px-3 lg:px-4 py-2 whitespace-nowrap">
+              <Button size="sm" className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white shadow-lg text-xs lg:text-sm px-3 lg:px-4 py-2 whitespace-nowrap">
                 Book a live demo
               </Button>
             </a>
@@ -122,7 +122,7 @@ export function Header() {
                 destination: '/chat'
               })}
             >
-              <Button size="sm" className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white shadow-lg text-xs lg:text-sm px-3 lg:px-4 py-2 whitespace-nowrap">
+              <Button size="sm" className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white shadow-lg text-xs lg:text-sm px-3 lg:px-4 py-2 whitespace-nowrap">
                 Get export insights with the ITAI chatbot
               </Button>
             </Link>

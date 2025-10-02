@@ -10,7 +10,7 @@ export function MarketExpansionSection() {
       scenario: "A manufacturer lacks contacts in Southeast Asia.",
       solution: "ITAI filters leads by country (Vietnam), industry (electronics), and language (Vietnamese).",
       outcome: "200+ qualified B2B buyers identified in 48 hours, accelerating market entry.",
-      color: "from-orange-500 to-purple-600"
+      color: "from-orange-500 to-blue-900"
     },
     {
       icon: DollarSign,
@@ -19,7 +19,7 @@ export function MarketExpansionSection() {
       scenario: "An SME struggles with expensive data subscriptions.",
       solution: "ITAI replaces fragmented tools with one AI platform.",
       outcome: "500+ verified leads/month generated, cutting costs by 60%.",
-      color: "from-orange-500 to-purple-600"
+      color: "from-orange-500 to-blue-900"
     },
     {
       icon: Languages,
@@ -28,7 +28,7 @@ export function MarketExpansionSection() {
       scenario: "A cosmetics brand targets Arabic-speaking regions.",
       solution: "ITAI identifies Arabic-language buyers and validates digital profiles.",
       outcome: "150+ niche distributors sourced for localized campaigns.",
-      color: "from-orange-500 to-purple-600"
+      color: "from-orange-500 to-blue-900"
     },
     {
       icon: Leaf,
@@ -37,7 +37,7 @@ export function MarketExpansionSection() {
       scenario: "A sustainable textile producer seeks eco-conscious retailers.",
       solution: "ITAI targets keywords like 'organic cotton' and certifications.",
       outcome: "Partnerships with 80+ specialized retailers in the EU and North America.",
-      color: "from-orange-500 to-purple-600"
+      color: "from-orange-500 to-blue-900"
     }
   ]
 
@@ -73,13 +73,13 @@ export function MarketExpansionSection() {
                   </div>
 
                   {/* Solution */}
-                  <div className="bg-purple-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-purple-900 mb-2 text-sm uppercase tracking-wide">SOLUTION</h4>
-                    <p className="text-purple-800">{advantage.solution}</p>
+                  <div className="bg-blue-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-blue-900 mb-2 text-sm uppercase tracking-wide">SOLUTION</h4>
+                    <p className="text-blue-800">{advantage.solution}</p>
                   </div>
 
                   {/* Outcome */}
-                  <div className="bg-gradient-to-r from-orange-50 to-purple-50 rounded-lg p-4 border-l-4 border-orange-500">
+                  <div className="bg-gradient-to-r from-orange-50 to-blue-50 rounded-lg p-4 border-l-4 border-orange-500">
                     <h4 className="font-semibold text-orange-900 mb-2 text-sm uppercase tracking-wide">OUTCOME</h4>
                     <p className="text-orange-800 font-medium">{advantage.outcome}</p>
                   </div>

@@ -70,7 +70,7 @@ export function ChatInput({
           onClick={handleSend}
           disabled={disabled || !input.trim()}
           size="lg"
-          className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 px-6 shadow-lg"
+          className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 px-6 shadow-lg"
         >
           <Send className="w-4 h-4" />
         </Button>

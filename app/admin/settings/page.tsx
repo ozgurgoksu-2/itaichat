@@ -541,7 +541,7 @@ export default function SettingsPage() {
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-purple-500/20 text-purple-600">
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-blue-500/20 text-blue-900">
                     <ZapIcon className="size-6" />
                   </div>
                   <div>

@@ -361,9 +361,9 @@ export default function UsersPage() {
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-sm font-medium">Total Messages</CardTitle>
-                  <MessageCircleIcon className="size-4 text-purple-600" />
+                  <MessageCircleIcon className="size-4 text-blue-900" />
                 </div>
-                <div className="text-2xl font-bold text-purple-600">{totalMessages.toLocaleString()}</div>
+                <div className="text-2xl font-bold text-blue-900">{totalMessages.toLocaleString()}</div>
               </CardHeader>
             </Card>
           </motion.div>

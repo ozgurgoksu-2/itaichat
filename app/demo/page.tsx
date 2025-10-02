@@ -59,7 +59,7 @@ function DemoContent() {
           <div className="text-center mb-16">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
               Experience ITAI&apos;s 
-              <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
                 {" "}Export Assistant
               </span>
             </h1>
@@ -91,7 +91,7 @@ function DemoContent() {
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Verified Buyer Discovery</h3>
@@ -103,7 +103,7 @@ function DemoContent() {
 
             <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
                   <ArrowRight className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Smart Lead Generation</h3>
@@ -115,7 +115,7 @@ function DemoContent() {
 
             <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Calendar className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Meeting Acceleration</h3>
@@ -150,7 +150,7 @@ function DemoContent() {
                 >
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-lg w-full sm:w-auto"
+                    className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-lg w-full sm:w-auto"
                   >
                     Schedule Personal Demo
                     <Calendar className="w-5 h-5 ml-2" />

@@ -259,9 +259,9 @@ export default function AnalyticsPage() {
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-sm font-medium">Avg Session Time</CardTitle>
-                  <ClockIcon className="size-4 text-purple-600" />
+                  <ClockIcon className="size-4 text-blue-900" />
                 </div>
-                <div className="text-2xl font-bold text-purple-600">{formatDuration(analytics.averageSessionDuration)}</div>
+                <div className="text-2xl font-bold text-blue-900">{formatDuration(analytics.averageSessionDuration)}</div>
                 <p className="text-xs text-muted-foreground">+45s longer sessions</p>
               </CardHeader>
             </Card>
@@ -408,7 +408,7 @@ export default function AnalyticsPage() {
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-purple-500/20 text-purple-600">
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-blue-500/20 text-blue-900">
                     <BarChart3Icon className="size-6" />
                   </div>
                   <div>
@@ -419,12 +419,12 @@ export default function AnalyticsPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">
+                  <div className="text-3xl font-bold text-blue-900 mb-2">
                     {analytics.bounceRate}%
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
                     <div 
-                      className="bg-purple-600 h-2 rounded-full"
+                      className="bg-blue-900 h-2 rounded-full"
                       style={{ width: `${analytics.bounceRate}%` }}
                     ></div>
                   </div>

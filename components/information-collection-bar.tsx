@@ -59,9 +59,9 @@ export function InformationCollectionBar({
 
   const getProgressColor = () => {
     if (progress >= 80) return "bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600"
-    if (progress >= 60) return "bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600"
+    if (progress >= 60) return "bg-gradient-to-r from-blue-400 via-indigo-500 to-blue-900"
     if (progress >= 40) return "bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500"
-    if (progress >= 20) return "bg-gradient-to-r from-purple-400 via-pink-500 to-rose-500"
+    if (progress >= 20) return "bg-gradient-to-r from-orange-400 via-blue-500 to-blue-600"
     return "bg-gradient-to-r from-gray-300 to-gray-400"
   }
 
@@ -83,7 +83,7 @@ export function InformationCollectionBar({
           <h3 className="text-sm font-semibold text-gray-700">
             Information Collection Progress
           </h3>
-          <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-900 bg-clip-text text-transparent">
             {progress}%
           </span>
         </div>

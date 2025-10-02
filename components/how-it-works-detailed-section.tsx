@@ -73,7 +73,7 @@ export function HowItWorksDetailedSection() {
           <div className="text-center mb-16">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
               From product brief to
-              <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
                 {" "}verified buyers
               </span>
             </h1>
@@ -90,7 +90,7 @@ export function HowItWorksDetailedSection() {
                 {/* Content */}
                 <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
                   <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-blue-900 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                       {index + 1}
                     </div>
                     <h2 className="text-2xl lg:text-3xl font-bold text-gray-900">
@@ -106,7 +106,7 @@ export function HowItWorksDetailedSection() {
                 <div className={index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}>
                   <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-gray-50">
                     <CardContent className="p-12 text-center">
-                      <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                      <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                         <step.icon className="w-10 h-10 text-white" />
                       </div>
                       <div className="text-sm text-gray-500">
@@ -142,7 +142,7 @@ export function HowItWorksDetailedSection() {
                   >
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
+                      className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
                     >
                       Book a live demo
                     </Button>

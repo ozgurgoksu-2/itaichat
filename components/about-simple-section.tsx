@@ -13,7 +13,7 @@ export function AboutSimpleSection() {
         <div className="text-center mb-16">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
             Our mission is simple:
-            <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
               {" "}better matches, faster exports
             </span>
           </h1>
@@ -63,7 +63,7 @@ export function AboutSimpleSection() {
               >
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+                  className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
                   Book a live demo
                 </Button>
@@ -77,7 +77,7 @@ export function AboutSimpleSection() {
               <CardContent className="p-12 text-center">
                 <div className="space-y-8">
                   <div>
-                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                       <Target className="w-10 h-10 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">

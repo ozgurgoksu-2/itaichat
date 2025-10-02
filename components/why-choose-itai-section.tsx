@@ -68,7 +68,7 @@ export function WhyChooseITAISection() {
                 <Card key={index} className="border-0 shadow-sm hover:shadow-md transition-all duration-300">
                   <CardContent className="p-4">
                     <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
                         <feature.icon className="w-4 h-4 text-white" />
                       </div>
                       <div>
@@ -108,7 +108,7 @@ export function WhyChooseITAISection() {
                     {/* Mock Dashboard Content */}
                     <div className="flex-1 p-4 space-y-3">
                       <div className="flex items-center space-x-2 mb-3">
-                        <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-blue-900 rounded-lg flex items-center justify-center">
                           <Target className="w-4 h-4 text-white" />
                         </div>
                         <div className="text-sm font-semibold text-gray-900">Verified Buyers Dashboard</div>
@@ -163,7 +163,7 @@ export function WhyChooseITAISection() {
             {outcomes.map((outcome, index) => (
               <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 text-center">
                 <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
                     <outcome.icon className="w-8 h-8 text-white" />
                   </div>
                   <h4 className="text-xl font-bold text-gray-900 mb-4">
@@ -193,7 +193,7 @@ export function WhyChooseITAISection() {
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               Book a live demo
             </Button>

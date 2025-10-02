@@ -11,7 +11,7 @@ export default function VerifiedLeadsPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
               Verified Leads
-              <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
                 {" "}That Convert
               </span>
             </h1>
