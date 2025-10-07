@@ -9,6 +9,7 @@ import Link from 'next/link';
 import ConversationFormDialog from '@/components/admin/conversation-form-dialog';
 import DeleteConfirmationDialog from '@/components/admin/delete-confirmation-dialog';
 import { KeywordsModal } from '@/components/admin/keywords-modal';
+import { ChatHistorySidebar } from '@/components/admin/chat-history-sidebar';
 import {
   UserIcon,
   SearchIcon,
@@ -26,7 +27,8 @@ import {
   PlusIcon,
   PencilIcon,
   TrashIcon,
-  SparklesIcon
+  SparklesIcon,
+  MessageCircleIcon
 } from 'lucide-react';
 
 
@@ -48,6 +50,8 @@ interface ConversationData {
   customers: string; // JSON string
   language: string;
   conversation_data: string; // JSON string
+  has_chat_history?: boolean;
+  message_count?: number;
 }
 
 interface Competitor {
@@ -84,6 +88,10 @@ export default function ConversationsPage() {
   // Keywords modal states
   const [keywordsModalOpen, setKeywordsModalOpen] = useState(false);
   const [selectedConversation, setSelectedConversation] = useState<ConversationData | null>(null);
+  
+  // Chat sidebar states
+  const [chatSidebarOpen, setChatSidebarOpen] = useState(false);
+  const [selectedChatConversationId, setSelectedChatConversationId] = useState<string | null>(null);
 
   const loadConversations = useCallback(async () => {
     try {
@@ -181,6 +189,16 @@ export default function ConversationsPage() {
   const handleGenerateKeywords = (conversation: ConversationData) => {
     setSelectedConversation(conversation);
     setKeywordsModalOpen(true);
+  };
+
+  const handleViewChat = (conversation: ConversationData) => {
+    setSelectedChatConversationId(conversation.id);
+    setChatSidebarOpen(true);
+  };
+
+  const handleCloseChatSidebar = () => {
+    setChatSidebarOpen(false);
+    setSelectedChatConversationId(null);
   };
 
   const handleSaveConversation = async (conversationData: any) => {
@@ -313,7 +331,9 @@ export default function ConversationsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50">
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50 transition-all duration-300 ${
+      chatSidebarOpen ? 'mr-80' : ''
+    }`}>
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -549,6 +569,26 @@ export default function ConversationsPage() {
 
                         {/* Actions */}
                         <div className="col-span-1 flex items-center space-x-1">
+                          <div className="relative">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className={`h-8 w-8 p-0 ${conversation.has_chat_history ? 'hover:bg-green-50' : 'hover:bg-gray-50'}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleViewChat(conversation);
+                              }}
+                              title={conversation.has_chat_history ? `View Chat (${conversation.message_count || 0} messages)` : "No chat history available"}
+                              disabled={!conversation.has_chat_history}
+                            >
+                              <MessageCircleIcon className={`w-4 h-4 ${conversation.has_chat_history ? 'text-green-600' : 'text-gray-400'}`} />
+                            </Button>
+                            {conversation.has_chat_history && conversation.message_count && conversation.message_count > 0 && (
+                              <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                                {conversation.message_count > 9 ? '9+' : conversation.message_count}
+                              </span>
+                            )}
+                          </div>
                           <Button
                             variant="ghost"
                             size="sm"
@@ -650,6 +690,12 @@ export default function ConversationsPage() {
                             <h4 className="font-semibold text-gray-900 flex items-center space-x-2">
                               <PackageIcon className="w-4 h-4 text-orange-500" />
                               <span>İş Bilgileri</span>
+                              {conversation.has_chat_history && (
+                                <span className="ml-2 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full flex items-center space-x-1">
+                                  <MessageCircleIcon className="w-3 h-3" />
+                                  <span>{conversation.message_count || 0} mesaj</span>
+                                </span>
+                              )}
                             </h4>
                             <div className="space-y-3">
                               {conversation.product && (
@@ -819,6 +865,14 @@ export default function ConversationsPage() {
             customers: selectedConversation.customers,
             sales_channels: selectedConversation.sales_channels,
           }}
+        />
+      )}
+
+      {/* Chat History Sidebar */}
+      {chatSidebarOpen && (
+        <ChatHistorySidebar
+          conversationId={selectedChatConversationId}
+          onClose={handleCloseChatSidebar}
         />
       )}
     </div>

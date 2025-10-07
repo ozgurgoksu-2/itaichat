@@ -55,28 +55,11 @@ export async function POST(request: NextRequest) {
 
     console.log('Creating conversation with data:', conversationRecord);
 
-    // Use the correct table name (check which one exists)
-    let data, error
-    
-    // Try conversation_summaries first (as used in the list API)
-    const { data: testData, error: testError } = await supabaseAdmin
+    // Save to conversation_summaries table
+    const { data, error } = await supabaseAdmin
       .from('conversation_summaries')
       .insert([conversationRecord])
       .select()
-
-    if (testError) {
-      // If that fails, try conversations table
-      const { data: altData, error: altError } = await supabaseAdmin
-        .from('conversations')
-        .insert([conversationRecord])
-        .select()
-      
-      data = altData
-      error = altError
-    } else {
-      data = testData
-      error = testError
-    }
 
     if (error) {
       console.error('Supabase error:', error)

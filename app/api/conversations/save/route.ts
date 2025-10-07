@@ -54,6 +54,42 @@ export async function POST(request: NextRequest) {
     // Generate session ID from timestamp or use existing
     const sessionId = generateSessionId()
     
+    // Format chat messages for storage
+    const formattedMessages = chatMessages
+      .filter((message: any) => message.type === 'message')
+      .map((message: any, index: number) => {
+        let content = ''
+        
+        if (Array.isArray(message.content)) {
+          content = message.content
+            .map((c: any) => c.text || '')
+            .join(' ')
+            .trim()
+        } else if (typeof message.content === 'string') {
+          content = message.content
+        }
+
+        return {
+          id: index + 1,
+          role: message.role,
+          content: content,
+          timestamp: new Date().toISOString()
+        }
+      })
+
+    // Prepare chat history data
+    const chatHistoryData = {
+      messages: formattedMessages,
+      metadata: {
+        chatStarted: formattedMessages.length > 0 ? new Date().toISOString() : null,
+        chatCompleted: new Date().toISOString(),
+        messageCount: formattedMessages.length,
+        language: language,
+        hasChatHistory: formattedMessages.length > 0,
+        extractedFromSummary: true
+      }
+    }
+
     // Prepare data for database - matching your existing table structure
     const conversationRecord = {
       session_id: sessionId,
@@ -69,6 +105,7 @@ export async function POST(request: NextRequest) {
       competitors: extractedData.competitors || [],
       customers: extractedData.customers || [],
       language: language,
+      chat_history: chatHistoryData, // New column for chat history
       conversation_data: {
         timestamp: new Date().toISOString(),
         summaryData: {
@@ -85,7 +122,16 @@ export async function POST(request: NextRequest) {
           targetCountry: extractedData.country
         },
         extractedFromSummary: true,
-        messages: chatMessages
+        completionData: {
+          hasProduct: !!extractedData.product,
+          hasTargetMarket: !!extractedData.country,
+          hasGtipCode: !!extractedData.gtipCode,
+          hasSalesChannels: extractedData.salesChannels && extractedData.salesChannels.length > 0,
+          hasContactInfo: !!(extractedData.name || extractedData.email || extractedData.phone),
+          hasKeywords: extractedData.keywords && extractedData.keywords.length > 0,
+          hasCompetitors: extractedData.competitors && extractedData.competitors.length > 0,
+          hasCustomers: extractedData.customers && extractedData.customers.length > 0
+        }
       }
     }
 

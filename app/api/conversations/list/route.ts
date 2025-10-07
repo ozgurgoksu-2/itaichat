@@ -40,25 +40,45 @@ export async function GET(request: NextRequest) {
     }
 
     // Format the data to match the expected interface
-    const formattedData = data?.map((conversation, index) => ({
-      idx: offset + index,
-      id: conversation.id,
-      created_at: conversation.created_at,
-      session_id: conversation.session_id || 'unknown',
-      product: conversation.product || '',
-      target_country: conversation.target_country || '',
-      gtip_code: conversation.gtip_code || '',
-      sales_channels: conversation.sales_channels || [],
-      website: conversation.website || '',
-      contact_name: conversation.contact_name || '',
-      email: conversation.email || '',
-      phone: conversation.phone || '',
-      keywords: conversation.keywords || [],
-      competitors: JSON.stringify(conversation.competitors || []),
-      customers: JSON.stringify(conversation.customers || []),
-      language: conversation.language || 'en',
-      conversation_data: JSON.stringify(conversation.conversation_data || {})
-    })) || []
+    const formattedData = data?.map((conversation, index) => {
+      // Parse chat_history to check for chat history
+      let conversationData: any = {}
+      let hasChatHistory = false
+      let messageCount = 0
+      
+      if (conversation.chat_history && typeof conversation.chat_history === 'object') {
+        const chatHistory = conversation.chat_history
+        hasChatHistory = !!(chatHistory.messages && Array.isArray(chatHistory.messages) && chatHistory.messages.length > 0)
+        messageCount = chatHistory.messages ? chatHistory.messages.length : 0
+      }
+      
+      // Keep conversation_data for backward compatibility
+      if (conversation.conversation_data && typeof conversation.conversation_data === 'object') {
+        conversationData = conversation.conversation_data
+      }
+
+      return {
+        idx: offset + index,
+        id: conversation.id,
+        created_at: conversation.created_at,
+        session_id: conversation.session_id || 'unknown',
+        product: conversation.product || '',
+        target_country: conversation.target_country || '',
+        gtip_code: conversation.gtip_code || '',
+        sales_channels: conversation.sales_channels || [],
+        website: conversation.website || '',
+        contact_name: conversation.contact_name || '',
+        email: conversation.email || '',
+        phone: conversation.phone || '',
+        keywords: conversation.keywords || [],
+        competitors: JSON.stringify(conversation.competitors || []),
+        customers: JSON.stringify(conversation.customers || []),
+        language: conversation.language || 'en',
+        conversation_data: JSON.stringify(conversationData),
+        has_chat_history: hasChatHistory,
+        message_count: messageCount
+      }
+    }) || []
 
     return NextResponse.json({
       success: true,

@@ -13,29 +13,12 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    // Try conversation_summaries first (as used in the list API)
-    let data, error
-    
-    const { data: testData, error: testError } = await supabaseAdmin
+    // Delete from conversation_summaries table
+    const { data, error } = await supabaseAdmin
       .from('conversation_summaries')
       .delete()
       .eq('id', id)
       .select()
-
-    if (testError) {
-      // If that fails, try conversations table
-      const { data: altData, error: altError } = await supabaseAdmin
-        .from('conversations')
-        .delete()
-        .eq('id', id)
-        .select()
-      
-      data = altData
-      error = altError
-    } else {
-      data = testData
-      error = testError
-    }
 
     if (error) {
       console.error('Supabase error:', error)

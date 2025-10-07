@@ -96,7 +96,8 @@ export function ChatInterface() {
         },
         body: JSON.stringify({
           chatMessages,
-          language: detectLanguageFromMessages(chatMessages)
+          language: detectLanguageFromMessages(chatMessages),
+          timestamp: new Date().toISOString()
         }),
       });
 

@@ -60,29 +60,12 @@ export async function PUT(request: NextRequest) {
 
     console.log('Updating conversation with data:', conversationUpdate);
 
-    // Try conversation_summaries first (as used in the list API)
-    let data, error
-    
-    const { data: testData, error: testError } = await supabaseAdmin
+    // Update in conversation_summaries table
+    const { data, error } = await supabaseAdmin
       .from('conversation_summaries')
       .update(conversationUpdate)
       .eq('id', id)
       .select()
-
-    if (testError) {
-      // If that fails, try conversations table
-      const { data: altData, error: altError } = await supabaseAdmin
-        .from('conversations')
-        .update(conversationUpdate)
-        .eq('id', id)
-        .select()
-      
-      data = altData
-      error = altError
-    } else {
-      data = testData
-      error = testError
-    }
 
     if (error) {
       console.error('Supabase error:', error)
