@@ -2,8 +2,9 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Users, Search, Mail, Package, RefreshCw } from "lucide-react"
+import { Users, Search, Mail, Package } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { trackCTAClick } from "@/lib/analytics"
 
 export function HowItWorksDetailedSection() {
@@ -11,27 +12,26 @@ export function HowItWorksDetailedSection() {
     {
       icon: Users,
       title: "Define your ideal buyer profile",
-      description: "You tell us what you make, where you ship, and who you want to reach. We translate that input into an ICP that your sales team can agree on in minutes."
+      description: "You tell us what you make, where you ship, and who you want to reach. We translate that input into an ICP that your sales team can agree on in minutes.",
+      image: "step1.png"
     },
     {
       icon: Search,
       title: "Discover companies that match",
-      description: "Our system maps global markets and surfaces companies with real purchase intent signals. This is b2b prospecting agent thinking with a researcher discipline."
+      description: "Our system maps global markets and surfaces companies with real purchase intent signals. This is b2b prospecting agent thinking with a researcher discipline.",
+      image: "step2.png"
     },
     {
       icon: Mail,
       title: "Verify decision‑makers and emails",
-      description: "We confirm role fit, validate deliverability, and replace any unreachable contact quickly. The result is verified leads that your team can act on immediately."
+      description: "We confirm role fit, validate deliverability, and replace any unreachable contact quickly. The result is verified leads that your team can act on immediately.",
+      image: "step3.png"
     },
     {
       icon: Package,
       title: "Package for outreach",
-      description: "You receive CSV files and clean segments that match your campaigns and CRM fields. If you already use a prospecting platform, we align the fields so your import takes seconds."
-    },
-    {
-      icon: RefreshCw,
-      title: "Iterate monthly",
-      description: "We learn from your replies and meetings to refine targeting and improve results every month."
+      description: "You receive CSV files and clean segments that match your campaigns and CRM fields. If you already use a prospecting platform, we align the fields so your import takes seconds.",
+      image: "step4.png"
     }
   ]
 
@@ -105,13 +105,14 @@ export function HowItWorksDetailedSection() {
                 {/* Visual */}
                 <div className={index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}>
                   <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-gray-50">
-                    <CardContent className="p-12 text-center">
-                      <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <step.icon className="w-10 h-10 text-white" />
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        Step {index + 1} of {steps.length}
-                      </div>
+                    <CardContent className="p-8">
+                      <Image
+                        src={`/${step.image}`}
+                        alt={`Step ${index + 1}: ${step.title}`}
+                        width={400}
+                        height={300}
+                        className="w-full h-auto rounded-lg shadow-md"
+                      />
                     </CardContent>
                   </Card>
                 </div>

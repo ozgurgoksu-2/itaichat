@@ -1,28 +1,50 @@
+import Image from "next/image"
+
 export function TrustStrip() {
-  const industries = [
-    "Electronics",
-    "Pharma", 
-    "Medical Devices",
-    "Industrial Supply"
+  const companyLogos = [
+    "atagur.png",
+    "Bareks.png",
+    "Bedtex.png",
+    "Bronz-Otomotiv.png",
+    "Burcam.png",
+    "Ege-Seramik.png",
+    "Erad-Grup.png",
+    "Erha-Muhendislik.png",
+    "Erkan-ozen.png",
+    "Ermak-Beton.png",
+    "Genmacs.png",
+    "Gunmak-Makina.png",
+    "Inka-Yapi-Baglanti-Ekipmanlari.png",
+    "ods-referans_kardelen.png",
+    "refkar-sogutma.png",
+    "sah-Hortum.png",
+    "Utest.png",
+    "Wise-Energy.png",
+    "Yapkim-Yapi-Kimya.png",
+    "Ziyaoglu-Tekstil.png"
   ]
 
   return (
     <div className="mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-center text-sm font-medium text-gray-600 mb-8">
-          Used by manufacturers in{" "}
+          Trusted by leading manufacturers
         </p>
         
-        {/* Industry Icons/Badges */}
-        <div className="flex items-center justify-center space-x-6 lg:space-x-8 mb-8">
-          {industries.map((industry, index) => (
+        {/* Company Logos */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 lg:gap-8 mb-8 items-center justify-items-center">
+          {companyLogos.map((logo, index) => (
             <div 
               key={index}
-              className="px-4 py-2 bg-gradient-to-r from-blue-50 to-orange-50 border border-gray-200 rounded-full"
+              className="flex items-center justify-center p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
             >
-              <span className="text-sm font-medium text-gray-700">
-                {industry}
-              </span>
+              <Image
+                src={`/${logo}`}
+                alt={`${logo.replace('.png', '').replace('-', ' ')} logo`}
+                width={120}
+                height={60}
+                className="max-w-full max-h-12 object-contain"
+              />
             </div>
           ))}
         </div>

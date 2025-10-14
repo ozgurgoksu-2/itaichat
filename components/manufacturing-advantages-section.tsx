@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Factory, Cpu, Pill, Heart, Wrench, Settings, Building } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { trackCTAClick } from "@/lib/analytics"
 
 export function ManufacturingAdvantagesSection() {
@@ -11,52 +12,62 @@ export function ManufacturingAdvantagesSection() {
     {
       icon: Factory,
       title: "Manufacturing companies",
-      description: "Manufacturing companies grow exports faster when outreach starts with verified buyers. We shortlist companies that buy products like yours and include decision‑maker emails so your first message lands."
+      description: "Manufacturing companies grow exports faster when outreach starts with verified buyers. We shortlist companies that buy products like yours and include decision‑maker emails so your first message lands.",
+      image: "man1.png"
     },
     {
       icon: Building,
       title: "Manufacturing companies near me",
-      description: "If you need partnerships or pilots, we map manufacturing companies near me style local intent into a curated list for your state or city. You get nearby prospects, distributors, and suppliers with verified contacts."
+      description: "If you need partnerships or pilots, we map manufacturing companies near me style local intent into a curated list for your state or city. You get nearby prospects, distributors, and suppliers with verified contacts.",
+      image: "man2.png"
     },
     {
       icon: Wrench,
       title: "Industrial companies",
-      description: "Industrial companies use us to reach OEMs and distributors that reorder reliably. We focus on fit, margin, and MOQ so your pipeline feels predictable."
+      description: "Industrial companies use us to reach OEMs and distributors that reorder reliably. We focus on fit, margin, and MOQ so your pipeline feels predictable.",
+      image: "man3.png"
     },
     {
       icon: Settings,
       title: "Contract manufacturing companies",
-      description: "Contract manufacturing companies keep capacity full by targeting buyers who outsource consistently. We highlight part families, certifications, and lot sizes to match your shop's strengths."
+      description: "Contract manufacturing companies keep capacity full by targeting buyers who outsource consistently. We highlight part families, certifications, and lot sizes to match your shop's strengths.",
+      image: "man4.png"
     },
     {
       icon: Factory,
       title: "Industrial supply companies",
-      description: "Industrial supply companies win repeat business when catalogs meet buyers who reorder on schedule. We filter by footprint, SKU mix, and re‑order patterns to prioritize high‑value accounts."
+      description: "Industrial supply companies win repeat business when catalogs meet buyers who reorder on schedule. We filter by footprint, SKU mix, and re‑order patterns to prioritize high‑value accounts.",
+      image: "man5.png"
     },
     {
       icon: Settings,
       title: "Machining manufacturing companies",
-      description: "Machining manufacturing companies selling CNC and precision parts reach better buyers with role‑verified contacts. We flag tolerances, materials, and volumes so your message speaks the buyer's language."
+      description: "Machining manufacturing companies selling CNC and precision parts reach better buyers with role‑verified contacts. We flag tolerances, materials, and volumes so your message speaks the buyer's language.",
+      image: "man6.png"
     },
     {
       icon: Heart,
       title: "Medical device contract manufacturing companies",
-      description: "Medical device contract manufacturing companies need buyers that match ISO 13485 and market rules. We add certification and regulatory notes so your outreach clears compliance fast."
+      description: "Medical device contract manufacturing companies need buyers that match ISO 13485 and market rules. We add certification and regulatory notes so your outreach clears compliance fast.",
+      image: "man7.png"
     },
     {
       icon: Building,
       title: "Manufacturer companies",
-      description: "Manufacturer companies that export consistently start with a clean, verified target list. Your team gets fewer, better leads and more booked meetings."
+      description: "Manufacturer companies that export consistently start with a clean, verified target list. Your team gets fewer, better leads and more booked meetings.",
+      image: "man8.png"
     },
     {
       icon: Cpu,
       title: "Electronic & electronics manufacturing companies",
-      description: "Electronic manufacturing companies and electronics manufacturing companies reach high‑fit OEMs and distributors through focused lists. We separate prototype, NPI, and mass‑production needs to increase close rates."
+      description: "Electronic manufacturing companies and electronics manufacturing companies reach high‑fit OEMs and distributors through focused lists. We separate prototype, NPI, and mass‑production needs to increase close rates.",
+      image: "man9.png"
     },
     {
       icon: Pill,
       title: "Pharmaceutical manufacturing companies",
-      description: "Pharmaceutical manufacturing companies connect with vetted distributors and institutional buyers that pass quality checks. We include dossier availability and compliance notes to remove friction early."
+      description: "Pharmaceutical manufacturing companies connect with vetted distributors and institutional buyers that pass quality checks. We include dossier availability and compliance notes to remove friction early.",
+      image: "man10.png"
     }
   ]
 
@@ -153,14 +164,21 @@ export function ManufacturingAdvantagesSection() {
 
               {/* Visual Card */}
               <div className={index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}>
-                <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-gray-50 hover:shadow-2xl transition-all duration-300">
-                  <CardContent className="p-12 text-center">
-                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <type.icon className="w-10 h-10 text-white" />
+                <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-gray-50 hover:shadow-2xl transition-all duration-300 overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="relative h-80">
+                      <Image
+                        src={`/${type.image}`}
+                        alt={type.title}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                    <p className="text-gray-600">
-                      For {type.title.toLowerCase()} looking to expand globally
-                    </p>
+                    <div className="p-6 text-center bg-white">
+                      <p className="text-gray-600 font-medium">
+                        For {type.title.toLowerCase()} looking to expand globally
+                      </p>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
@@ -241,14 +259,6 @@ export function ManufacturingAdvantagesSection() {
           </div>
         </div>
 
-        {/* Image Alt Text (placeholder for actual image) */}
-        <div className="mt-16 text-center">
-          <div className="bg-gray-100 rounded-lg p-8">
-            <p className="text-sm text-gray-500">
-              Image placeholder: Verified international buyers for key manufacturing sectors
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   )

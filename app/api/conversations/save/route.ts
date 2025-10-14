@@ -51,6 +51,20 @@ export async function POST(request: NextRequest) {
     // Extract data from conversation for database
     const extractedData = extractConversationDataAdvanced(chatMessages)
     
+    // 🚨 DEBUG: Log extracted data
+    console.log("🔍 EXTRACTED CONVERSATION DATA:");
+    console.log("📦 Product:", extractedData.product || "NOT FOUND");
+    console.log("🌍 Country:", extractedData.country || "NOT FOUND");
+    console.log("🔢 GTIP Code:", extractedData.gtipCode || "NOT FOUND");
+    console.log("🛒 Sales Channels:", extractedData.salesChannels || "NOT FOUND");
+    console.log("🌐 Website:", extractedData.website || "NOT FOUND");
+    console.log("👤 Name:", extractedData.name || "NOT FOUND");
+    console.log("📧 Email:", extractedData.email || "NOT FOUND");
+    console.log("📱 Phone:", extractedData.phone || "NOT FOUND");
+    console.log("🔑 Keywords:", extractedData.keywords || "NOT FOUND");
+    console.log("🏢 Competitors:", extractedData.competitors || "NOT FOUND");
+    console.log("👥 Customers:", extractedData.customers || "NOT FOUND");
+    
     // Generate session ID from timestamp or use existing
     const sessionId = generateSessionId()
     
@@ -180,8 +194,8 @@ function extractConversationDataAdvanced(messages: any[]) {
     customers: []
   }
 
-  // First, look for the summary message to extract structured data
-  const summaryMessage = messages.find(message => {
+  // First, look for the final demo/summary message - prioritize the last comprehensive message
+  const summaryMessage = messages.reverse().find(message => {
     if (message.type === 'message' && message.role === 'assistant') {
       let content = '';
       if (Array.isArray(message.content)) {
@@ -191,15 +205,24 @@ function extractConversationDataAdvanced(messages: any[]) {
       }
       
       const contentLower = content.toLowerCase();
-      const summaryIndicators = [
-        'here is a summary', 'summary of the information', 'information collected',
-        '- **product:**', '- **target country:**', '- **gtip code:**'
+      
+      // Look for final demo message with comprehensive summary
+      const demoIndicators = [
+        'here is a comprehensive summary', 'summary of all collected information',
+        'product:', 'target country:', 'gtip code:', 'sales channels:', 'website:',
+        'name:', 'email:', 'phone:', 'keywords:', 'competitors:', 'customers:'
       ];
       
-      return summaryIndicators.some(indicator => contentLower.includes(indicator));
+      // Count how many fields are mentioned - final summary should have most/all
+      const fieldCount = demoIndicators.filter(indicator => contentLower.includes(indicator)).length;
+      
+      return fieldCount >= 8; // Must contain at least 8 key fields to be considered final summary
     }
     return false;
   });
+  
+  // Restore original order
+  messages.reverse();
 
   if (summaryMessage) {
     let summaryContent = '';
@@ -209,26 +232,145 @@ function extractConversationDataAdvanced(messages: any[]) {
       summaryContent = summaryMessage.content;
     }
 
-    // Extract from structured summary format
-    const productMatch = summaryContent.match(/\*\*Product:\*\*\s*([^\n\*]+)/i);
-    if (productMatch) data.product = productMatch[1].trim();
-
-    const countryMatch = summaryContent.match(/\*\*Target Country:\*\*\s*([^\n\*]+)/i);
-    if (countryMatch) data.country = countryMatch[1].trim();
-
-    const gtipMatch = summaryContent.match(/\*\*GTIP Code:\*\*\s*([^\n\*]+)/i);
-    if (gtipMatch) data.gtipCode = gtipMatch[1].trim();
-
-    const channelsMatch = summaryContent.match(/\*\*Sales Channels:\*\*\s*([^\n\*]+)/i);
-    if (channelsMatch) {
-      const channels = channelsMatch[1].trim();
-      if (channels.toLowerCase().includes('wholesaler') || channels.toLowerCase().includes('all')) {
-        data.salesChannels = ['Toptancılar', 'Distribütörler', 'İthalatçılar'];
-      }
+    // Enhanced extraction from structured summary format - multiple patterns
+    console.log("🔍 EXTRACTING FROM FINAL SUMMARY MESSAGE");
+    
+    // Product extraction - multiple patterns
+    const productMatch = summaryContent.match(/\*\*Product:\*\*\s*([^\n\*]+)/i) ||
+                      summaryContent.match(/Product:\s*([^\n]+)/i) ||
+                      summaryContent.match(/- Product:\s*([^\n]+)/i);
+    if (productMatch) {
+      data.product = productMatch[1].trim();
+      console.log("✅ Product extracted:", data.product);
     }
 
-    const websiteMatch = summaryContent.match(/\*\*Website:\*\*\s*([^\n\*\s]+)/i);
-    if (websiteMatch) data.website = websiteMatch[1].trim();
+    // Country extraction - multiple patterns  
+    const countryMatch = summaryContent.match(/\*\*Target Country:\*\*\s*([^\n\*]+)/i) ||
+                      summaryContent.match(/Target Country:\s*([^\n]+)/i) ||
+                      summaryContent.match(/- Target Country:\s*([^\n]+)/i);
+    if (countryMatch) {
+      data.country = countryMatch[1].trim();
+      console.log("✅ Country extracted:", data.country);
+    }
+
+    // GTIP Code extraction
+    const gtipMatch = summaryContent.match(/\*\*GTIP Code:\*\*\s*([^\n\*]+)/i) ||
+                   summaryContent.match(/GTIP Code:\s*([^\n]+)/i) ||
+                   summaryContent.match(/- GTIP Code:\s*([^\n]+)/i);
+    if (gtipMatch) {
+      data.gtipCode = gtipMatch[1].trim();
+      console.log("✅ GTIP Code extracted:", data.gtipCode);
+    }
+
+    // Sales Channels extraction
+    const channelsMatch = summaryContent.match(/\*\*Sales Channels:\*\*\s*([^\n\*]+)/i) ||
+                       summaryContent.match(/Sales Channels:\s*([^\n]+)/i) ||
+                       summaryContent.match(/- Sales Channels:\s*([^\n]+)/i);
+    if (channelsMatch) {
+      const channels = channelsMatch[1].trim();
+      if (channels.toLowerCase().includes('wholesaler') || channels.toLowerCase().includes('all') || 
+          channels.toLowerCase().includes('toptancı')) {
+        data.salesChannels = ['Toptancılar', 'Distribütörler', 'İthalatçılar'];
+      } else {
+        data.salesChannels = [channels];
+      }
+      console.log("✅ Sales Channels extracted:", data.salesChannels);
+    }
+
+    // Website extraction
+    const websiteMatch = summaryContent.match(/\*\*Website:\*\*\s*([^\n\*\s]+)/i) ||
+                      summaryContent.match(/Website:\s*([^\n\s]+)/i) ||
+                      summaryContent.match(/- Website:\s*([^\n\s]+)/i);
+    if (websiteMatch) {
+      data.website = websiteMatch[1].trim();
+      console.log("✅ Website extracted:", data.website);
+    }
+
+    // Name extraction
+    const nameMatch = summaryContent.match(/\*\*Name:\*\*\s*([^\n\*]+)/i) ||
+                   summaryContent.match(/Name:\s*([^\n]+)/i) ||
+                   summaryContent.match(/- Name:\s*([^\n]+)/i);
+    if (nameMatch) {
+      data.name = nameMatch[1].trim();
+      console.log("✅ Name extracted:", data.name);
+    }
+
+    // Email extraction
+    const emailMatch = summaryContent.match(/\*\*Email:\*\*\s*([^\n\*\s]+)/i) ||
+                    summaryContent.match(/Email:\s*([^\n\s]+)/i) ||
+                    summaryContent.match(/- Email:\s*([^\n\s]+)/i);
+    if (emailMatch) {
+      data.email = emailMatch[1].trim();
+      console.log("✅ Email extracted:", data.email);
+    }
+
+    // Phone extraction
+    const phoneMatch = summaryContent.match(/\*\*Phone:\*\*\s*([^\n\*]+)/i) ||
+                    summaryContent.match(/Phone:\s*([^\n]+)/i) ||
+                    summaryContent.match(/- Phone:\s*([^\n]+)/i);
+    if (phoneMatch) {
+      data.phone = phoneMatch[1].trim();
+      console.log("✅ Phone extracted:", data.phone);
+    }
+
+    // Keywords extraction from summary
+    const keywordsSection = summaryContent.match(/\*\*Keywords:\*\*\s*([^\n\*]+)/i) ||
+                         summaryContent.match(/Keywords:\s*([^\n]+)/i) ||
+                         summaryContent.match(/- Keywords:\s*([^\n]+)/i);
+    if (keywordsSection) {
+      const keywordsText = keywordsSection[1];
+      // Split by common separators
+      const keywords = keywordsText.split(/[,;]/).map(k => k.trim()).filter(k => k.length > 0);
+      data.keywords = keywords;
+      console.log("✅ Keywords extracted:", data.keywords);
+    }
+
+    // Competitors extraction from summary
+    const competitorsSection = summaryContent.match(/\*\*Competitors:\*\*\s*([^\n\*]+)/i) ||
+                            summaryContent.match(/Competitors:\s*([^\n]+)/i) ||
+                            summaryContent.match(/- Competitors:\s*([^\n]+)/i);
+    if (competitorsSection) {
+      const competitorsText = competitorsSection[1];
+      // Extract company names and websites
+      const compMatches = competitorsText.match(/([A-Za-z0-9\s&\.\-]+)\s*\(([^)]+)\)/g);
+      if (compMatches) {
+        compMatches.forEach(match => {
+          const parts = match.match(/([A-Za-z0-9\s&\.\-]+)\s*\(([^)]+)\)/);
+          if (parts) {
+            const name = parts[1].trim();
+            const website = cleanWebsiteUrl(parts[2].trim());
+            if (isValidCompanyWebsite(website)) {
+              data.competitors.push({ name, website, source: 'summary' });
+            }
+          }
+        });
+      }
+      console.log("✅ Competitors extracted:", data.competitors);
+    }
+
+    // Customers extraction from summary
+    const customersSection = summaryContent.match(/\*\*Customers:\*\*\s*([^\n\*]+)/i) ||
+                          summaryContent.match(/Customers:\s*([^\n]+)/i) ||
+                          summaryContent.match(/- Customers:\s*([^\n]+)/i) ||
+                          summaryContent.match(/\*\*Potential Customers:\*\*\s*([^\n\*]+)/i);
+    if (customersSection) {
+      const customersText = customersSection[1];
+      // Extract company names and websites
+      const custMatches = customersText.match(/([A-Za-z0-9\s&\.\-]+)\s*\(([^)]+)\)/g);
+      if (custMatches) {
+        custMatches.forEach(match => {
+          const parts = match.match(/([A-Za-z0-9\s&\.\-]+)\s*\(([^)]+)\)/);
+          if (parts) {
+            const name = parts[1].trim();
+            const website = cleanWebsiteUrl(parts[2].trim());
+            if (isValidCompanyWebsite(website)) {
+              data.customers.push({ name, website, source: 'summary' });
+            }
+          }
+        });
+      }
+      console.log("✅ Customers extracted:", data.customers);
+    }
   }
 
   // Process messages sequentially to extract conversation flow data
@@ -263,8 +405,13 @@ function extractConversationDataAdvanced(messages: any[]) {
         const prevLower = prevContent.toLowerCase();
 
         // Extract product (if assistant asks about product and user responds)
-        if (!data.product && (prevLower.includes('which product') || prevLower.includes('hangi ürün'))) {
-          data.product = content.charAt(0).toUpperCase() + content.slice(1);
+        if (!data.product && (prevLower.includes('which product') || prevLower.includes('hangi ürün') || 
+            prevLower.includes('product do you want') || prevLower.includes('ürününüzün ihracatını'))) {
+          // Clean and format product name
+          const productName = content.trim();
+          if (productName.length > 0 && productName.length < 100) {
+            data.product = productName.charAt(0).toUpperCase() + productName.slice(1).toLowerCase();
+          }
         }
 
         // Extract target country
@@ -349,14 +496,27 @@ function extractConversationDataAdvanced(messages: any[]) {
         }
 
         // Extract keywords confirmation
-        if (data.keywords.length === 0 && (prevLower.includes('keywords') || prevLower.includes('kelime')) && 
-            (contentLower.includes('yes') || contentLower.includes('evet') || contentLower.includes('describes'))) {
-          // Extract keywords from previous assistant message
-          const keywordMatches = prevContent.match(/\d+\.\s*([^\n\r]+)/g);
+        if (data.keywords.length === 0 && (prevLower.includes('keywords') || prevLower.includes('kelime') || 
+            prevLower.includes('anahtar kelime')) && 
+            (contentLower.includes('yes') || contentLower.includes('evet') || contentLower.includes('describes') || 
+             contentLower.includes('tanımlar'))) {
+          // Extract keywords from previous assistant message - multiple patterns
+          let keywordMatches = prevContent.match(/\d+\.\s*([^\n\r]+)/g);
+          
+          // Try alternative patterns if first doesn't work
+          if (!keywordMatches) {
+            keywordMatches = prevContent.match(/[-•]\s*([^\n\r]+)/g);
+          }
+          
+          // Try quoted keywords pattern
+          if (!keywordMatches) {
+            keywordMatches = prevContent.match(/"([^"]+)"/g);
+          }
+          
           if (keywordMatches) {
             keywordMatches.forEach(match => {
-              const keyword = match.replace(/\d+\.\s*/, '').trim();
-              if (keyword && !data.keywords.includes(keyword)) {
+              const keyword = match.replace(/\d+\.\s*/, '').replace(/[-•]\s*/, '').replace(/"/g, '').trim();
+              if (keyword && keyword.length > 2 && keyword.length < 100 && !data.keywords.includes(keyword)) {
                 data.keywords.push(keyword);
               }
             });
@@ -364,76 +524,72 @@ function extractConversationDataAdvanced(messages: any[]) {
         }
       }
 
-      // Extract competitors and customers from assistant messages
-      if (message.role === 'assistant') {
-        // Clean competitor extraction - look for specific patterns
-        if ((contentLower.includes('competitor') || contentLower.includes('rakip')) && 
-            !contentLower.includes('calendly') && !contentLower.includes('meeting')) {
-          
-          // Pattern: "CompanyName (website)" 
-          const competitorMatches = content.match(/([A-Za-z\s&\.]+)\s*\(([^)]+)\)/g);
-          if (competitorMatches) {
-            competitorMatches.forEach(match => {
-              const parts = match.match(/([A-Za-z\s&\.]+)\s*\(([^)]+)\)/);
-              if (parts) {
-                const name = parts[1].trim();
-                let website = parts[2].trim();
-                
-                // Clean up website format
-                if (website.includes('boggi.com') || website.includes('italianmoda.com')) {
-                  website = website.replace(/.*?(boggi\.com|italianmoda\.com).*/, '$1');
-                  if (!website.startsWith('http')) {
-                    website = 'https://www.' + website;
-                  }
+        // Extract competitors and customers from assistant messages
+        if (message.role === 'assistant') {
+          // Enhanced competitor extraction - look for specific patterns
+          if ((contentLower.includes('competitor') || contentLower.includes('rakip')) && 
+              !contentLower.includes('calendly') && !contentLower.includes('meeting')) {
+            
+            // Pattern: "CompanyName (website)" - more flexible matching
+            const competitorMatches = content.match(/([A-Za-z0-9\s&\.\-]+)\s*\(([^)]+)\)/g);
+            if (competitorMatches) {
+              competitorMatches.forEach(match => {
+                const parts = match.match(/([A-Za-z0-9\s&\.\-]+)\s*\(([^)]+)\)/);
+                if (parts) {
+                  const name = parts[1].trim();
+                  let website = parts[2].trim();
                   
-                  // Only add if name is clean (not long text)
-                  if (name.length < 50 && !data.competitors.find((c: any) => c.website.includes(website))) {
-                    data.competitors.push({
-                      name: name,
-                      website: website,
-                      type: 'foreign',
-                      source: 'ai-suggestion'
-                    });
+                  // Clean and validate website
+                  if (isValidCompanyWebsite(website)) {
+                    website = cleanWebsiteUrl(website);
+                    
+                    // Only add if name is clean and not duplicate
+                    if (name.length < 50 && name.length > 2 && 
+                        !data.competitors.find((c: any) => c.website === website || c.name === name)) {
+                      data.competitors.push({
+                        name: name,
+                        website: website,
+                        type: 'competitor',
+                        source: 'ai-suggestion'
+                      });
+                    }
                   }
                 }
-              }
-            });
+              });
+            }
           }
-        }
 
-        // Clean customer extraction - similar pattern
-        if ((contentLower.includes('customer') || contentLower.includes('müşteri') || contentLower.includes('interested')) &&
-            !contentLower.includes('calendly') && !contentLower.includes('meeting')) {
-          
-          const customerMatches = content.match(/([A-Za-z\s&\.]+)\s*\(([^)]+)\)/g);
-          if (customerMatches) {
-            customerMatches.forEach(match => {
-              const parts = match.match(/([A-Za-z\s&\.]+)\s*\(([^)]+)\)/);
-              if (parts) {
-                const name = parts[1].trim();
-                let website = parts[2].trim();
-                
-                // Clean up website and exclude non-business sites
-                if (!website.includes('calendly') && website.includes('.com')) {
-                  website = website.replace(/.*?([\w-]+\.com).*/, '$1');
-                  if (!website.startsWith('http')) {
-                    website = 'https://www.' + website;
-                  }
+          // Enhanced customer extraction - similar pattern
+          if ((contentLower.includes('customer') || contentLower.includes('müşteri') || contentLower.includes('interested')) &&
+              !contentLower.includes('calendly') && !contentLower.includes('meeting')) {
+            
+            const customerMatches = content.match(/([A-Za-z0-9\s&\.\-]+)\s*\(([^)]+)\)/g);
+            if (customerMatches) {
+              customerMatches.forEach(match => {
+                const parts = match.match(/([A-Za-z0-9\s&\.\-]+)\s*\(([^)]+)\)/);
+                if (parts) {
+                  const name = parts[1].trim();
+                  let website = parts[2].trim();
                   
-                  // Only add if name is clean and not duplicate
-                  if (name.length < 50 && !data.customers.find((c: any) => c.website.includes(website))) {
-                    data.customers.push({
-                      name: name,
-                      website: website,
-                      source: 'ai-suggestion',
-                      description: 'Potential customer identified from conversation'
-                    });
+                  // Clean and validate website
+                  if (isValidCompanyWebsite(website)) {
+                    website = cleanWebsiteUrl(website);
+                    
+                    // Only add if name is clean and not duplicate
+                    if (name.length < 50 && name.length > 2 && 
+                        !data.customers.find((c: any) => c.website === website || c.name === name)) {
+                      data.customers.push({
+                        name: name,
+                        website: website,
+                        source: 'ai-suggestion',
+                        description: 'Potential customer identified from conversation'
+                      });
+                    }
                   }
                 }
-              }
-            });
+              });
+            }
           }
-        }
       }
     }
   }
@@ -456,6 +612,58 @@ function extractConversationDataAdvanced(messages: any[]) {
   return data
 }
 
+
+// Helper function to validate company websites
+function isValidCompanyWebsite(website: string): boolean {
+  if (!website || typeof website !== 'string') return false;
+  
+  const websiteLower = website.toLowerCase();
+  
+  // Forbidden sites
+  const forbiddenSites = [
+    'wikipedia.org', 'linkedin.com', 'facebook.com', 'twitter.com', 'instagram.com',
+    'amazon.com', 'alibaba.com', 'tradeindia.com', 'made-in-china.com',
+    'yellowpages', 'yelp.com', 'google.com', 'maps.google', 'calendly.com',
+    'youtube.com', 'tiktok.com', 'pinterest.com', 'reddit.com'
+  ];
+  
+  // Check if website contains any forbidden domains
+  if (forbiddenSites.some(forbidden => websiteLower.includes(forbidden))) {
+    return false;
+  }
+  
+  // Must contain a valid domain extension
+  const validExtensions = ['.com', '.de', '.co.uk', '.net', '.org', '.it', '.fr', '.es', '.nl', '.be', '.ch', '.at'];
+  if (!validExtensions.some(ext => websiteLower.includes(ext))) {
+    return false;
+  }
+  
+  return true;
+}
+
+// Helper function to clean website URLs
+function cleanWebsiteUrl(website: string): string {
+  if (!website) return '';
+  
+  // Remove any extra text and extract just the domain
+  let cleaned = website.trim();
+  
+  // Remove protocol if present
+  cleaned = cleaned.replace(/^https?:\/\//, '');
+  cleaned = cleaned.replace(/^www\./, '');
+  
+  // Extract just the domain part (remove paths, parameters, etc.)
+  cleaned = cleaned.split('/')[0];
+  cleaned = cleaned.split('?')[0];
+  cleaned = cleaned.split('#')[0];
+  
+  // Add www. if not present
+  if (!cleaned.startsWith('www.')) {
+    cleaned = 'www.' + cleaned;
+  }
+  
+  return cleaned;
+}
 
 // Helper function to generate session ID
 function generateSessionId(): string {

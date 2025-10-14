@@ -4,19 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Instagram, Linkedin, Youtube } from "lucide-react"
-import { trackCTAClick, trackExternalLink } from "@/lib/analytics"
-import { usePathname } from "next/navigation"
+import { trackExternalLink } from "@/lib/analytics"
 
 export function Header() {
-  const pathname = usePathname()
-  
-  // Get page name from pathname
-  const getPageName = (path: string) => {
-    if (path === '/') return 'home'
-    return path.slice(1).split('/')[0] || 'home'
-  }
-  
-  const currentPage = getPageName(pathname)
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,7 +83,7 @@ export function Header() {
             <a href="/pricing" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
               PRICING
             </a>
-            <a href="/advantages" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
+            <a href="/use-cases" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
               USE CASES
             </a>
             <a href="/faq" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
@@ -103,29 +93,21 @@ export function Header() {
 
           {/* Right side - CTA Buttons */}
           <div className="flex items-center space-x-2 lg:space-x-3">
-            <a 
-              href="https://calendly.com/mehmet-odsdanismanlik/30min" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              onClick={() => trackExternalLink('https://calendly.com/mehmet-odsdanismanlik/30min', 'Book a live demo', 'header_primary')}
-            >
+            <Link href="/chat">
               <Button size="sm" className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white shadow-lg text-xs lg:text-sm px-3 lg:px-4 py-2 whitespace-nowrap">
                 Book a live demo
               </Button>
-            </a>
-            <Link 
-              href="/chat"
-              onClick={() => trackCTAClick({
-                page: currentPage,
-                placement: 'header',
-                button_text: 'Get export insights with the ITAI chatbot',
-                destination: '/chat'
-              })}
+            </Link>
+            <a 
+              href="https://main.d1sdaz41inqvnc.amplifyapp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackExternalLink('https://main.d1sdaz41inqvnc.amplifyapp.com/', 'Sign In', 'header_signin')}
             >
               <Button size="sm" className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white shadow-lg text-xs lg:text-sm px-3 lg:px-4 py-2 whitespace-nowrap">
-                Get export insights with the ITAI chatbot
+                Sign In
               </Button>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

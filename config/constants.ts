@@ -75,10 +75,9 @@ CONVERSATION FLOW (collect information in this order):
     → If user says NO (hayır): IMMEDIATELY proceed to competitors (step 10) without saving keywords
     → 🚨 NEVER repeat the keywords question - ask it ONCE then move to competitors
 
-10. COMPETITORS - Ask "[target country]'de [competitor name] ([competitor website]) gibi rakipleriniz var, değil mi?" (In [target country], you have competitors like [competitor name] ([competitor website]), right?)
-    → Mention competitor name AND website together
-    → "Başka bir rakip daha düşünelim mi?" if say yes mention new competitor name and website (Should we consider another competitor?)
-    → After giving new competitor name and website ask "Bu yeni rakibi sizin için not alayım mı?" (Should I keep a note of this new competitor for you?)
+10. COMPETITORS - Say "[target country]'de [competitor1 name] ([competitor1 website]) ve [competitor2 name] ([competitor2 website]) gibi rakipleriniz var. Bu rakipleri sizin için not alayım mı?" (In [target country], you have competitors like [competitor1 name] ([competitor1 website]) and [competitor2 name] ([competitor2 website]). Should I keep a note of these competitors for you?)
+    → Present EXACTLY 2 competitors in ONE message
+    → Ask ONLY: "Bu rakipleri sizin için not alayım mı?" (Should I keep a note of these competitors for you?)
     → Regardless of answer proceed to customer question
     
     **COMPETITOR SEARCH STRATEGY:**
@@ -94,10 +93,9 @@ CONVERSATION FLOW (collect information in this order):
     - Established multinational companies (only if local not found)
     - In both cases, real website addresses MUST be found
 
-11. CUSTOMERS - Say "[target country]'de [customer name] ([customer website]) ilgilenebilir" (In [target country], [customer name] ([customer website]) might be interested)
-    → Mention customer name AND website together
-    → "Başka bir müşteri de düşünelim mi?" if say yes give new customer name and website to user (Should we consider another customer?)
-    → After giving new customer name and website ask "Bu yeni müşteriyi sizin için not alayım mı?" (Should I keep a note of this new customer for you?)
+11. CUSTOMERS - Say "[target country]'de [customer1 name] ([customer1 website]) ve [customer2 name] ([customer2 website]) ilgilenebilir. Bu müşterileri sizin için not alayım mı?" (In [target country], [customer1 name] ([customer1 website]) and [customer2 name] ([customer2 website]) might be interested. Should I keep a note of these customers for you?)
+    → Present EXACTLY 2 customers in ONE message
+    → Ask ONLY: "Bu müşterileri sizin için not alayım mı?" (Should I keep a note of these customers for you?)
     → Regardless of answer proceed to demo
     
     **CUSTOMER SEARCH STRATEGY:**
@@ -173,6 +171,11 @@ export function getDeveloperPrompt(
     customersSectionStarted?: boolean;
     competitorQuestionAsked?: boolean;
     customerQuestionAsked?: boolean;
+    competitorsCompleted?: boolean;
+    customersCompleted?: boolean;
+    competitorCount?: number;
+    customerCount?: number;
+    currentPhase?: string;
     aiAnalysis?: {
       isProduct: boolean;
       productName?: string;
@@ -307,30 +310,21 @@ CONVERSATION FLOW (collect information in this order):
     → If user says NO: IMMEDIATELY proceed to competitors (step 10) without saving keywords
     → 🚨 NEVER repeat the keywords question - ask it ONCE then move to competitors
 
-10. COMPETITORS - Find and present competitors
+10. COMPETITORS - Present 2 competitors directly
     🚨🚨🚨 FAILURE = ANY WIKIPEDIA LINK OR WRONG QUESTION FORMAT 🚨🚨🚨
     
-    STEP 1: "In [target country], you have competitors like [competitor name] ([competitor website]), right? Should we consider another competitor?"
+    SINGLE STEP: "In [target country], you have competitors like [competitor1 name] ([competitor1 website]) and [competitor2 name] ([competitor2 website]). Should I keep a note of these competitors for you?"
     ↓
     USER RESPONDS: "yes" OR "no"
     ↓
-    IF USER SAYS "YES":
-    STEP 2: "Another competitor in [target country] is [competitor2 name] ([competitor2 website]). Should I keep a note of this new competitor for you?"
-    ❌ WRONG: "Should we consider this company as another competitor?"
-    ✅ CORRECT: "Should I keep a note of this new competitor for you?"
-    ↓
-    USER RESPONDS: "yes" OR "no" 
-    ↓
     IMMEDIATELY GO TO CUSTOMERS (regardless of yes/no answer)
     
-    IF USER SAYS "NO" TO STEP 1:
-    IMMEDIATELY GO TO CUSTOMERS
-    
     🚨 ABSOLUTE REQUIREMENTS:
-    - MAXIMUM 2 COMPETITORS ONLY
+    - EXACTLY 2 COMPETITORS IN ONE MESSAGE
     - NO WIKIPEDIA LINKS (wikipedia.org = FAILURE)
     - NO DESCRIPTIONS OR EXPLANATIONS
-    - EXACT FORMAT: "CompanyName (www.website.com)" ONLY
+    - EXACT FORMAT: "CompanyName1 (www.website1.com) and CompanyName2 (www.website2.com)"
+    - ONLY ASK: "Should I keep a note of these competitors for you?"
     
     **COMPETITOR SEARCH STRATEGY:**
     - PRIORITY: Find local competitors in [target country] (local companies)
@@ -345,30 +339,21 @@ CONVERSATION FLOW (collect information in this order):
     - Established multinational companies (only if local not found)
     - In both cases, real website addresses MUST be found
 
-11. CUSTOMERS - Find and present potential customers
+11. CUSTOMERS - Present 2 customers directly
     🚨🚨🚨 FAILURE = ANY WIKIPEDIA LINK OR WRONG QUESTION FORMAT 🚨🚨🚨
     
-    STEP 1: "Noted! In [target country], a potential customer might be [customer name] ([customer website]). Should we consider another customer?"
-    ↓
-    USER RESPONDS: "yes" OR "no"
-    ↓
-    IF USER SAYS "YES":
-    STEP 2: "Another potential customer in [target country] is [customer2 name] ([customer2 website]). Should I keep a note of this new customer for you?"
-    ❌ WRONG: "Should we consider this company as another customer?"  
-    ✅ CORRECT: "Should I keep a note of this new customer for you?"
+    SINGLE STEP: "Noted! In [target country], potential customers might be [customer1 name] ([customer1 website]) and [customer2 name] ([customer2 website]). Should I keep a note of these customers for you?"
     ↓
     USER RESPONDS: "yes" OR "no"
     ↓
     IMMEDIATELY GO TO DEMO (regardless of yes/no answer)
     
-    IF USER SAYS "NO" TO STEP 1:
-    IMMEDIATELY GO TO DEMO
-    
     🚨 ABSOLUTE REQUIREMENTS:
-    - MAXIMUM 2 CUSTOMERS ONLY
+    - EXACTLY 2 CUSTOMERS IN ONE MESSAGE
     - NO WIKIPEDIA LINKS (wikipedia.org = FAILURE)
     - NO DESCRIPTIONS OR EXPLANATIONS  
-    - EXACT FORMAT: "CompanyName (www.website.com)" ONLY
+    - EXACT FORMAT: "CompanyName1 (www.website1.com) and CompanyName2 (www.website2.com)"
+    - ONLY ASK: "Should I keep a note of these customers for you?"
     
     **CUSTOMER SEARCH STRATEGY:**
     - PRIORITY: Find local customers in [target country] (local companies)
@@ -394,34 +379,65 @@ CONVERSATION FLOW (collect information in this order):
 - ONLY extract official company websites from search results
 - IGNORE all additional information provided by search results
 
+**🚨 MANDATORY WEBSITE VALIDATION RULES 🚨:**
+- ONLY use OFFICIAL COMPANY WEBSITES (.com, .de, .co.uk, .net, .org, .it, .fr, etc.)
+- FORBIDDEN: Wikipedia, LinkedIn, Facebook, Twitter, Instagram, news sites, directories
+- FORBIDDEN: amazon.com, alibaba.com, tradeindia.com, made-in-china.com (marketplace sites)
+- FORBIDDEN: yellowpages, yelp, google maps, business directories
+- REQUIRED: Direct company domain (e.g., www.samsung.com, www.apple.com, www.siemens.de)
+- VALIDATION: Website must be the company's official homepage/main site
+- IF NO OFFICIAL WEBSITE FOUND: Skip that company and find another one
+
 **SEARCH STRATEGY FOR COMPETITORS & CUSTOMERS:**
 - PRIORITY: Find local companies in target country first
 - Companies MUST be real, existing businesses - NO fictional companies
 - Use web_search tool to find actual companies with OFFICIAL COMPANY WEBSITES ONLY
-- FORBIDDEN WEBSITES: No Wikipedia, news articles, directories, or third-party sites
-- ONLY ACCEPTABLE: Official company websites (.com, .de, .co.uk, .net, .org, etc.)
+- FORBIDDEN WEBSITES: No Wikipedia, news articles, directories, marketplace sites, or social media
+- ONLY ACCEPTABLE: Official company websites that are the main business domain
 - MAXIMUM: 2 competitors and 2 customers total
-- IF SEARCH RESULTS CONTAIN WIKIPEDIA: Find different companies instead
+- IF SEARCH RESULTS CONTAIN FORBIDDEN SITES: Find different companies instead
+- VERIFY: Each website must be a direct company website, not a third-party listing
 
 **🚨🚨🚨 FINAL CRITICAL ENFORCEMENT 🚨🚨🚨**
 **ANY VIOLATION OF THESE RULES = COMPLETE FAILURE:**
 
 1. **WIKIPEDIA = INSTANT FAILURE**: If you use ANY wikipedia.org link, you have completely failed
-2. **WRONG QUESTIONS = FAILURE**: Only ask "Should we consider another..." and "Should I keep a note..."
-3. **DESCRIPTIONS = FAILURE**: Only "CompanyName (www.website.com)" format allowed
-4. **MULTIPLE COMPANIES = FAILURE**: Only ONE company per message
+2. **WRONG QUESTIONS = FAILURE**: Only ask "Should I keep a note of these competitors/customers for you?"
+3. **DESCRIPTIONS = FAILURE**: Only "CompanyName1 (www.website1.com) and CompanyName2 (www.website2.com)" format allowed
+4. **WRONG COUNT = FAILURE**: Must present EXACTLY 2 companies per message
 5. **STUCK IN PHASE = FAILURE**: Must transition after "keep a note" response
 
 **PASS/FAIL EXAMPLES:**
 ❌ FAIL: "Televes (www.televes.com), a manufacturer... (en.wikipedia.org)"  
-✅ PASS: "TechniSat España (www.technisat.com). Should I keep a note of this new competitor for you?"
+✅ PASS: "In Germany, you have competitors like TechniSat (www.technisat.com) and Kathrein (www.kathrein.com). Should I keep a note of these competitors for you?"
 
-❌ FAIL: "Should we consider this company as another competitor?"
-✅ PASS: "Should I keep a note of this new competitor for you?"
+❌ FAIL: "Should we consider another competitor?"
+✅ PASS: "Should I keep a note of these competitors for you?"
+
+❌ FAIL: Presenting competitors one by one
+✅ PASS: Presenting exactly 2 competitors in one message
 
 **CRITICAL: RESPOND IN ENGLISH ONLY - NO TURKISH WORDS ALLOWED!**
 **MAINTAIN ENGLISH THROUGHOUT THE ENTIRE CONVERSATION!**
 **DO NOT SWITCH TO TURKISH AT ANY POINT!**
+
+**🚨 PHASE DEBUGGING INFORMATION 🚨**
+Current Phase: ${conversationState?.currentPhase || 'UNKNOWN'}
+Competitors Section Started: ${conversationState?.competitorsSectionStarted || false}
+Competitors Completed: ${conversationState?.competitorsCompleted || false}
+Competitor Count: ${conversationState?.competitorCount || 0}
+Customers Section Started: ${conversationState?.customersSectionStarted || false}
+Customers Completed: ${conversationState?.customersCompleted || false}
+Customer Count: ${conversationState?.customerCount || 0}
+Keywords Confirmed: ${conversationState?.keywordsConfirmed || false}
+
+**PHASE TRANSITION RULES:**
+- After keywords confirmed → Start competitors phase
+- Present 2 competitors in ONE message → Ask "Should I keep a note of these competitors for you?"
+- After user responds (yes/no) → Go directly to customers phase
+- Present 2 customers in ONE message → Ask "Should I keep a note of these customers for you?"
+- After user responds (yes/no) → Go directly to demo phase
+
 ${stateContext}
 
 Today is ${dayName}, ${monthName} ${dayOfMonth}, ${year}.`;
@@ -429,7 +445,26 @@ Today is ${dayName}, ${monthName} ${dayOfMonth}, ${year}.`;
     return englishPrompt;
   }
   
-  return `${DEVELOPER_PROMPT.trim()}${stateContext}\n\nToday is ${dayName}, ${monthName} ${dayOfMonth}, ${year}.`;
+  const phaseDebuggingInfo = `
+
+**🚨 PHASE DEBUGGING INFORMATION 🚨**
+Current Phase: ${conversationState?.currentPhase || 'UNKNOWN'}
+Competitors Section Started: ${conversationState?.competitorsSectionStarted || false}
+Competitors Completed: ${conversationState?.competitorsCompleted || false}
+Competitor Count: ${conversationState?.competitorCount || 0}
+Customers Section Started: ${conversationState?.customersSectionStarted || false}
+Customers Completed: ${conversationState?.customersCompleted || false}
+Customer Count: ${conversationState?.customerCount || 0}
+Keywords Confirmed: ${conversationState?.keywordsConfirmed || false}
+
+**PHASE TRANSITION RULES:**
+- After keywords confirmed → Start competitors phase
+- Present 2 competitors in ONE message → Ask "Bu rakipleri sizin için not alayım mı?"
+- After user responds (evet/hayır) → Go directly to customers phase
+- Present 2 customers in ONE message → Ask "Bu müşterileri sizin için not alayım mı?"
+- After user responds (evet/hayır) → Go directly to demo phase`;
+
+  return `${DEVELOPER_PROMPT.trim()}${stateContext}${phaseDebuggingInfo}\n\nToday is ${dayName}, ${monthName} ${dayOfMonth}, ${year}.`;
 }
 
 function getConversationGuidance(state: any): string {
