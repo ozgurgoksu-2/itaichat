@@ -1,26 +1,31 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
+import { useLanguage } from "@/contexts/language-context"
 
 export function ImpactSection() {
+  const { t } = useLanguage()
+
   const metrics = [
     {
       number: "20M",
-      label: "USD direct export",
-      description: "Generated for our clients",
+      label: t("whyDifferent.impact.metrics.directExport.label"),
+      description: t("whyDifferent.impact.metrics.directExport.description"),
     },
     {
       number: "200M",
-      label: "USD in indirect export growth",
-      description: "Facilitated through partnerships",
+      label: t("whyDifferent.impact.metrics.indirectExport.label"),
+      description: t("whyDifferent.impact.metrics.indirectExport.description"),
     },
     {
       number: "1,000+",
-      label: "Successful buyer meetings",
-      description: "Virtual & in-person connections",
+      label: t("whyDifferent.impact.metrics.meetings.label"),
+      description: t("whyDifferent.impact.metrics.meetings.description"),
     },
     {
       number: "5,000+",
-      label: "Qualified quotation requests",
-      description: "Worldwide opportunities created",
+      label: t("whyDifferent.impact.metrics.quotations.label"),
+      description: t("whyDifferent.impact.metrics.quotations.description"),
     },
   ]
 
@@ -28,9 +33,9 @@ export function ImpactSection() {
     <section className="py-20 lg:py-32 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">The Results Speak for Themselves</h2>
+          <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">{t("whyDifferent.impact.title")}</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Through 300+ client partnerships, we&apos;ve facilitated:
+            {t("whyDifferent.impact.subtitle")}
           </p>
         </div>
 

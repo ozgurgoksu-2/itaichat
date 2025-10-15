@@ -8,8 +8,10 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Calendar, CheckCircle, X } from "lucide-react"
 import { trackCTAClick, trackFormSubmission } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
 
 export function ContactSection() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -90,11 +92,10 @@ export function ContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
-            Book a live demo
+            {t("contact.hero.title")}
           </h1>
           <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-4xl mx-auto">
-            Tell us about your product, target countries, and buyer profile. 
-            We&apos;ll show a curated preview of verified contacts and b2b contact data during the demo.
+            {t("contact.hero.subtitle")}
           </p>
         </div>
 
@@ -104,13 +105,13 @@ export function ContactSection() {
             <Card className="border-0 shadow-xl bg-white">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                  Get Your Personalized Demo
+                  {t("contact.form.title")}
                 </h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <Label htmlFor="name" className="text-base font-medium text-gray-700">
-                      Name *
+                      {t("contact.form.fields.name")}
                     </Label>
                     <Input
                       id="name"
@@ -120,13 +121,13 @@ export function ContactSection() {
                       value={formData.name}
                       onChange={handleInputChange}
                       className="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
-                      placeholder="Your full name"
+                      placeholder={t("contact.form.fields.namePlaceholder")}
                     />
                   </div>
 
                   <div>
                     <Label htmlFor="email" className="text-base font-medium text-gray-700">
-                      Work email *
+                      {t("contact.form.fields.email")}
                     </Label>
                     <Input
                       id="email"
@@ -136,7 +137,7 @@ export function ContactSection() {
                       value={formData.email}
                       onChange={handleInputChange}
                       className="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
-                      placeholder="you@company.com"
+                      placeholder={t("contact.form.fields.emailPlaceholder")}
                     />
                   </div>
 
@@ -216,7 +217,7 @@ export function ContactSection() {
                     className="w-full bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Calendar className="w-5 h-5 mr-2" />
-                    {isSubmitting ? 'Submitting...' : 'Book a live demo'}
+                    {isSubmitting ? t("contact.form.submitting") : t("contact.form.button")}
                   </Button>
                 </form>
               </CardContent>
@@ -229,24 +230,24 @@ export function ContactSection() {
             <Card className="border-0 shadow-xl bg-gradient-to-br from-orange-50 to-blue-50">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                  What You&apos;ll See in Your Demo
+                  {t("contact.demo.title")}
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                    <p className="text-gray-700">Curated preview of verified b2b contact data for your target markets</p>
+                    <p className="text-gray-700">{t("contact.demo.items.preview")}</p>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                    <p className="text-gray-700">Sample decision-maker contacts with verified emails</p>
+                    <p className="text-gray-700">{t("contact.demo.items.contacts")}</p>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                    <p className="text-gray-700">Company profiles and market intelligence for your industry</p>
+                    <p className="text-gray-700">{t("contact.demo.items.profiles")}</p>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                    <p className="text-gray-700">Live walkthrough of how our data can accelerate your exports</p>
+                    <p className="text-gray-700">{t("contact.demo.items.walkthrough")}</p>
                   </div>
                 </div>
               </CardContent>
@@ -256,7 +257,7 @@ export function ContactSection() {
             <Card className="border-0 shadow-xl bg-white">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                  Frequently Asked Questions
+                  {t("contact.faq.title")}
                 </h3>
                 <div className="space-y-6">
                   {inlineFaq.map((faq, index) => (

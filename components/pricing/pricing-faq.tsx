@@ -3,40 +3,15 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { useState } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 interface FAQItem {
   question: string
   answer: string
 }
 
-const faqData: FAQItem[] = [
-  {
-    question: "What's included in each package?",
-    answer: "Each package includes our core B2B database access with verified international buyers. Starting Package includes basic features, Plus Package adds advanced filtering and priority support, while Pro Plus Package provides enterprise-level features including API access and dedicated account management."
-  },
-  {
-    question: "Can I change my package later?",
-    answer: "Yes, you can upgrade or downgrade your package at any time. When upgrading, you'll get immediate access to new features. When downgrading, changes take effect at your next billing cycle."
-  },
-  {
-    question: "How many contacts can I export?",
-    answer: "The number of contacts varies by package and number of countries selected. Starting Package includes basic contact limits, Plus Package offers expanded limits, and Pro Plus Package provides unlimited access to our entire database."
-  },
-  {
-    question: "Do you offer custom pricing for large enterprises?",
-    answer: "Yes, we offer custom enterprise solutions for companies with specific needs. Contact our sales team to discuss volume discounts, custom integrations, and tailored features for your organization."
-  },
-  {
-    question: "What payment methods do you accept?",
-    answer: "We accept all major credit cards, PayPal, and bank transfers for enterprise customers. All payments are processed securely through our encrypted payment system."
-  },
-  {
-    question: "Is there a free trial available?",
-    answer: "We offer a 14-day free trial for all packages. No credit card required to start. You can explore our features and see the quality of our B2B database before committing to a paid plan."
-  }
-]
-
 export function PricingFAQ() {
+  const { t } = useLanguage()
   const [openItems, setOpenItems] = useState<number[]>([])
 
   const toggleItem = (index: number) => {
@@ -47,10 +22,21 @@ export function PricingFAQ() {
     )
   }
 
+  const faqData: FAQItem[] = [
+    {
+      question: t("pricing.faq.whatHappensNext.question"),
+      answer: t("pricing.faq.whatHappensNext.answer"),
+    },
+    {
+      question: t("pricing.faq.howLongPreview.question"),
+      answer: t("pricing.faq.howLongPreview.answer"),
+    },
+  ]
+
   return (
     <div className="w-full">
       <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-        Frequently Asked Questions
+        {t("pricing.faq.title")}
       </h2>
       
       <div className="max-w-4xl mx-auto space-y-4">

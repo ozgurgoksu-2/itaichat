@@ -6,67 +6,80 @@ import { Factory, Cpu, Pill, Heart, Wrench, Settings, Building } from "lucide-re
 import Link from "next/link"
 import Image from "next/image"
 import { trackCTAClick } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
 
 export function ManufacturingAdvantagesSection() {
+  const { t } = useLanguage()
+
   const manufacturingTypes = [
     {
       icon: Factory,
-      title: "Manufacturing companies",
-      description: "Manufacturing companies grow exports faster when outreach starts with verified buyers. We shortlist companies that buy products like yours and include decision‑maker emails so your first message lands.",
+      titleKey: "useCases.types.manufacturing.title",
+      descriptionKey: "useCases.types.manufacturing.description",
+      subtitleKey: "useCases.types.manufacturing.subtitle",
       image: "man1.png"
     },
     {
       icon: Building,
-      title: "Manufacturing companies near me",
-      description: "If you need partnerships or pilots, we map manufacturing companies near me style local intent into a curated list for your state or city. You get nearby prospects, distributors, and suppliers with verified contacts.",
+      titleKey: "useCases.types.manufacturingNearMe.title",
+      descriptionKey: "useCases.types.manufacturingNearMe.description",
+      subtitleKey: "useCases.types.manufacturingNearMe.subtitle",
       image: "man2.png"
     },
     {
       icon: Wrench,
-      title: "Industrial companies",
-      description: "Industrial companies use us to reach OEMs and distributors that reorder reliably. We focus on fit, margin, and MOQ so your pipeline feels predictable.",
+      titleKey: "useCases.types.industrial.title",
+      descriptionKey: "useCases.types.industrial.description",
+      subtitleKey: "useCases.types.industrial.subtitle",
       image: "man3.png"
     },
     {
       icon: Settings,
-      title: "Contract manufacturing companies",
-      description: "Contract manufacturing companies keep capacity full by targeting buyers who outsource consistently. We highlight part families, certifications, and lot sizes to match your shop's strengths.",
+      titleKey: "useCases.types.contractManufacturing.title",
+      descriptionKey: "useCases.types.contractManufacturing.description",
+      subtitleKey: "useCases.types.contractManufacturing.subtitle",
       image: "man4.png"
     },
     {
       icon: Factory,
-      title: "Industrial supply companies",
-      description: "Industrial supply companies win repeat business when catalogs meet buyers who reorder on schedule. We filter by footprint, SKU mix, and re‑order patterns to prioritize high‑value accounts.",
+      titleKey: "useCases.types.industrialSupply.title",
+      descriptionKey: "useCases.types.industrialSupply.description",
+      subtitleKey: "useCases.types.industrialSupply.subtitle",
       image: "man5.png"
     },
     {
       icon: Settings,
-      title: "Machining manufacturing companies",
-      description: "Machining manufacturing companies selling CNC and precision parts reach better buyers with role‑verified contacts. We flag tolerances, materials, and volumes so your message speaks the buyer's language.",
+      titleKey: "useCases.types.machining.title",
+      descriptionKey: "useCases.types.machining.description",
+      subtitleKey: "useCases.types.machining.subtitle",
       image: "man6.png"
     },
     {
       icon: Heart,
-      title: "Medical device contract manufacturing companies",
-      description: "Medical device contract manufacturing companies need buyers that match ISO 13485 and market rules. We add certification and regulatory notes so your outreach clears compliance fast.",
+      titleKey: "useCases.types.medicalDevice.title",
+      descriptionKey: "useCases.types.medicalDevice.description",
+      subtitleKey: "useCases.types.medicalDevice.subtitle",
       image: "man7.png"
     },
     {
       icon: Building,
-      title: "Manufacturer companies",
-      description: "Manufacturer companies that export consistently start with a clean, verified target list. Your team gets fewer, better leads and more booked meetings.",
+      titleKey: "useCases.types.manufacturer.title",
+      descriptionKey: "useCases.types.manufacturer.description",
+      subtitleKey: "useCases.types.manufacturer.subtitle",
       image: "man8.png"
     },
     {
       icon: Cpu,
-      title: "Electronic & electronics manufacturing companies",
-      description: "Electronic manufacturing companies and electronics manufacturing companies reach high‑fit OEMs and distributors through focused lists. We separate prototype, NPI, and mass‑production needs to increase close rates.",
+      titleKey: "useCases.types.electronics.title",
+      descriptionKey: "useCases.types.electronics.description",
+      subtitleKey: "useCases.types.electronics.subtitle",
       image: "man9.png"
     },
     {
       icon: Pill,
-      title: "Pharmaceutical manufacturing companies",
-      description: "Pharmaceutical manufacturing companies connect with vetted distributors and institutional buyers that pass quality checks. We include dossier availability and compliance notes to remove friction early.",
+      titleKey: "useCases.types.pharmaceutical.title",
+      descriptionKey: "useCases.types.pharmaceutical.description",
+      subtitleKey: "useCases.types.pharmaceutical.subtitle",
       image: "man10.png"
     }
   ]
@@ -77,14 +90,13 @@ export function ManufacturingAdvantagesSection() {
         {/* Hero Section */}
         <div className="text-center mb-20">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
-            Built for manufacturers
+            {t("useCases.hero.title")}
             <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
-              {" "}who sell globally
+              {" "}{t("useCases.hero.titleAccent")}
             </span>
           </h1>
           <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-4xl mx-auto mb-12">
-            See how different types of manufacturing companies use ITAI to find verified international buyers 
-            and book more qualified meetings.
+            {t("useCases.hero.subtitle")}
           </p>
 
           {/* Top CTAs */}
@@ -104,7 +116,7 @@ export function ManufacturingAdvantagesSection() {
                 size="lg"
                 className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
               >
-                Book a live demo
+                {t("useCases.hero.bookDemo")}
               </Button>
             </a>
             
@@ -124,7 +136,7 @@ export function ManufacturingAdvantagesSection() {
                 variant="outline"
                 className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 text-lg font-semibold w-full sm:w-auto"
               >
-                Request pricing in a live demo
+                {t("useCases.hero.requestPricing")}
               </Button>
             </a>
           </div>
@@ -137,10 +149,10 @@ export function ManufacturingAdvantagesSection() {
               {/* Content */}
               <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                  {type.title}
+                  {t(type.titleKey)}
                 </h2>
                 <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                  {type.description}
+                  {t(type.descriptionKey)}
                 </p>
                 <a 
                   href="https://calendly.com/mehmet-odsdanismanlik/30min"
@@ -157,7 +169,7 @@ export function ManufacturingAdvantagesSection() {
                     size="lg"
                     className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-lg"
                   >
-                    Book a live demo
+                    {t("useCases.hero.bookDemo")}
                   </Button>
                 </a>
               </div>
@@ -169,14 +181,14 @@ export function ManufacturingAdvantagesSection() {
                     <div className="relative h-80">
                       <Image
                         src={`/${type.image}`}
-                        alt={type.title}
+                        alt={t(type.titleKey)}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <div className="p-6 text-center bg-white">
                       <p className="text-gray-600 font-medium">
-                        For {type.title.toLowerCase()} looking to expand globally
+                        {t(type.subtitleKey)}
                       </p>
                     </div>
                   </CardContent>
@@ -191,11 +203,10 @@ export function ManufacturingAdvantagesSection() {
           <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-50 to-orange-50 max-w-4xl mx-auto">
             <CardContent className="p-12">
               <h3 className="text-3xl font-bold text-gray-900 mb-6">
-                Ready to see verified buyers for your industry?
+                {t("useCases.finalCta.title")}
               </h3>
               <p className="text-lg text-gray-600 mb-8">
-                Get access to high-quality verified buyers and see how our platform 
-                can help manufacturing companies like yours book more qualified meetings.
+                {t("useCases.finalCta.description")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a 
@@ -213,7 +224,7 @@ export function ManufacturingAdvantagesSection() {
                     size="lg"
                     className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
                   >
-                    Book a live demo
+                    {t("useCases.finalCta.bookDemo")}
                   </Button>
                 </a>
                 
@@ -233,7 +244,7 @@ export function ManufacturingAdvantagesSection() {
                     variant="outline"
                     className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 text-lg font-semibold w-full sm:w-auto"
                   >
-                    Request pricing in a live demo
+                    {t("useCases.finalCta.requestPricing")}
                   </Button>
                 </a>
               </div>
@@ -243,18 +254,18 @@ export function ManufacturingAdvantagesSection() {
 
         {/* Internal Links */}
         <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-6">Learn more about our solutions:</p>
+          <p className="text-gray-600 mb-6">{t("useCases.links.learnMore")}</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/how-it-works" className="text-orange-600 hover:text-orange-700 font-medium">
-              How It Works
+              {t("useCases.links.howItWorks")}
             </Link>
             <span className="text-gray-400">•</span>
             <Link href="/verified-leads" className="text-orange-600 hover:text-orange-700 font-medium">
-              Verified Leads
+              {t("useCases.links.verifiedLeads")}
             </Link>
             <span className="text-gray-400">•</span>
             <Link href="/pricing" className="text-orange-600 hover:text-orange-700 font-medium">
-              Pricing
+              {t("useCases.links.pricing")}
             </Link>
           </div>
         </div>

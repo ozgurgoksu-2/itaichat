@@ -1,18 +1,27 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
+import { useLanguage } from "@/contexts/language-context"
+import Image from "next/image"
 
 export function GallerySection() {
+  const { t } = useLanguage()
+
   const images = [
     {
-      title: "Our Team",
-      description: "ITAI team collaboration",
+      title: t("whyDifferent.gallery.images.factoryTeam.title"),
+      description: t("whyDifferent.gallery.images.factoryTeam.description"),
+      image: "team2.jpg"
     },
     {
-      title: "Field Work",
-      description: "Factory consultation",
+      title: t("whyDifferent.gallery.images.fieldWork.title"),
+      description: t("whyDifferent.gallery.images.fieldWork.description"),
+      image: "team3.jpg"
     },
     {
-      title: "Global Exhibitions",
-      description: "Trade show representation",
+      title: t("whyDifferent.gallery.images.exhibitions.title"),
+      description: t("whyDifferent.gallery.images.exhibitions.description"),
+      image: "team4.jpg"
     },
   ]
 
@@ -21,15 +30,14 @@ export function GallerySection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Inside ITAI: Our People, Our Work,
+            {t("whyDifferent.gallery.title")}
             <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
               {" "}
-              Our Impact
+              {t("whyDifferent.gallery.titleAccent")}
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We&apos;re proud to work closely with manufacturers, visit factories, and represent our clients in global
-            exhibitions.
+            {t("whyDifferent.gallery.subtitle")}
           </p>
         </div>
 
@@ -40,9 +48,13 @@ export function GallerySection() {
               className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white overflow-hidden"
             >
               <div className="relative overflow-hidden">
-                <div className="w-full h-64 bg-gradient-to-br from-blue-100 to-orange-100 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                  <p className="text-gray-600">{image.description}</p>
-                </div>
+                <Image
+                  src={`/${image.image}`}
+                  alt={image.title}
+                  width={400}
+                  height={256}
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <CardContent className="p-6">

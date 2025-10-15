@@ -11,12 +11,14 @@ import { TrustStrip } from "@/components/trust-strip"
 import { useRouter } from "next/navigation"
 import useConversationStore from "@/stores/useConversationStore"
 import { Item, processMessages } from "@/lib/assistant"
+import { useLanguage } from "@/contexts/language-context"
 
 export function HeroSection() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const [isChatOpen, setIsChatOpen] = useState(false)
   const router = useRouter()
   const { addConversationItem, addChatMessage, setAssistantLoading } = useConversationStore()
+  const { t } = useLanguage()
 
   const handleMessageSent = async (message: string) => {
     if (!message.trim()) return
@@ -84,22 +86,22 @@ export function HeroSection() {
             {/* Hero Left - Content */}
             <div className="text-center lg:text-left">
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
-                Find verified international buyers
+                {t("home.hero.title")}
                 <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
-                  {" "}in minutes
+                  {" "}{t("home.hero.titleAccent")}
                 </span>
               </h1>
               
               <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed mb-4">
-                Your team deserves a faster path from product to buyers.
+                {t("home.hero.subtitle1")}
               </p>
               
               <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                Our AI maps global markets, finds best‑fit companies, and delivers verified leads with decision‑maker data.
+                {t("home.hero.subtitle2")}
               </p>
               
               <p className="text-base text-gray-600 mb-12">
-                Book a live demo to see how many genuine conversations you can create this month.
+                {t("home.hero.subtitle3")}
               </p>
 
               {/* CTA Buttons */}
@@ -119,7 +121,7 @@ export function HeroSection() {
                     size="lg"
                     className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 w-full sm:w-auto"
                   >
-                    Book a live demo
+                    {t("home.hero.cta1")}
                   </Button>
                 </a>
                 
@@ -137,7 +139,7 @@ export function HeroSection() {
                     variant="outline"
                     className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 text-lg font-semibold w-full sm:w-auto"
                   >
-                    Get export insights with the ITAI chatbot
+                    {t("home.hero.cta2")}
                   </Button>
                 </Link>
               </div>
@@ -156,8 +158,8 @@ export function HeroSection() {
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 <div className="absolute bottom-4 left-4 text-white">
-                  <p className="text-sm font-medium">See ITAI in Action</p>
-                  <p className="text-xs opacity-90">2:30 min demo</p>
+                  <p className="text-sm font-medium">{t("home.hero.videoTitle")}</p>
+                  <p className="text-xs opacity-90">{t("home.hero.videoDuration")}</p>
                 </div>
               </div>
             </div>
@@ -216,7 +218,7 @@ export function HeroSection() {
             <Card className="bg-white">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Try ITAI Export Assistant
+                  {t("home.hero.chatTitle")}
                 </h3>
                 <AIChatInterface onMessageSent={handleMessageSent} />
               </CardContent>

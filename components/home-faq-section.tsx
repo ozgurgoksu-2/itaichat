@@ -2,29 +2,31 @@
 
 import { Button } from "@/components/ui/button"
 import { trackCTAClick } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
 
 export function HomeFAQSection() {
+  const { t } = useLanguage()
 
   const faqData = [
     {
       id: "b2b-prospecting-why-matters",
-      question: "What is b2b prospecting and why does it matter here?",
-      answer: "B2B prospecting is the work of finding and qualifying companies and contacts that match your ICP so outreach becomes efficient—book a live demo to see it in action."
+      question: t("home.homeFaq.questions.q1"),
+      answer: t("home.homeFaq.questions.a1")
     },
     {
       id: "data-sources-verification", 
-      question: "Where does your data come from and how do you verify contacts?",
-      answer: "We enrich from trusted sources, validate email deliverability, check role relevance, and replace unreachable contacts quickly."
+      question: t("home.homeFaq.questions.q2"),
+      answer: t("home.homeFaq.questions.a2")
     },
     {
       id: "search-by-country-sector",
-      question: "Do you support b2b company search by country or sector?",
-      answer: "Yes, we filter by sector, size, location, and buying signals to deliver a shortlist that feels tailor‑made."
+      question: t("home.homeFaq.questions.q3"),
+      answer: t("home.homeFaq.questions.a3")
     },
     {
       id: "examples-before-decide",
-      question: "Can I see examples before I decide?",
-      answer: "Yes-see sample buyers in a live demo; we walk through a curated preview."
+      question: t("home.homeFaq.questions.q4"),
+      answer: t("home.homeFaq.questions.a4")
     }
   ]
 
@@ -34,13 +36,13 @@ export function HomeFAQSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Frequently Asked
+            {t("home.homeFaq.title")}
             <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
-              {" "}Questions
+              {" "}{t("home.homeFaq.titleAccent")}
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Get answers to common questions about finding verified international buyers and accelerating your export growth.
+            {t("home.homeFaq.subtitle")}
           </p>
         </div>
 
@@ -88,7 +90,7 @@ export function HomeFAQSection() {
               size="lg"
               className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-lg"
             >
-              Book a live demo
+              {t("home.homeFaq.cta")}
             </Button>
           </a>
         </div>

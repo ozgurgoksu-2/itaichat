@@ -4,35 +4,37 @@ import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, ChevronUp } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 export function FAQSection() {
+  const { t } = useLanguage()
   const [openItems, setOpenItems] = useState<string[]>([])
 
   const faqData = [
     {
       id: "what-is-b2b-prospecting",
-      question: "What is b2b prospecting?",
-      answer: "B2B prospecting is the work of finding and qualifying companies and contacts that match your ICP so outreach becomes efficient-book a live demo to see it in action."
+      question: t("faq.questions.whatIsB2bProspecting.question"),
+      answer: t("faq.questions.whatIsB2bProspecting.answer")
     },
     {
       id: "lead-scraper-difference", 
-      question: "How is a lead scraper different from your approach?",
-      answer: "A lead scraper pulls unverified data at scale while we deliver verified leads with role fit and deliverability checks-book a live demo for a preview."
+      question: t("faq.questions.leadScraperDifference.question"),
+      answer: t("faq.questions.leadScraperDifference.answer")
     },
     {
       id: "b2b-prospecting-tool",
-      question: "Do you offer a b2b prospecting tool or software?",
-      answer: "We deliver clean segments that plug into your workflow and integrate with popular tools-book a live demo to see sample segments."
+      question: t("faq.questions.b2bProspectingTool.question"),
+      answer: t("faq.questions.b2bProspectingTool.answer")
     },
     {
       id: "free-b2b-leads-database",
-      question: "Can I get a b2b leads database free?",
-      answer: "Free sources risk low accuracy and compliance issues; we show a small verified preview in the live demo."
+      question: t("faq.questions.freeB2bLeadsDatabase.question"),
+      answer: t("faq.questions.freeB2bLeadsDatabase.answer")
     },
     {
       id: "regulated-categories",
-      question: "Do you support prospection b2b in regulated categories?",
-      answer: "Yes, with compliance notes; see examples in a live demo."
+      question: t("faq.questions.regulatedCategories.question"),
+      answer: t("faq.questions.regulatedCategories.answer")
     }
   ]
 
@@ -81,10 +83,9 @@ export function FAQSection() {
         <div className="text-center">
           <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-50 to-orange-50">
             <CardContent className="p-8 lg:p-12">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Still have questions?</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">{t("faq.cta.title")}</h3>
               <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                Can&apos;t find the answer you&apos;re looking for? Our expert team is here to help you understand how ITAI can
-                transform your export business.
+                {t("faq.cta.description")}
               </p>
               <a 
                 href="https://calendly.com/mehmet-odsdanismanlik/30min"
@@ -95,7 +96,7 @@ export function FAQSection() {
                 size="lg"
                 className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-lg"
               >
-                  Book a live demo
+                  {t("faq.cta.button")}
               </Button>
               </a>
             </CardContent>

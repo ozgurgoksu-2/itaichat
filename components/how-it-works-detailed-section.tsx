@@ -6,63 +6,66 @@ import { Users, Search, Mail, Package } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { trackCTAClick } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
 
 export function HowItWorksDetailedSection() {
+  const { t } = useLanguage()
+
   const steps = [
     {
       icon: Users,
-      title: "Define your ideal buyer profile",
-      description: "You tell us what you make, where you ship, and who you want to reach. We translate that input into an ICP that your sales team can agree on in minutes.",
+      title: t("howItWorks.steps.defineProfile.title"),
+      description: t("howItWorks.steps.defineProfile.description"),
       image: "step1.png"
     },
     {
       icon: Search,
-      title: "Discover companies that match",
-      description: "Our system maps global markets and surfaces companies with real purchase intent signals. This is b2b prospecting agent thinking with a researcher discipline.",
+      title: t("howItWorks.steps.discoverCompanies.title"),
+      description: t("howItWorks.steps.discoverCompanies.description"),
       image: "step2.png"
     },
     {
       icon: Mail,
-      title: "Verify decision‑makers and emails",
-      description: "We confirm role fit, validate deliverability, and replace any unreachable contact quickly. The result is verified leads that your team can act on immediately.",
+      title: t("howItWorks.steps.verifyDecisionMakers.title"),
+      description: t("howItWorks.steps.verifyDecisionMakers.description"),
       image: "step3.png"
     },
     {
       icon: Package,
-      title: "Package for outreach",
-      description: "You receive CSV files and clean segments that match your campaigns and CRM fields. If you already use a prospecting platform, we align the fields so your import takes seconds.",
+      title: t("howItWorks.steps.packageOutreach.title"),
+      description: t("howItWorks.steps.packageOutreach.description"),
       image: "step4.png"
     }
   ]
 
   const faqData = [
     {
-      question: "How does the b2b prospecting process work?",
-      answer: "Our b2b prospecting software starts with your ideal buyer profile and ends with verified leads you can contact immediately. We handle the entire research and verification process—book a live demo to see it in action."
+      question: t("howItWorks.faq.howProcess.question"),
+      answer: t("howItWorks.faq.howProcess.answer")
     },
     {
-      question: "What makes this different from other prospecting platforms?",
-      answer: "Unlike generic prospecting platforms, we focus specifically on B2B export markets with verified international buyers and decision-maker contacts—book a live demo for a preview."
+      question: t("howItWorks.faq.whatMakesDifferent.question"),
+      answer: t("howItWorks.faq.whatMakesDifferent.answer")
     },
     {
-      question: "How quickly can I get verified leads?",
-      answer: "Most clients receive their first batch of verified leads within 48-72 hours of defining their ideal buyer profile—book a live demo to see sample segments."
+      question: t("howItWorks.faq.howQuickly.question"),
+      answer: t("howItWorks.faq.howQuickly.answer")
     },
     {
-      question: "How is a lead scraper different from your approach?",
-      answer: "A lead scraper pulls unverified data at scale while we deliver verified leads with role fit and deliverability checks—book a live demo for a preview."
+      question: t("howItWorks.faq.leadScraperDifference.question"),
+      answer: t("howItWorks.faq.leadScraperDifference.answer")
     },
     {
-      question: "Do you offer a b2b prospecting tool or software?",
-      answer: "We deliver clean segments that plug into your workflow and integrate with popular tools—book a live demo to see sample segments."
+      question: t("howItWorks.faq.prospectingTool.question"),
+      answer: t("howItWorks.faq.prospectingTool.answer")
     },
     {
-      question: "Can I get a b2b leads database free?",
-      answer: "Free sources risk low accuracy and compliance issues; we show a small verified preview in the live demo."
+      question: t("howItWorks.faq.freeDatabase.question"),
+      answer: t("howItWorks.faq.freeDatabase.answer")
     },
     {
-      question: "Do you support prospection b2b in regulated categories?",
-      answer: "Yes, with compliance notes; see examples in a live demo."
+      question: t("howItWorks.faq.regulatedCategories.question"),
+      answer: t("howItWorks.faq.regulatedCategories.answer")
     }
   ]
 
@@ -72,14 +75,13 @@ export function HowItWorksDetailedSection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
-              From product brief to
+              {t("howItWorks.hero.title")}
               <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
-                {" "}verified buyers
+                {" "}{t("howItWorks.hero.titleAccent")}
               </span>
             </h1>
             <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-4xl mx-auto">
-              Our b2b prospecting process turns your product specifications into a pipeline of 
-              qualified international buyers with verified contact information.
+              {t("howItWorks.hero.subtitle")}
             </p>
           </div>
 
@@ -125,11 +127,10 @@ export function HowItWorksDetailedSection() {
             <Card className="border-0 shadow-xl bg-white max-w-4xl mx-auto">
               <CardContent className="p-12">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                  Ready to transform your b2b prospecting?
+                  {t("howItWorks.cta.title")}
                 </h3>
                 <p className="text-lg text-gray-600 mb-8">
-                  See how our b2b prospecting software can help you find verified leads 
-                  and book more qualified meetings.
+                  {t("howItWorks.cta.subtitle")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link 
@@ -145,7 +146,7 @@ export function HowItWorksDetailedSection() {
                       size="lg"
                       className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl w-full sm:w-auto"
                     >
-                      Book a live demo
+{t("howItWorks.cta.button")}
                     </Button>
                   </Link>
                   
@@ -163,7 +164,7 @@ export function HowItWorksDetailedSection() {
                       variant="outline"
                       className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 text-lg font-semibold w-full sm:w-auto"
                     >
-                      Request pricing in a live demo
+{t("howItWorks.cta.secondaryButton")}
                     </Button>
                   </Link>
                 </div>
@@ -174,7 +175,7 @@ export function HowItWorksDetailedSection() {
           {/* FAQ Section */}
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-              Frequently Asked Questions
+              {t("howItWorks.faq.title")}
             </h2>
             <div className="space-y-6">
               {faqData.map((faq, index) => (
@@ -194,22 +195,22 @@ export function HowItWorksDetailedSection() {
 
           {/* Internal Links */}
           <div className="mt-20 text-center">
-            <p className="text-gray-600 mb-6">Learn more about our solutions:</p>
+            <p className="text-gray-600 mb-6">{t("howItWorks.links.learnMore")}</p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/pricing" className="text-orange-600 hover:text-orange-700 font-medium">
-                Pricing
+                {t("howItWorks.links.pricing")}
               </Link>
               <span className="text-gray-400">•</span>
               <Link href="/verified-leads" className="text-orange-600 hover:text-orange-700 font-medium">
-                Verified Leads
+                {t("howItWorks.links.verifiedLeads")}
               </Link>
               <span className="text-gray-400">•</span>
               <Link href="/advantages" className="text-orange-600 hover:text-orange-700 font-medium">
-                Manufacturing Use Cases
+                {t("howItWorks.links.useCases")}
               </Link>
               <span className="text-gray-400">•</span>
               <Link href="/b2b-data" className="text-orange-600 hover:text-orange-700 font-medium">
-                B2B Data
+                {t("howItWorks.links.b2bData")}
               </Link>
             </div>
           </div>

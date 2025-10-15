@@ -5,16 +5,19 @@ import { Button } from "@/components/ui/button"
 import { Target, CheckCircle, Globe } from "lucide-react"
 import Link from "next/link"
 import { trackCTAClick } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
 
 export function AboutSimpleSection() {
+  const { t } = useLanguage()
+
   return (
     <section className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-orange-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
-            Our mission is simple:
+            {t("about.title")}
             <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
-              {" "}better matches, faster exports
+              {" "}{t("about.titleAccent")}
             </span>
           </h1>
         </div>
@@ -24,30 +27,30 @@ export function AboutSimpleSection() {
           <div className="space-y-8">
             <div className="space-y-6">
               <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed">
-                We exist to connect great products with buyers who value them.
+                {t("about.subtitle1")}
               </p>
               
               <p className="text-lg text-gray-600 leading-relaxed">
-                Our team blends market research, data engineering, and verification to deliver fewer, better leads.
+                {t("about.subtitle2")}
               </p>
               
               <p className="text-lg text-gray-600 leading-relaxed">
-                Industrial companies choose us when they want quality conversations instead of long lists.
+                {t("about.subtitle3")}
               </p>
             </div>
 
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
                 <Target className="w-6 h-6 text-orange-500 mt-1 flex-shrink-0" />
-                <p className="text-gray-700">Focus on quality over quantity in B2B prospecting</p>
+                <p className="text-gray-700">{t("about.features.quality")}</p>
               </div>
               <div className="flex items-start space-x-3">
                 <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                <p className="text-gray-700">Verified international buyers with decision-maker contacts</p>
+                <p className="text-gray-700">{t("about.features.verified")}</p>
               </div>
               <div className="flex items-start space-x-3">
                 <Globe className="w-6 h-6 text-blue-500 mt-1 flex-shrink-0" />
-                <p className="text-gray-700">Global market coverage for export-focused manufacturers</p>
+                <p className="text-gray-700">{t("about.features.global")}</p>
               </div>
             </div>
 
@@ -65,7 +68,7 @@ export function AboutSimpleSection() {
                   size="lg"
                   className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
-                  Book a live demo
+                  {t("about.cta")}
                 </Button>
               </Link>
             </div>
@@ -81,25 +84,25 @@ export function AboutSimpleSection() {
                       <Target className="w-10 h-10 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                      Built for Export‑Focused Manufacturers
+                      {t("about.card.title")}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      We help manufacturers grow exports by matching products with verified international buyers and reliable data.
+                      {t("about.card.description")}
                     </p>
                   </div>
 
                   <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-100">
                     <div className="text-center">
                       <div className="text-2xl font-bold text-orange-600 mb-1">6+</div>
-                      <div className="text-sm text-gray-600">Years Experience</div>
+                      <div className="text-sm text-gray-600">{t("about.card.stats.experience")}</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-orange-600 mb-1">195+</div>
-                      <div className="text-sm text-gray-600">Countries</div>
+                      <div className="text-sm text-gray-600">{t("about.card.stats.countries")}</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-orange-600 mb-1">10K+</div>
-                      <div className="text-sm text-gray-600">Verified Buyers</div>
+                      <div className="text-sm text-gray-600">{t("about.card.stats.buyers")}</div>
                     </div>
                   </div>
                 </div>
@@ -113,15 +116,13 @@ export function AboutSimpleSection() {
           <Card className="border-0 shadow-xl bg-gradient-to-r from-gray-50 to-blue-50">
             <CardContent className="p-12 text-center">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Why We Exist
+                {t("about.mission.title")}
               </h2>
               <p className="text-xl text-gray-700 leading-relaxed mb-8">
-                Too many manufacturers waste time on unqualified leads and lengthy prospect lists. 
-                We believe in precision over volume—connecting the right products with the right buyers 
-                through verified data and market intelligence.
+                {t("about.mission.description")}
               </p>
               <div className="text-lg text-gray-600">
-                <strong>Result:</strong> Industrial companies get quality conversations that convert to real business.
+                <strong>{t("about.mission.result")}</strong> {t("about.mission.resultText")}
               </div>
             </CardContent>
           </Card>

@@ -5,8 +5,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Sparkles, ArrowRight, Globe, Instagram, Linkedin, Youtube } from "lucide-react"
 import Image from "next/image"
 import { trackCTAClick, trackExternalLink } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
 
 export function Footer() {
+  const { t } = useLanguage()
+
   return (
     <footer className="bg-white">
       {/* Final CTA Section */}
@@ -16,19 +19,19 @@ export function Footer() {
             <CardContent className="p-12 lg:p-16">
               <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-orange-100 rounded-full text-sm font-medium text-gray-700 mb-8">
                 <Sparkles className="w-4 h-4 mr-2 text-orange-500" />
-                Ready to Transform Your Export Business?
+                {t("home.footer.cta.badge")}
               </div>
 
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                Start your export journey today with our
+                {t("home.footer.cta.title")}
                 <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
                   {" "}
-                  AI assistant
+                  {t("home.footer.cta.titleAccent")}
                 </span>
               </h2>
 
               <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Join thousands of successful exporters who trust ITAI to discover global opportunities and connect with international buyers.
+                {t("home.footer.cta.description")}
               </p>
 
               <a 
@@ -46,12 +49,12 @@ export function Footer() {
                   size="lg"
                   className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
-                  Book a live demo
+                  {t("home.footer.cta.button")}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </a>
 
-              <p className="text-sm text-gray-500 mt-4">No credit card required • Start chatting in seconds</p>
+              <p className="text-sm text-gray-500 mt-4">{t("home.footer.cta.disclaimer")}</p>
             </CardContent>
           </Card>
         </div>
@@ -72,7 +75,7 @@ export function Footer() {
                 priority
               />
               <p className="text-gray-400 max-w-md mb-6">
-                Advanced AI assistant powered by cutting-edge technology to help you accomplish tasks more efficiently.
+                {t("home.footer.description")}
               </p>
 
               {/* Social Media Icons */}
@@ -109,21 +112,21 @@ export function Footer() {
 
             {/* Company */}
             <div>
-              <h3 className="font-semibold mb-4 text-white">Company</h3>
+              <h3 className="font-semibold mb-4 text-white">{t("home.footer.sections.company")}</h3>
               <ul className="space-y-3 text-gray-400">
                 <li>
                   <a href="/about" className="hover:text-white transition-colors">
-                    About
+                    {t("home.footer.links.about")}
                   </a>
                 </li>
                 <li>
                   <a href="#careers" className="hover:text-white transition-colors">
-                    Careers
+                    {t("home.footer.links.careers")}
                   </a>
                 </li>
                 <li>
                   <a href="/contact" className="hover:text-white transition-colors">
-                    Contact
+                    {t("home.footer.links.contact")}
                   </a>
                 </li>
               </ul>
@@ -131,26 +134,26 @@ export function Footer() {
 
             {/* Product */}
             <div>
-              <h3 className="font-semibold mb-4 text-white">Product</h3>
+              <h3 className="font-semibold mb-4 text-white">{t("home.footer.sections.product")}</h3>
               <ul className="space-y-3 text-gray-400">
                 <li>
                   <a href="/how-it-works" className="hover:text-white transition-colors">
-                    How It Works
+                    {t("home.footer.links.howItWorks")}
                   </a>
                 </li>
                 <li>
-                  <a href="/advantages" className="hover:text-white transition-colors">
-                    Use Cases
+                  <a href="/use-cases" className="hover:text-white transition-colors">
+                    {t("home.footer.links.useCases")}
                   </a>
                 </li>
                 <li>
                   <a href="/pricing" className="hover:text-white transition-colors">
-                    Pricing
+                    {t("home.footer.links.pricing")}
                   </a>
                 </li>
                 <li>
                   <a href="/faq" className="hover:text-white transition-colors">
-                    FAQ
+                    {t("home.footer.links.faq")}
                   </a>
                 </li>
               </ul>
@@ -158,16 +161,16 @@ export function Footer() {
 
             {/* Legal */}
             <div>
-              <h3 className="font-semibold mb-4 text-white">Legal</h3>
+              <h3 className="font-semibold mb-4 text-white">{t("home.footer.sections.legal")}</h3>
               <ul className="space-y-3 text-gray-400">
                 <li>
                   <a href="#terms" className="hover:text-white transition-colors">
-                    Terms
+                    {t("home.footer.links.terms")}
                   </a>
                 </li>
                 <li>
                   <a href="#privacy" className="hover:text-white transition-colors">
-                    Privacy Policy
+                    {t("home.footer.links.privacy")}
                   </a>
                 </li>
               </ul>
@@ -176,13 +179,13 @@ export function Footer() {
 
           {/* Bottom Footer */}
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">&copy; 2024 International Trade AI. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">{t("home.footer.copyright")}</p>
 
             {/* Language Toggle */}
             <div className="flex items-center space-x-2 mt-4 md:mt-0">
               <Globe className="w-4 h-4 text-gray-400" />
               <div className="flex items-center space-x-1 text-sm">
-                <span className="text-orange-500 font-medium">EN</span>
+                <span className="text-orange-500 font-medium">{t("common.language").toUpperCase()}</span>
               </div>
             </div>
           </div>

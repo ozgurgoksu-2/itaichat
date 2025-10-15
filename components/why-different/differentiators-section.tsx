@@ -1,22 +1,27 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
 import { Search, Target, MessageSquare } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
 
 export function DifferentiatorsSection() {
+  const { t } = useLanguage()
+
   const differentiators = [
     {
       icon: Search,
-      title: "Strategic Market Research",
-      description: "Conducting data-driven market analysis tailored to your export goals.",
+      title: t("whyDifferent.differentiators.items.research.title"),
+      description: t("whyDifferent.differentiators.items.research.description"),
     },
     {
       icon: Target,
-      title: "Targeted Lead Identification",
-      description: "Pinpointing high-potential buyers using advanced filtering techniques.",
+      title: t("whyDifferent.differentiators.items.identification.title"),
+      description: t("whyDifferent.differentiators.items.identification.description"),
     },
     {
       icon: MessageSquare,
-      title: "Systematic Outreach and Follow-Ups",
-      description: "Supporting engagement with consistent and intelligent outreach workflows.",
+      title: t("whyDifferent.differentiators.items.outreach.title"),
+      description: t("whyDifferent.differentiators.items.outreach.description"),
     },
   ]
 
@@ -25,10 +30,10 @@ export function DifferentiatorsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Here&apos;s What Makes Our
+            {t("whyDifferent.differentiators.title")}
             <span className="bg-gradient-to-r from-orange-500 to-blue-900 bg-clip-text text-transparent">
               {" "}
-              Approach Unique
+              {t("whyDifferent.differentiators.titleAccent")}
             </span>
           </h2>
         </div>

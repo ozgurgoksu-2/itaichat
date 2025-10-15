@@ -5,8 +5,12 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Instagram, Linkedin, Youtube } from "lucide-react"
 import { trackExternalLink } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
+import { LanguageSwitcher } from "@/components/language-switcher"
 
 export function Header() {
+  const { t } = useLanguage()
+
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,27 +79,28 @@ export function Header() {
           {/* Navigation */}
           <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
             <a href="/why-different" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
-              WHY WE&apos;RE DIFFERENT
+              {t("header.nav.whyDifferent")}
             </a>
             <a href="/about" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
-              ABOUT US
+              {t("header.nav.about")}
             </a>
             <a href="/pricing" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
-              PRICING
+              {t("header.nav.pricing")}
             </a>
             <a href="/use-cases" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
-              USE CASES
+              {t("header.nav.useCases")}
             </a>
             <a href="/faq" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
-              FAQ
+              {t("header.nav.faq")}
             </a>
           </nav>
 
-          {/* Right side - CTA Buttons */}
+          {/* Right side - Language Switcher and CTA Buttons */}
           <div className="flex items-center space-x-2 lg:space-x-3">
+            <LanguageSwitcher />
             <Link href="/chat">
               <Button size="sm" className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white shadow-lg text-xs lg:text-sm px-3 lg:px-4 py-2 whitespace-nowrap">
-                Book a live demo
+                {t("header.buttons.getStarted")}
               </Button>
             </Link>
             <a 
@@ -105,7 +110,7 @@ export function Header() {
               onClick={() => trackExternalLink('https://main.d1sdaz41inqvnc.amplifyapp.com/', 'Sign In', 'header_signin')}
             >
               <Button size="sm" className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white shadow-lg text-xs lg:text-sm px-3 lg:px-4 py-2 whitespace-nowrap">
-                Sign In
+                {t("header.buttons.signIn")}
               </Button>
             </a>
           </div>

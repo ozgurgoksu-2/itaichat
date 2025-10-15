@@ -3,32 +3,35 @@
 import { Globe, Users, TrendingUp, DollarSign } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { trackCTAClick } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
 
 export function ProvenResultsSection() {
+  const { t } = useLanguage()
+
   const stats = [
     {
       icon: Globe,
       number: "150+",
-      label: "Countries",
-      description: "Global market coverage",
+      label: t("home.provenResults.stats.countries"),
+      description: t("home.provenResults.stats.countriesDesc"),
     },
     {
       icon: Users,
       number: "10K+",
-      label: "Clients",
-      description: "Successful exporters",
+      label: t("home.provenResults.stats.clients"),
+      description: t("home.provenResults.stats.clientsDesc"),
     },
     {
       icon: TrendingUp,
       number: "+300%",
-      label: "Growth",
-      description: "Average export increase",
+      label: t("home.provenResults.stats.growth"),
+      description: t("home.provenResults.stats.growthDesc"),
     },
     {
       icon: DollarSign,
       number: "$2M+",
-      label: "Export Value",
-      description: "Generated for clients",
+      label: t("home.provenResults.stats.exportValue"),
+      description: t("home.provenResults.stats.exportValueDesc"),
     },
   ]
 
@@ -41,10 +44,10 @@ export function ProvenResultsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
-            Proven Results That Speak for Themselves
+            {t("home.provenResults.title")}
           </h2>
           <p className="text-xl text-white/90 max-w-3xl mx-auto">
-            Join thousands of exporters who have transformed their business with ITAI&apos;s AI-powered solutions
+            {t("home.provenResults.subtitle")}
           </p>
         </div>
 
@@ -84,7 +87,7 @@ export function ProvenResultsSection() {
               size="lg"
               className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
             >
-              Book a live demo
+              {t("home.provenResults.cta")}
             </Button>
           </a>
         </div>

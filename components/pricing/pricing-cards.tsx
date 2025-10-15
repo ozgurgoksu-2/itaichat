@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Check, Star, Users, TrendingUp, Globe, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { trackCTAClick } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
 
 interface PricingData {
   countries: number
@@ -22,53 +23,54 @@ const pricingData: PricingData[] = [
 ]
 
 export function PricingCards() {
+  const { t } = useLanguage()
   const [selectedCountries, setSelectedCountries] = useState(1)
   
   const currentPricing = pricingData.find(p => p.countries === selectedCountries) || pricingData[0]
 
   const plans = [
     {
-      name: "Starting Package",
+      name: t("pricing.cards.plans.starting.name"),
       icon: Users,
       price: currentPricing.starting,
       features: [
-        "AI-Powered Prospecting",
-        "Lead Scoring & Reasoning",
-        "Contact Data Enrichment",
-        "Centralized Contact Management",
-        "Email support during business hours"
+        t("pricing.cards.plans.starting.features.prospecting"),
+        t("pricing.cards.plans.starting.features.scoring"),
+        t("pricing.cards.plans.starting.features.enrichment"),
+        t("pricing.cards.plans.starting.features.management"),
+        t("pricing.cards.plans.starting.features.support")
       ],
-      description: "Perfect for small businesses testing international markets",
+      description: t("pricing.cards.plans.starting.description"),
       color: "from-blue-500 to-blue-600"
     },
     {
-      name: "Plus Package",
+      name: t("pricing.cards.plans.plus.name"),
       icon: TrendingUp,
       price: currentPricing.plus,
       features: [
-        "Everything in Starting Package",
-        "Premium Contact Data Enrichment",
-        "Basic CRM onboarding assistance",
-        "Advanced lead profiling",
-        "Priority email support"
+        t("pricing.cards.plans.plus.features.everything"),
+        t("pricing.cards.plans.plus.features.premium"),
+        t("pricing.cards.plans.plus.features.onboarding"),
+        t("pricing.cards.plans.plus.features.profiling"),
+        t("pricing.cards.plans.plus.features.priority")
       ],
-      description: "Ideal for growing companies expanding globally",
+      description: t("pricing.cards.plans.plus.description"),
       popular: true,
       color: "from-orange-500 to-orange-600"
     },
     {
-      name: "Pro Plus Package",
+      name: t("pricing.cards.plans.proPlus.name"),
       icon: Globe,
       price: currentPricing.proPlus,
       features: [
-        "Everything in Plus Package",
-        "Advanced Analytics & Reporting",
-        "Enterprise-Grade Security",
-        "WhatsApp support",
-        "Advanced CRM strategy sessions",
-        "Proactive system health checks"
+        t("pricing.cards.plans.proPlus.features.everything"),
+        t("pricing.cards.plans.proPlus.features.analytics"),
+        t("pricing.cards.plans.proPlus.features.security"),
+        t("pricing.cards.plans.proPlus.features.whatsapp"),
+        t("pricing.cards.plans.proPlus.features.sessions"),
+        t("pricing.cards.plans.proPlus.features.health")
       ],
-      description: "Enterprise solution for serious international expansion",
+      description: t("pricing.cards.plans.proPlus.description"),
       color: "from-purple-500 to-purple-600"
     }
   ]
@@ -78,7 +80,7 @@ export function PricingCards() {
       {/* Country Selection */}
       <div className="text-center mb-12">
         <h3 className="text-2xl font-bold text-gray-900 mb-6">
-          Choose your market scope
+          {t("pricing.cards.scopeTitle")}
         </h3>
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           {pricingData.map((pricing) => (
@@ -91,7 +93,7 @@ export function PricingCards() {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {pricing.countries} {pricing.countries === 1 ? 'Country' : 'Countries'}
+              {pricing.countries} {pricing.countries === 1 ? t("pricing.cards.country") : t("pricing.cards.countries")}
             </button>
           ))}
         </div>
@@ -110,7 +112,7 @@ export function PricingCards() {
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                 <div className="bg-gradient-to-r from-orange-500 to-blue-900 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center">
                   <Star className="w-4 h-4 mr-1" />
-                  Most Popular
+                  {t("pricing.cards.mostPopular")}
                 </div>
               </div>
             )}
@@ -133,7 +135,7 @@ export function PricingCards() {
                   ${plan.price.toLocaleString()}
                 </div>
                 <div className="text-gray-500 text-sm">
-                  for {selectedCountries} {selectedCountries === 1 ? 'country' : 'countries'}
+                  {t("pricing.cards.forCountries")} {selectedCountries} {selectedCountries === 1 ? t("pricing.cards.country").toLowerCase() : t("pricing.cards.countries").toLowerCase()}
                 </div>
               </div>
 
@@ -164,7 +166,7 @@ export function PricingCards() {
                       : 'bg-gray-900 hover:bg-gray-800 text-white'
                   }`}
                 >
-                  Get Started
+                  {t("pricing.cards.getStarted")}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -176,13 +178,13 @@ export function PricingCards() {
       {/* Additional Info */}
       <div className="text-center">
         <p className="text-gray-600 mb-4">
-          All plans include our standard features with varying levels of support and customization.
+          {t("pricing.cards.additionalInfo")}
         </p>
         <Link 
           href="/contact"
           className="text-orange-600 hover:text-orange-700 font-medium inline-flex items-center"
         >
-          Need a custom solution?
+          {t("pricing.cards.customSolution")}
           <ArrowRight className="w-4 h-4 ml-1" />
         </Link>
       </div>

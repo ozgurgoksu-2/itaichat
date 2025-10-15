@@ -4,26 +4,29 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Search, Zap, Filter } from "lucide-react"
 import { trackCTAClick } from "@/lib/analytics"
+import { useLanguage } from "@/contexts/language-context"
 
 export function HowITAIWorksSection() {
+  const { t } = useLanguage()
+
   const steps = [
     {
       number: "01",
       icon: Search,
-      title: "Define Your Search",
-      description: "Tell us about products, target markets, buyer profile.",
+      title: t("home.howItWorks.steps.step1.title"),
+      description: t("home.howItWorks.steps.step1.description"),
     },
     {
       number: "02",
       icon: Zap,
-      title: "AI Generates Leads",
-      description: "We scan markets to identify relevant buyers with signals.",
+      title: t("home.howItWorks.steps.step2.title"),
+      description: t("home.howItWorks.steps.step2.description"),
     },
     {
       number: "03",
       icon: Filter,
-      title: "Smart Classification",
-      description: "Prioritized leads with company profiles, contact info, insights.",
+      title: t("home.howItWorks.steps.step3.title"),
+      description: t("home.howItWorks.steps.step3.description"),
     },
   ]
 
@@ -32,7 +35,7 @@ export function HowITAIWorksSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
-            How ITAI Works
+            {t("home.howItWorks.title")}
           </h2>
         </div>
 
@@ -85,7 +88,7 @@ export function HowITAIWorksSection() {
               size="lg"
               className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
             >
-              Book a live demo
+              {t("home.howItWorks.cta")}
             </Button>
           </a>
         </div>
