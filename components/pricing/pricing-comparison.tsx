@@ -64,7 +64,7 @@ export function PricingComparison() {
               </tr>
             </thead>
             <tbody>
-              {categories.map((category, categoryIndex) => (
+              {categories.map((category) => (
                 <React.Fragment key={category}>
                   {/* Category Header */}
                   <tr className="bg-gradient-to-r from-gray-100 to-gray-50">
