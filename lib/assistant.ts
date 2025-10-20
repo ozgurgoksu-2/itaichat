@@ -164,6 +164,33 @@ export const processMessages = async () => {
     toolsState,
     async ({ event, data }) => {
       switch (event) {
+        case "phase.update": {
+          // Handle phase information from backend
+          const { phase, progress, collectedInfo } = data;
+          console.log(`🔄 Phase update received: ${phase} (${progress}%)`);
+          console.log(`📊 Collected info:`, collectedInfo);
+          
+          // Update conversation store with backend phase data
+          const { setCurrentPhase, addPhaseTransition } = useConversationStore.getState();
+          const { currentPercentage } = useConversationStore.getState();
+          
+          // Only update if progress has changed
+          if (progress !== currentPercentage) {
+            setCurrentPhase(phase, progress);
+            
+            // Add phase transition record if progressing forward
+            if (progress > currentPercentage) {
+              addPhaseTransition({
+                phase: phase,
+                percentage: progress,
+                timestamp: new Date(),
+                toolsTriggered: [20, 40, 60, 80, 100].includes(progress)
+              });
+              console.log(`📈 Phase transition recorded: ${phase} (${progress}%)`);
+            }
+          }
+          break;
+        }
         case "response.output_text.delta":
         case "response.output_text.annotation.added": {
           const { delta, item_id, annotation } = data;

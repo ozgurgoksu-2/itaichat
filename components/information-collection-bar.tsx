@@ -12,6 +12,7 @@ interface InformationCollectionBarProps {
   hasKeywords?: boolean
   hasCompetitors?: boolean
   hasCustomers?: boolean
+  language?: 'turkish' | 'english'
 }
 
 export function InformationCollectionBar({
@@ -22,36 +23,40 @@ export function InformationCollectionBar({
   hasContactInfo = false,
   hasKeywords = false,
   hasCompetitors = false,
-  hasCustomers = false
+  hasCustomers = false,
+  language = 'turkish'
 }: InformationCollectionBarProps) {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     let percentage = 0
 
-    // Product + Target Market = 20%
-    if (hasProduct && hasTargetMarket) {
-      percentage = 20
+    // Only show milestone percentages - no intermediate values
+    // Check in reverse order to get the highest milestone reached
+    
+    // Demo → 100% (when both competitors and customers are complete)
+    if (hasCompetitors && hasCustomers) {
+      percentage = 100
     }
-
-    // GTIP + Sales Channels = 40%
-    if (percentage >= 20 && hasGtipCode && hasSalesChannels) {
-      percentage = 40
-    }
-
-    // Contact Info = 60%
-    if (percentage >= 40 && hasContactInfo) {
-      percentage = 60
-    }
-
-    // Keywords = 80%
-    if (percentage >= 60 && hasKeywords) {
+    // Competitor → 80%
+    else if (hasCompetitors) {
       percentage = 80
     }
-
-    // Customers = 100%
-    if (percentage >= 80 && hasCustomers) {
-      percentage = 100
+    // Phone Number → 60% (we need to check for phone specifically)
+    else if (hasContactInfo) {
+      percentage = 60
+    }
+    // Sales Channels → 40%
+    else if (hasSalesChannels) {
+      percentage = 40
+    }
+    // Target Country → 20%
+    else if (hasTargetMarket) {
+      percentage = 20
+    }
+    // Default → 0%
+    else {
+      percentage = 0
     }
 
     setProgress(percentage)
@@ -66,13 +71,29 @@ export function InformationCollectionBar({
   }
 
   const getProgressText = () => {
-    if (progress === 0) return "Start collecting export information"
-    if (progress === 20) return "Product and market information collected"
-    if (progress === 40) return "Product details completed" 
-    if (progress === 60) return "Contact information collected"
-    if (progress === 80) return "Keywords defined"
-    if (progress === 100) return "All information collected"
-    return "Collecting information..."
+    if (language === 'turkish') {
+      if (progress === 0) return "İhracat bilgilerini toplamaya başlayın"
+      if (progress === 20) return "Hedef ülke belirlendi - %20 tamamlandı"
+      if (progress === 40) return "Satış kanalları belirlendi - %40 tamamlandı" 
+      if (progress === 60) return "Telefon numarası alındı - %60 tamamlandı"
+      if (progress === 80) return "Rakip analizi tamamlandı - %80 tamamlandı"
+      if (progress === 100) return "Tüm bilgiler toplandı - Demo için hazır"
+      return "Bilgiler toplanıyor..."
+    } else {
+      if (progress === 0) return "Start collecting export information"
+      if (progress === 20) return "Target country selected - 20% complete"
+      if (progress === 40) return "Sales channels defined - 40% complete" 
+      if (progress === 60) return "Phone number collected - 60% complete"
+      if (progress === 80) return "Competitor analysis complete - 80% complete"
+      if (progress === 100) return "All information collected - Ready for demo"
+      return "Collecting information..."
+    }
+  }
+
+  const getHeaderText = () => {
+    return language === 'turkish' 
+      ? "Bilgi Toplama İlerlemesi" 
+      : "Information Collection Progress"
   }
 
   return (
@@ -81,7 +102,7 @@ export function InformationCollectionBar({
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-semibold text-gray-700">
-            Information Collection Progress
+            {getHeaderText()}
           </h3>
           <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-900 bg-clip-text text-transparent">
             {progress}%

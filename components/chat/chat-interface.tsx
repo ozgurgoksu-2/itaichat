@@ -12,7 +12,6 @@ import { TypingIndicator } from "./typing-indicator";
 import useConversationStore from "@/stores/useConversationStore";
 import { Item, processMessages } from "@/lib/assistant";
 import { InformationCollectionBar } from "@/components/information-collection-bar";
-import { analyzeConversationMessages } from "@/lib/conversation-analyzer";
 
 // Helper function to detect language from messages
 function detectLanguageFromMessages(messages: Item[]): string {
@@ -65,20 +64,21 @@ export function ChatInterface() {
     addChatMessage, 
     setAssistantLoading, 
     isAssistantLoading,
-    resetConversation 
+    resetConversation,
+    currentPercentage
   } = useConversationStore();
 
-  // Analyze conversation messages to get real-time progress (for progress bar display only)
-  const conversationData = analyzeConversationMessages(chatMessages);
+  // Calculate progress data based on current phase and percentage from backend
+  // New milestone percentages: Country=20%, Sales Channels=40%, Phone=60%, Competitors=80%, Demo=100%
   const progressData = {
-    hasProduct: conversationData.hasProduct,
-    hasTargetMarket: conversationData.hasTargetMarket,
-    hasGtipCode: conversationData.hasGtipCode,
-    hasSalesChannels: conversationData.hasSalesChannels,
-    hasContactInfo: conversationData.hasContactInfo,
-    hasKeywords: conversationData.hasKeywords,
-    hasCompetitors: conversationData.hasCompetitors,
-    hasCustomers: conversationData.hasCustomers,
+    hasProduct: false, // Not used for milestones
+    hasTargetMarket: currentPercentage >= 20,  // 20% milestone (target country)
+    hasGtipCode: false, // Not used for milestones
+    hasSalesChannels: currentPercentage >= 40,  // 40% milestone (sales channels)
+    hasContactInfo: currentPercentage >= 60,  // 60% milestone (phone number)
+    hasKeywords: false, // Not used for milestones
+    hasCompetitors: currentPercentage >= 80,  // 80% milestone (competitors)
+    hasCustomers: currentPercentage >= 100,  // 100% milestone (demo - both competitors and customers)
   };
 
   useEffect(() => {
@@ -318,7 +318,10 @@ export function ChatInterface() {
         </CardContent>
 
         {/* Progress Bar at Bottom */}
-        <InformationCollectionBar {...progressData} />
+        <InformationCollectionBar 
+          {...progressData} 
+          language={detectLanguageFromMessages(chatMessages) === 'tr' ? 'turkish' : 'english'} 
+        />
 
         {/* Completion Card */}
         {showCompletionCard && (

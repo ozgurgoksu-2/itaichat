@@ -1286,21 +1286,8 @@ function getConversationPhase(messages: any[], collectedInfo: any): { phase: str
   
   console.log(`👤 User messages: ${userMessages.length}, 🤖 Assistant messages: ${assistantMessages.length}`);
   
-  // Define information collection phases - FLOW BASED ON COLLECTED INFO
-  const infoPhases = [
-    { name: "PRODUCT", type: "collect", has: !!collectedInfo.product, step: 0, progress: 5 },
-    { name: "COUNTRY", type: "collect", has: !!collectedInfo.country, step: 1, progress: 10 },
-    { name: "GTIP", type: "suggest", has: !!collectedInfo.gtip, step: 2, progress: 20 },
-    { name: "SALES_CHANNELS", type: "suggest", has: !!collectedInfo.salesChannels, step: 3, progress: 25 },
-    { name: "WEBSITE", type: "collect", has: !!collectedInfo.website, step: 4, progress: 40 },
-    { name: "NAME", type: "collect", has: !!collectedInfo.name, step: 5, progress: 45 },
-    { name: "EMAIL", type: "collect", has: !!collectedInfo.email, step: 6, progress: 50 },
-    { name: "PHONE", type: "collect", has: !!collectedInfo.phone, step: 7, progress: 55 },
-    { name: "KEYWORDS", type: "suggest", has: !!collectedInfo.keywords, step: 8, progress: 60 },
-    { name: "COMPETITORS", type: "suggest", has: !!collectedInfo.competitors, step: 9, progress: 80 },
-    { name: "CUSTOMERS", type: "suggest", has: !!collectedInfo.customers, step: 10, progress: 90 },
-    { name: "DEMO", type: "final", has: false, step: 11, progress: 100 }
-  ];
+  // Phase configuration is now handled by milestone detection logic below
+  // COUNTRY=20%, SALES_CHANNELS=40%, PHONE=60%, COMPETITORS=80%, DEMO=100%
   
   console.log('📊 COLLECTED INFO STATUS:');
   console.log(`  Product: ${collectedInfo.product ? '✅' : '❌'} ${collectedInfo.product || ''}`);
@@ -1320,54 +1307,46 @@ function getConversationPhase(messages: any[], collectedInfo: any): { phase: str
   let currentPhase = "INITIAL";
   let currentProgress = 0;
   
-  console.log('🔍 PHASE ANALYSIS - Checking each phase:');
+  console.log('🔍 MILESTONE ANALYSIS - Finding highest milestone reached:');
   
-  for (let i = 0; i < infoPhases.length; i++) {
-    const phase = infoPhases[i];
-    
-    // Special handling for GTIP and SALES_CHANNELS phases - check if conversation is completed
-    let phaseCompleted = phase.has;
-    
-    if (phase.name === "GTIP" && collectedInfo.gtip) {
-      // GTIP phase is completed if we have ANY gtip response (even "unknown")
-      phaseCompleted = true;
-      console.log(`🔢 GTIP SPECIAL CHECK: GTIP response detected, marking as completed`);
-      console.log(`📊 GTIP Data:`, collectedInfo.gtip);
-    } else if (phase.name === "SALES_CHANNELS" && collectedInfo.salesChannels) {
-      // SALES_CHANNELS phase is completed if we have sales channels response
-      phaseCompleted = true;
-      console.log(`🛒 SALES_CHANNELS SPECIAL CHECK: Sales channels response detected, marking as completed`);
-      console.log(`📊 Sales Channels Data:`, collectedInfo.salesChannels);
-    } else if (phase.name === "KEYWORDS" && collectedInfo.keywords) {
-      // KEYWORDS phase is completed if we have keywords response
-      phaseCompleted = true;
-      console.log(`🔑 KEYWORDS SPECIAL CHECK: Keywords response detected, marking as completed`);
-      console.log(`📊 Keywords Data:`, collectedInfo.keywords);
-    } else if (phase.name === "COMPETITORS" && collectedInfo.competitors) {
-      // COMPETITORS phase is completed if we have competitors response
-      phaseCompleted = true;
-      console.log(`🏢 COMPETITORS SPECIAL CHECK: Competitors response detected, marking as completed`);
-      console.log(`📊 Competitors Data:`, collectedInfo.competitors);
-    } else if (phase.name === "CUSTOMERS" && collectedInfo.customers) {
-      // CUSTOMERS phase is completed if we have customers response
-      phaseCompleted = true;
-      console.log(`👥 CUSTOMERS SPECIAL CHECK: Customers response detected, marking as completed`);
-      console.log(`📊 Customers Data:`, collectedInfo.customers);
-    }
-    
-    if (phaseCompleted) {
-      console.log(`✅ ${phase.name} (${phase.type}): COMPLETED`);
-      currentStep = phase.step + 1;
-      currentPhase = i < infoPhases.length - 1 ? infoPhases[i + 1].name : "DEMO";
-      currentProgress = i < infoPhases.length - 1 ? infoPhases[i + 1].progress : 100;
-    } else {
-      console.log(`❌ ${phase.name} (${phase.type}): MISSING - This is our current phase`);
-      currentStep = phase.step;
-      currentPhase = phase.name;
-      currentProgress = phase.progress;
-      break;
-    }
+  // Find the highest milestone percentage reached
+  let highestMilestone = 0;
+  let currentMilestonePhase = "INITIAL";
+  
+  // Check milestones in order and find the highest one reached
+  if (collectedInfo.competitors) {
+    highestMilestone = 80;
+    currentMilestonePhase = "COMPETITORS";
+    console.log(`✅ COMPETITORS milestone reached: 80%`);
+  } else if (collectedInfo.phone) {
+    highestMilestone = 60;
+    currentMilestonePhase = "PHONE";
+    console.log(`✅ PHONE milestone reached: 60%`);
+  } else if (collectedInfo.salesChannels) {
+    highestMilestone = 40;
+    currentMilestonePhase = "SALES_CHANNELS";
+    console.log(`✅ SALES_CHANNELS milestone reached: 40%`);
+  } else if (collectedInfo.country) {
+    highestMilestone = 20;
+    currentMilestonePhase = "COUNTRY";
+    console.log(`✅ COUNTRY milestone reached: 20%`);
+  } else {
+    highestMilestone = 0;
+    currentMilestonePhase = "INITIAL";
+    console.log(`❌ No milestones reached yet: 0%`);
   }
+  
+  // Check for demo phase (100%) - when both competitors and customers are complete
+  if (collectedInfo.competitors && collectedInfo.customers) {
+    highestMilestone = 100;
+    currentMilestonePhase = "DEMO";
+    console.log(`✅ DEMO milestone reached: 100%`);
+  }
+  
+  // Set the results
+  currentProgress = highestMilestone;
+  currentPhase = currentMilestonePhase;
+  currentStep = Math.floor(highestMilestone / 20); // Convert percentage to step number
   
   console.log(`🎯 FALLBACK PHASE RESULT: Step ${currentStep}/12 - ${currentPhase} (${currentProgress}%)`);
   return { phase: currentPhase, step: currentStep, progress: currentProgress };
@@ -1682,10 +1661,26 @@ export async function POST(request: Request) {
       parallel_tool_calls: false,
     });
 
+    // Send phase information first before streaming starts
+    const phaseData = {
+      event: "phase.update",
+      data: {
+        phase: currentPhase,
+        step: currentStep,
+        progress: progress,
+        language: conversationState.detectedLanguage,
+        collectedInfo: conversationState.collectedInfo
+      }
+    };
+
     // Create a ReadableStream that emits SSE data
     const stream = new ReadableStream({
       async start(controller) {
         try {
+          // Send phase information first
+          controller.enqueue(
+            new TextEncoder().encode(`data: ${JSON.stringify(phaseData)}\n\n`)
+          );
           for await (const chunk of events) {
             // Convert OpenAI chat completion chunks to the format frontend expects
             if (chunk.choices && chunk.choices[0]) {
