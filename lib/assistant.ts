@@ -146,6 +146,12 @@ export const processMessages = async () => {
 
   const toolsState = useToolsStore.getState() as ToolsState;
 
+  console.log('🚀 PROCESS MESSAGES - Starting with conversationItems:', conversationItems.length);
+  console.log('📊 ConversationItems breakdown:');
+  conversationItems.forEach((item, index) => {
+    console.log(`  [${index}] Role: ${item.role}, Content: "${item.content?.substring(0, 50)}..."`);
+  });
+
   const allConversationItems = conversationItems;
 
   let assistantMessageContent = "";
@@ -204,6 +210,13 @@ export const processMessages = async () => {
           setAssistantLoading(false);
           break;
         }
+        
+        case "response.output_text.done": {
+          // Assistant message will be added in response.output_item.added case
+          // No need to add here to avoid duplicates
+          console.log('📝 Text streaming done, assistant message will be added via output_item.added');
+          break;
+        }
 
         case "response.output_item.added": {
           const { item } = data || {};
@@ -218,6 +231,8 @@ export const processMessages = async () => {
               const text = item.content?.text || "";
               const annotations =
                 item.content?.annotations?.map(normalizeAnnotation) || [];
+              
+              // Add to chatMessages for UI display
               chatMessages.push({
                 type: "message",
                 role: "assistant",
@@ -229,18 +244,21 @@ export const processMessages = async () => {
                   },
                 ],
               });
-              conversationItems.push({
-                role: "assistant",
-                content: [
-                  {
-                    type: "output_text",
-                    text,
-                    ...(annotations.length > 0 ? { annotations } : {}),
-                  },
-                ],
-              });
+              
+              // CRITICAL FIX: Add assistant message to conversationItems for backend
+              const newAssistantMessage = {
+                role: "assistant" as const,
+                content: text // Backend expects string content, not array
+              };
+              
+              // Use the store's addConversationItem method for proper state management
+              const { addConversationItem } = useConversationStore.getState();
+              addConversationItem(newAssistantMessage);
+              
+              console.log('✅ Assistant message added to conversationItems via store:', text.substring(0, 100));
+              console.log('📊 ConversationItems now has:', conversationItems.length + 1, 'items (including new assistant message)');
+              
               setChatMessages([...chatMessages]);
-              setConversationItems([...conversationItems]);
               break;
             }
             case "function_call": {
