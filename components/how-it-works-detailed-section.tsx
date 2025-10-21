@@ -205,7 +205,7 @@ export function HowItWorksDetailedSection() {
                 {t("howItWorks.links.verifiedLeads")}
               </Link>
               <span className="text-gray-400">•</span>
-              <Link href="/advantages" className="text-orange-600 hover:text-orange-700 font-medium">
+              <Link href="/use-cases" className="text-orange-600 hover:text-orange-700 font-medium">
                 {t("howItWorks.links.useCases")}
               </Link>
               <span className="text-gray-400">•</span>

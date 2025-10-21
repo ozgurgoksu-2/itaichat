@@ -1,21 +1,21 @@
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { ManufacturingAdvantagesSection } from "@/components/manufacturing-advantages-section"
-import type { Metadata } from "next"
+"use client"
 
-export const metadata: Metadata = {
-  title: "Use Cases | Manufacturing, Electronics, Pharma, Medical Devices",
-  description: "See how manufacturers use ITAI to find and verify international buyers and book qualified meetings.",
-}
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function AdvantagesPage() {
+  const router = useRouter()
+
+  useEffect(() => {
+    // Redirect to /use-cases
+    router.replace("/use-cases")
+  }, [router])
+
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <main>
-        <ManufacturingAdvantagesSection />
-      </main>
-      <Footer />
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="text-center">
+        <p className="text-gray-600">Redirecting to Use Cases...</p>
+      </div>
     </div>
   )
 }

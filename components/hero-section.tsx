@@ -217,9 +217,17 @@ export function HeroSection() {
             </button>
             <Card className="bg-white">
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  {t("home.hero.chatTitle")}
-                </h3>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {t("home.hero.chatTitle")}
+                  </h3>
+                  <button
+                    onClick={() => setIsChatOpen(false)}
+                    className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
                 <AIChatInterface onMessageSent={handleMessageSent} />
               </CardContent>
             </Card>

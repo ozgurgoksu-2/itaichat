@@ -3,7 +3,6 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Instagram, Linkedin, Youtube } from "lucide-react"
 import { trackExternalLink } from "@/lib/analytics"
 import { useLanguage } from "@/contexts/language-context"
 import { LanguageSwitcher } from "@/components/language-switcher"
@@ -15,8 +14,8 @@ export function Header() {
     <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo and Social Icons */}
-          <div className="flex items-center space-x-3 lg:space-x-4">
+          {/* Logo */}
+          <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <div className="relative flex items-center">
                 <Image 
@@ -43,43 +42,15 @@ export function Header() {
                 </div>
               </div>
             </Link>
-
-            {/* Social Icons - Left aligned */}
-            <div className="hidden xl:flex items-center space-x-2">
-              <a 
-                href="https://www.instagram.com/internationaltradeai" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-orange-500 transition-colors"
-                onClick={() => trackExternalLink('https://www.instagram.com/internationaltradeai', 'Instagram', 'header_social')}
-              >
-                <Instagram className="w-3 h-3" />
-              </a>
-              <a 
-                href="https://www.linkedin.com/company/ınternationaltradeai" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-orange-500 transition-colors"
-                onClick={() => trackExternalLink('https://www.linkedin.com/company/ınternationaltradeai', 'LinkedIn', 'header_social')}
-              >
-                <Linkedin className="w-3 h-3" />
-              </a>
-              <a 
-                href="https://www.youtube.com/shorts/g6MUnSki9I0" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-orange-500 transition-colors"
-                onClick={() => trackExternalLink('https://www.youtube.com/shorts/g6MUnSki9I0', 'YouTube', 'header_social')}
-              >
-                <Youtube className="w-3 h-3" />
-              </a>
-            </div>
           </div>
 
           {/* Navigation */}
           <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
             <a href="/why-different" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
               {t("header.nav.whyDifferent")}
+            </a>
+            <a href="/how-it-works" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
+              HOW IT WORKS
             </a>
             <a href="/about" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors whitespace-nowrap">
               {t("header.nav.about")}

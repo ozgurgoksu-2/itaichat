@@ -26,8 +26,8 @@
   ],
   "redirects": [
     {
-      "source": "/use-cases",
-      "destination": "/advantages",
+      "source": "/advantages",
+      "destination": "/use-cases",
       "permanent": true
     }
   ]
