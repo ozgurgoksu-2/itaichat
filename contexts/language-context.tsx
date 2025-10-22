@@ -26,15 +26,48 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
     
+    // URL mappings between Turkish and English
+    const turkishToEnglish: { [key: string]: string } = {
+      '/tr/nasil-calisir': '/how-it-works',
+      '/tr/neden-farkli': '/why-different',
+      '/tr/kullanim-alanlari': '/use-cases',
+      '/tr/hakkimizda': '/about',
+      '/tr/fiyatlandirma': '/pricing',
+      '/tr/iletisim': '/contact',
+      '/tr/sss': '/faq',
+      '/tr/dogrulanmis-musteriler': '/verified-leads',
+      '/tr/avantajlar': '/advantages',
+      '/tr/b2b-veri': '/b2b-data',
+      '/tr/sohbet': '/chat',
+      '/tr/demo': '/demo',
+      '/tr': '/'
+    }
+
+    const englishToTurkish: { [key: string]: string } = {
+      '/how-it-works': '/tr/nasil-calisir',
+      '/why-different': '/tr/neden-farkli',
+      '/use-cases': '/tr/kullanim-alanlari',
+      '/about': '/tr/hakkimizda',
+      '/pricing': '/tr/fiyatlandirma',
+      '/contact': '/tr/iletisim',
+      '/faq': '/tr/sss',
+      '/verified-leads': '/tr/dogrulanmis-musteriler',
+      '/advantages': '/tr/avantajlar',
+      '/b2b-data': '/tr/b2b-veri',
+      '/chat': '/tr/sohbet',
+      '/demo': '/tr/demo',
+      '/': '/tr'
+    }
+    
     // Navigate to the appropriate locale URL
     if (lang === 'tr') {
       if (!pathname.startsWith('/tr')) {
-        const newPath = pathname === '/' ? '/tr' : `/tr${pathname}`
+        const newPath = englishToTurkish[pathname] || `/tr${pathname}`
         router.push(newPath)
       }
     } else {
       if (pathname.startsWith('/tr')) {
-        const newPath = pathname.replace('/tr', '') || '/'
+        const newPath = turkishToEnglish[pathname] || '/'
         router.push(newPath)
       }
     }
