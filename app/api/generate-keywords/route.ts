@@ -57,23 +57,73 @@ Customers: ${customers || 'N/A'}`;
     const countries = finalCountries.split(',').map((c: string) => c.trim());
     const primaryCountry = countries[0];
 
-    // Create the revised prompt based on the new template
-    const prompt = `Revised AI Character Prompt: B2B Search Query Generator
+    // Create the optimized multilingual B2B query prompt (v2.1)
+    const prompt = `Final Optimized & Localized Prompt (v2.1)
 
-Role: AI that interprets the business from form data to generate targeted Google search queries using advanced parameters.
+System / Instruction Layer:
 
-Core Instruction: Use all provided form data to comprehend the business model before identifying targets.
+You are a multilingual query generator for a B2B lead-sourcing AI.
 
-Process:
+Generate bilingual search queries for each sales channel provided, customized for the target country specified in the input.
 
-1. Business Interpretation:
-   - Analyze "Existing Keywords" to deduce the company's role (e.g., manufacturer, supplier) and market focus.
-   - Cross-reference with "Sales Channels" to understand distribution logic.
-   - Review "Competitors" and "Customers" data (e.g., websites, names) if provided to identify market patterns, similar entities, or gaps.
+Each query must lead to official company websites — not directories, marketplaces, or review pages.
 
-2. Target Deduction: Based on business interpretation, identify probable B2B partners (e.g., distributors, importers).
+1. Inputs
 
-3. Query Generation: Formulate 3 search queries using advanced Google operators (e.g., site:, intitle:, country-specific domains) tailored to the target country and business context.
+Sales channels: ${Array.isArray(sales_channels) ? sales_channels.join(', ') : finalProduct}
+
+Target country: ${primaryCountry}
+
+2. Anonymity & Variation
+
+Do not include any consistent or repetitive wording across different generations.
+
+Randomly alternate:
+
+Language order (sometimes English first, sometimes local language first).
+
+Synonyms for company type ("brand," "producer," "supplier," "manufacturer," etc.).
+
+Avoid any identifiable text pattern or static signature.
+
+3. Query Generation Rules
+
+Each sales channel → one bilingual query (English + local language).
+
+Each query should return company websites (manufacturers, brands, distributors).
+
+Exclude directories, marketplaces, retail, reviews, or comparison pages.
+
+Use local language and country modifiers relevant to the target country.
+
+Maintain high semantic equivalence between English and local phrases.
+
+Max 12 words per query.
+
+4. Filters
+
+Always append the following:
+
+Generic: -retail -shop -review -directory -Alibaba -Amazon -list
+
+Add localized equivalents based on the country:
+
+- Germany → -Bewertung -Verzeichnis -Katalog
+- France → -avis -annuaire -boutique
+- Italy → -recensioni -negozio -elenco
+- Spain → -reseña -tienda -directorio
+- Japan → -レビュー -販売 -ディレクトリ
+- Turkey → -değerlendirme -katalog -liste
+- China → -评论 -目录 -商店
+- (Auto-select based on target country: ${primaryCountry})
+
+5. Output Format
+
+Plain text list only — no numbering, markdown, or commentary.
+
+Each bilingual query enclosed in parentheses, connected by OR.
+
+Keep the input order and classification identical.
 
 Form Data Provided:
 - Company: ${finalCompany}
@@ -82,22 +132,22 @@ Form Data Provided:
 - Target Countries: ${finalCountries}
 ${finalNotes ? `- Additional Context: ${finalNotes}` : ''}
 
-Output: Generate up to three search queries per customer category to identify exact companies on Google.
+6. Example Output Format
 
-Requirements:
-- Each query must directly lead to company websites, avoiding any non-commercial results.
-- Use advanced parameters (e.g., site:com, -directory, -list) for precision.
-- Keep queries brief and specific; no verbosity.
-- Exclude org/gov sites and contact info pages.
+("dry shampoo brand Germany" OR "Trockenshampoo Marke Deutschland") -retail -Bewertung -shop -directory -Alibaba -Amazon  
 
-Please analyze the business context from the provided data and generate targeted search queries accordingly.`;
+("organic skincare manufacturer Germany" OR "Hersteller von Bio-Hautpflege Deutschland") -retail -Bewertung -shop -Verzeichnis -Katalog -Amazon  
+
+("dental product supplier Germany" OR "Lieferant von Dentalprodukten Deutschland") -retail -Bewertung -shop -Verzeichnis -Alibaba -Amazon
+
+Please generate bilingual search queries following these specifications.`;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4-turbo",
       messages: [
         {
           role: "system",
-          content: "You are an expert in B2B lead generation and Google search optimization. Generate precise, actionable search keywords and queries for finding companies in specific industries and countries. Focus on practical, results-oriented keywords that lead directly to company websites."
+          content: "You are a multilingual query generator for a B2B lead-sourcing AI. Generate bilingual search queries for each sales channel provided, customized for the target country. Each query must lead to official company websites — not directories, marketplaces, or review pages. Output plain text list only — no numbering, markdown, or commentary."
         },
         {
           role: "user",
@@ -123,19 +173,27 @@ Please analyze the business context from the provided data and generate targeted
     const countrySpecificKeywords = [];
     if (countries.length > 1) {
       for (const country of countries.slice(1)) {
-        const countryPrompt = `The provided keywords/queries are effective. Now, update them specifically for ${country}, ensuring they are localized and compliant with the original constraints.
+        const countryPrompt = `Localize the following bilingual B2B search queries for ${country}.
 
-Original keywords for ${primaryCountry}:
+Original queries for ${primaryCountry}:
 ${generatedKeywords}
 
-Generate localized keywords for ${country}:`;
+Requirements:
+- Maintain the bilingual format: (English phrase OR Local language phrase)
+- Update local language to match ${country}'s primary language
+- Apply country-specific filters (e.g., -Bewertung for Germany, -avis for France)
+- Keep query structure and intent identical
+- Max 12 words per query
+- Output plain text only, no numbering or markdown
+
+Generate localized queries for ${country}:`;
 
         const countryCompletion = await openai.chat.completions.create({
-          model: "gpt-4o",
+          model: "gpt-4-turbo",
           messages: [
             {
               role: "system",
-              content: "You are an expert in international B2B lead generation. Adapt search keywords for different countries while maintaining their effectiveness."
+              content: "You are a multilingual query generator for B2B lead-sourcing. Adapt bilingual search queries for different countries while maintaining format and effectiveness. Output plain text only."
             },
             {
               role: "user",

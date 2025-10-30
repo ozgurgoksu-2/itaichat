@@ -59,7 +59,7 @@ CONVERSATION FLOW (collect information in this order):
 8. PHONE - Ask "Telefon numaranızı da alabilir miyim?" (Could I get your phone number?)
    → **CRITICAL:** MUST collect, if they don't provide, politely ask again
 
-9. KEYWORDS - Ask "Bu anahtar kelimeler ürününüzü tanımlar mı?" (Do these keywords describe your product?)
+9. KEYWORDS - Ask "Bu anahtar kelimeler işinizi tanımlar mı?" (Does this keywords describes your business?)
     → Generate exactly 3 concise and realistic search phrases that reflect how someone might search for this product online for B2B or sourcing purposes.
     → Product: {product name}
     → The search phrases should:
@@ -69,7 +69,7 @@ CONVERSATION FLOW (collect information in this order):
     → ❌ Avoid overly generic or vague terms like "best product", "top quality", "nice supplier"
     → ✅ Aim for phrases that are specific, searchable, and realistic.
     → ❌ Avoid purely descriptive or non-commercial language.
-    → Ask "Bu anahtar kelimeler ürününüzü tanımlar mı?" ONCE ONLY
+    → Ask "Bu anahtar kelimeler işinizi tanımlar mı?" ONCE ONLY
     → If user says YES (evet): IMMEDIATELY proceed to competitors (step 10)
     → If user says NO (hayır): IMMEDIATELY proceed to competitors (step 10) without saving keywords
     → 🚨 NEVER repeat the keywords question - ask it ONCE then move to competitors
@@ -278,8 +278,8 @@ LANGUAGE RULES:
       strictInstructions = "🚨 DO NOT ask anything else. ONLY ask for phone number.";
     } else if (conversationState.hasPhone && !conversationState.keywordsConfirmed) {
       nextAction = conversationState.detectedLanguage === 'english' 
-        ? `🎯 MANDATORY: Generate EXACTLY 3 keywords and ask "Do these keywords describe your product?" ONCE ONLY`
-        : `🎯 MANDATORY: TAM 3 anahtar kelime oluştur ve sor "Bu anahtar kelimeler ürününüzü tanımlar mı?" SADECE BİR KEZ`;
+        ? `🎯 MANDATORY: Generate EXACTLY 3 keywords and ask "Does this keywords describes your business?" ONCE ONLY`
+        : `🎯 MANDATORY: TAM 3 anahtar kelime oluştur ve sor "Bu anahtar kelimeler işinizi tanımlar mı?" SADECE BİR KEZ`;
       strictInstructions = "🚨 DO NOT repeat keywords question. Ask ONCE then wait for response.";
     } else if (conversationState.keywordsConfirmed && !conversationState.competitorsShown) {
       nextAction = conversationState.detectedLanguage === 'english' 
@@ -375,7 +375,7 @@ CONVERSATION FLOW (collect information in this order):
 
 8. PHONE - Ask "Could I get your phone number?"
 
-9. KEYWORDS - Ask "Do these keywords describe your product?"
+9. KEYWORDS - Ask "Does this keywords describes your business?"
     → Generate exactly 3 concise and realistic search phrases that reflect how someone might search for this product online for B2B or sourcing purposes.
     → Product: {product name}
     → The search phrases should:
@@ -385,7 +385,7 @@ CONVERSATION FLOW (collect information in this order):
     → ❌ Avoid overly generic or vague terms like "best product", "top quality", "nice supplier"
     → ✅ Aim for phrases that are specific, searchable, and realistic.
     → ❌ Avoid purely descriptive or non-commercial language.
-    → Ask "Do these keywords describe your product?" ONCE ONLY
+    → Ask "Does this keywords describes your business?" ONCE ONLY
     → If user says YES: IMMEDIATELY proceed to competitors (step 10)
     → If user says NO: IMMEDIATELY proceed to competitors (step 10) without saving keywords
     → 🚨 NEVER repeat the keywords question - ask it ONCE then move to competitors
@@ -596,7 +596,7 @@ function getConversationGuidance(state: any): string {
     return "→ ASK FOR PHONE: Could I get your phone number?";
   }
   if (!state.keywordsConfirmed) {
-    return "→ SHOW KEYWORDS: Generate 3 keywords and ask if they describe the product";
+    return "→ SHOW KEYWORDS: Generate 3 keywords and ask if they describe the business";
   }
   
   // Handle competitors section - NEW FLOW: Present 2 at once

@@ -53,6 +53,41 @@ function detectLanguageFromMessages(messages: Item[]): string {
   return turkishCount > englishCount ? 'tr' : 'en';
 }
 
+// Helper function to extract conversation data from messages
+function extractConversationData(messages: Item[]): { country: string; phone: string } {
+  const userMessages = messages
+    .filter((msg): msg is typeof msg & { type: 'message'; role: 'user' } => 
+      msg.type === 'message' && msg.role === 'user'
+    )
+    .map(msg => {
+      if (Array.isArray(msg.content)) {
+        return msg.content.map((c: any) => c.text || '').join(' ').trim();
+      }
+      return typeof msg.content === 'string' ? msg.content : '';
+    });
+
+  console.log('📊 User messages for extraction:', userMessages);
+
+  // Extract country from conversation (typically 2nd user message)
+  const country = userMessages[1]?.trim() || 'your target country';
+  
+  // Extract phone from conversation (typically 9th user message)
+  // Phone pattern: look for digits
+  let phone = 'your phone number';
+  for (let i = 7; i < userMessages.length; i++) {
+    const msg = userMessages[i];
+    if (msg && /\d{3,}/.test(msg)) {
+      phone = msg.trim();
+      break;
+    }
+  }
+
+  console.log('🌍 Extracted country:', country);
+  console.log('📱 Extracted phone:', phone);
+
+  return { country, phone };
+}
+
 export function ChatInterface() {
   const [input, setInput] = useState("");
   const [isConversationSaved, setIsConversationSaved] = useState(false);
@@ -324,45 +359,106 @@ export function ChatInterface() {
         />
 
         {/* Completion Card */}
-        {showCompletionCard && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <Card className="w-full max-w-md bg-white shadow-2xl">
-              <CardContent className="p-6 text-center">
-                <div className="flex flex-col items-center space-y-4">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-8 h-8 text-green-600" />
+        {showCompletionCard && (() => {
+          const { country, phone } = extractConversationData(chatMessages);
+          const language = detectLanguageFromMessages(chatMessages);
+          const isEnglish = language === 'en';
+          
+          const calendlyLink = 'https://calendly.com/mehmet-odsdanismanlik/30min';
+          
+          return (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+              <Card className="w-full max-w-lg bg-white shadow-2xl rounded-xl">
+                <CardContent className="p-8">
+                  <div className="flex flex-col space-y-6">
+                    {/* Success Icon */}
+                    <div className="flex justify-center">
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-8 h-8 text-green-600" />
+                      </div>
+                    </div>
+
+                    {/* Message Content */}
+                    <div className="space-y-4">
+                      {/* First Block - Request Received */}
+                      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                        <p className="text-gray-800 text-sm leading-relaxed">
+                          {isEnglish 
+                            ? `We have received your request to find customers in ${country} to increase your exports.`
+                            : `İhracatınızı artırmak için ${country} ülkesindeki müşteri bulma talebinizi aldık.`
+                          }
+                        </p>
+                      </div>
+
+                      {/* Second Block - Contact Options */}
+                      <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg space-y-3">
+                        <p className="text-gray-800 text-sm font-medium">
+                          {isEnglish 
+                            ? 'How would you like us to contact you?'
+                            : 'Sizinle nasıl iletişime geçelim?'
+                          }
+                        </p>
+                        
+                        {/* Option 1 - Phone Call */}
+                        <div className="flex items-start space-x-2">
+                          <span className="text-orange-600 font-bold">1.</span>
+                          <p className="text-gray-700 text-sm">
+                            {isEnglish 
+                              ? `Call you at ${phone} to present these customers`
+                              : `${phone} numaradan sizi arayıp müşterileri sunalım`
+                            }
+                          </p>
+                        </div>
+
+                        {/* Option 2 - Calendly */}
+                        <div className="flex items-start space-x-2">
+                          <span className="text-orange-600 font-bold">2.</span>
+                          <div className="flex-1">
+                            <p className="text-gray-700 text-sm mb-1">
+                              {isEnglish 
+                                ? 'Schedule a meeting yourself:'
+                                : 'Kendiniz toplantı belirleyin:'
+                              }
+                            </p>
+                            <a
+                              href={calendlyLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm underline break-all"
+                            >
+                              {calendlyLink}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                      <Button
+                        onClick={() => {
+                          setShowCompletionCard(false);
+                          resetConversation();
+                          setIsConversationSaved(false);
+                        }}
+                        className="flex-1 bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800 text-white py-3"
+                      >
+                        {isEnglish ? 'Start New Conversation' : 'Yeni Görüşme Başlat'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => setShowCompletionCard(false)}
+                        className="flex-1 border-gray-300 hover:bg-gray-50 py-3"
+                      >
+                        {isEnglish ? 'Continue Viewing' : 'Görüntülemeye Devam Et'}
+                      </Button>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      Conversation Complete!
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      Your export analysis has been saved successfully. All collected information has been stored in our database.
-                    </p>
-                  </div>
-                  <div className="flex space-x-3">
-                    <Button
-                      onClick={() => {
-                        setShowCompletionCard(false);
-                        resetConversation();
-                        setIsConversationSaved(false);
-                      }}
-                      className="bg-gradient-to-r from-orange-500 to-blue-900 hover:from-orange-600 hover:to-blue-800"
-                    >
-                      Start New Conversation
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setShowCompletionCard(false)}
-                    >
-                      Continue Viewing
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+                </CardContent>
+              </Card>
+            </div>
+          );
+        })()}
       </Card>
     </div>
   );
