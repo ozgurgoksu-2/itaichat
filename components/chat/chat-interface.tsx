@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -93,6 +94,8 @@ export function ChatInterface() {
   const [isConversationSaved, setIsConversationSaved] = useState(false);
   const [showCompletionCard, setShowCompletionCard] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
   const { 
     chatMessages, 
     addConversationItem, 
@@ -102,6 +105,9 @@ export function ChatInterface() {
     resetConversation,
     currentPercentage
   } = useConversationStore();
+  
+  // Detect language from URL: /tr/sohbet = Turkish, /chat = English
+  const isTurkish = pathname.startsWith('/tr');
 
   // Calculate progress data based on current phase and percentage from backend
   // New milestone percentages: Country=20%, Sales Channels=40%, Phone=60%, Competitors=80%, Demo=100%
@@ -116,8 +122,34 @@ export function ChatInterface() {
     hasCustomers: currentPercentage >= 100,  // 100% milestone (demo - both competitors and customers)
   };
 
+  // Add initial greeting message when component loads
+  const greetingAddedRef = useRef(false);
+  
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Only add greeting if no messages exist and we haven't added it yet
+    if (chatMessages.length === 0 && !greetingAddedRef.current) {
+      const greeting = isTurkish
+        ? "Merhaba, hangi ürününüzün ihracatını arttırmak istersiniz?"
+        : "Hello, which product would you like to increase exports for?";
+      
+      const initialMessage: Item = {
+        type: "message",
+        role: "assistant",
+        content: [{ type: "output_text", text: greeting }],
+      };
+      
+      addChatMessage(initialMessage);
+      greetingAddedRef.current = true;
+    }
+  // Only run once on mount
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    // Scroll only the messages container, not the entire page
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   }, [chatMessages]);
 
   const saveConversationToDatabase = useCallback(async () => {
@@ -271,6 +303,25 @@ export function ChatInterface() {
   const handleReset = () => {
     setInput("");
     resetConversation();
+    greetingAddedRef.current = false;
+    
+    // Add greeting message after reset
+    setTimeout(() => {
+      if (!greetingAddedRef.current) {
+        const greeting = isTurkish
+          ? "Merhaba, hangi ürününüzün ihracatını arttırmak istersiniz?"
+          : "Hello, which product would you like to increase exports for?";
+        
+        const initialMessage: Item = {
+          type: "message",
+          role: "assistant",
+          content: [{ type: "output_text", text: greeting }],
+        };
+        
+        addChatMessage(initialMessage);
+        greetingAddedRef.current = true;
+      }
+    }, 100);
   };
 
   return (
@@ -313,7 +364,10 @@ export function ChatInterface() {
 
         <CardContent className="p-0">
           {/* Messages */}
-          <div className="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-gray-50 to-white">
+          <div 
+            ref={messagesContainerRef}
+            className="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-gray-50 to-white scroll-smooth"
+          >
             {formatMessages().length === 0 && (
               <div className="flex items-center justify-center h-full text-gray-500">
                 <p>Start exploring export opportunities with ITAI</p>
@@ -355,7 +409,7 @@ export function ChatInterface() {
         {/* Progress Bar at Bottom */}
         <InformationCollectionBar 
           {...progressData} 
-          language={detectLanguageFromMessages(chatMessages) === 'tr' ? 'turkish' : 'english'} 
+          language={isTurkish ? 'turkish' : 'english'} 
         />
 
         {/* Completion Card */}
